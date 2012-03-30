@@ -31,51 +31,65 @@ Ensure you have the following in the "phpthumb_nohotlink_valid_domains" section:
 
 ### Delicious
 
-```<ul>
+```
+<ul>
 	[[!DeliciousFeed? &tpl=`DeliciousFeedItem` &users=`{USERNAME}` &limit=`{LIMIT}`]]
-</ul>```
+</ul>
+```
 
 ### Flickr
 
 Requires API key, get one here: [Flickr API Key](http://www.flickr.com/services/apps/create/apply)
 
-```<ul>
+```
+<ul>
 	[[!FlickrFeed? &tpl=`FlickrFeedItem` &limit=`{LIMIT}` &users=`{FLICKR USER ID}` &apiKey=`{API KEY}` &userName=`{USERNAME}`]]
-</ul>```
+</ul>
+```
 
 ### LastFM
 
 Requires api key, get one here: [LastFM API Key](http://www.last.fm/api/account)
 
-```<ul>
+```
+<ul>
 	[[!LastFmFeed? &tpl=`LastFmFeedItem` &limit=`{LIMIT}` &users=`{USERNAME}` &apiKey=`{API KEY}`]]
-</ul>```
+</ul>
+```
 
 ### Twitter
 
-```<ul>
+```
+<ul>
 	[[!TwitterFeed? &tpl=`TwitterFeedItem` &limit=`{LIMIT}` &users=`{USERNAME}`]]
-</ul>```
+</ul>
+```
 
 ### Vimeo
 
-```<ul>
+```
+<ul>
 	[[!VimeoFeed? &tpl=`VimeoFeedItem` &users=`{USERNAME}`]]
-</ul>```
+</ul>
+```
 
 ### YouTube
 
-```<ul>
+```
+<ul>
 	[[!YouTubeFeed? &tpl=`YouTubeFeedItem` &limit=`{LIMIT}` &users=`{USERNAME}`]]
-</ul>```
+</ul>
+```
 
 ### ZooTool
 
 Requires API key, get one here: [ZooTool API Key](http://zootool.com/api/keys)
 
-```<ul>
+```
+<ul>
 	[[!ZooToolFeed? &tpl=`ZooToolFeedItem` &limit=`{LIMIT}` &users=`{USERNAME}` &apiKey=`{API KEY}`]]
-</ul>```
+</ul>
+```
 
 ## Chunk placeholders
 
