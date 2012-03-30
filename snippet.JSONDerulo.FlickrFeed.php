@@ -7,7 +7,7 @@ $ch = null;
 $tpl = $modx->getOption('tpl', $scriptProperties, '');
 $limit = $modx->getOption('limit', $scriptProperties, 2);
 $excludeEmpty = explode(',', $modx->getOption('excludeEmpty', $scriptProperties, 'url_m'));
-$feeds = explode(',', $modx->getOption('users', $scriptProperties, '22342246@N03'));
+$feeds = explode(',', $modx->getOption('users', $scriptProperties, ''));
 $apiKey = $modx->getOption('apiKey', $scriptProperties, '');
 $userName = $modx->getOption('userName', $scriptProperties, '');
 
