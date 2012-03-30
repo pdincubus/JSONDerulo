@@ -182,3 +182,13 @@ Currently only the basics have placeholders provided. The YouTube feed, for exam
 [[+referrer]]
 [[+permalink]]
 ```
+
+### CSS
+
+I've used the clearfix from the [HTML5 Boilerplate normalize.css](http://www.html5boilerplate.com) on ```<li>``` items to clear floats inside them:
+
+```css
+.cf:before, .cf:after { content: ""; display: table; }
+.cf:after { clear: both; }
+.cf { *zoom: 1; }
+```
