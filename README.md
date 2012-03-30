@@ -13,6 +13,10 @@ The following feeds are already set up:
 * YouTube - Most recent additions to "favourites" playlist
 * ZooTool - Most recent items (pages or images)
 
+## Thanks!
+
+Plenty of thouroughly helpful help from [Mister John Noel](https://github.com/johnnoel) and his code on which these snippets are based.
+
 ## Requirements/Prerequisites
 
 * Tested on MODx 2.2.0
