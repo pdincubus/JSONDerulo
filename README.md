@@ -27,69 +27,73 @@ Ensure you have the following in the "phpthumb_nohotlink_valid_domains" section:
 ```
 {http_host},*.flickr.com,*.staticflickr.com,s3.amazonaws.com,*.ytimg.com,userserve-ak.last.fm,*.vimeocdn.com,*.twimg.com
 ```
-Flickr: ```*.flickr.com, *.staticflickr.com```
-ZooTool: ```s3.amazonaws.com```
-YouTube Thumbnails: ```.ytimg.com```
-LastFM Album art: ```userserve-ak.last.fm```
-Vimeo Thumbnails: ```*.vimeocdn.com```
-Twitter profile avatars: ```*.twimg.com```
+* Flickr: ```*.flickr.com, *.staticflickr.com```
+* ZooTool: ```s3.amazonaws.com```
+* YouTube Thumbnails: ```.ytimg.com```
+* LastFM Album art: ```userserve-ak.last.fm```
+* Vimeo Thumbnails: ```*.vimeocdn.com```
+* Twitter profile avatars: ```*.twimg.com```
+
 
 ## Available snippets
 
 ### Delicious
-```html
-<ul>
+
+```<ul>
 	[[!DeliciousFeed? &tpl=`DeliciousFeedItem` &users=`{USERNAME}` &limit=`{LIMIT}`]]
-</ul>
-```
+</ul>```
 
 ### Flickr
+
 Requires API key, get one here:
 [Flickr API Key](http://www.flickr.com/services/apps/create/apply)
-```html
-<ul>
+
+```<ul>
 	[[!FlickrFeed? &tpl=`FlickrFeedItem` &limit=`{LIMIT}` &users=`{FLICKR USER ID}` &apiKey=`{API KEY}` &userName=`{USERNAME}`]]
-</ul>
-```
+</ul>```
+
 ### LastFM
+
 Requires api key, get one here:
 [LastFM API Key](http://www.last.fm/api/account)
-```html
-<ul>
+
+```<ul>
 	[[!LastFmFeed? &tpl=`LastFmFeedItem` &limit=`{LIMIT}` &users=`{USERNAME}` &apiKey=`{API KEY}`]]
-</ul>
-```
+</ul>```
+
 ### Twitter
-```html
-<ul>
+
+```<ul>
 	[[!TwitterFeed? &tpl=`TwitterFeedItem` &limit=`{LIMIT}` &users=`{USERNAME}`]]
-</ul>
-```
+</ul>```
+
 ### Vimeo
-```html
-<ul>
+
+```<ul>
 	[[!VimeoFeed? &tpl=`VimeoFeedItem` &users=`{USERNAME}`]]
-</ul>
-```
+</ul>```
+
 ### YouTube
-```html
-<ul>
+
+```<ul>
 	[[!YouTubeFeed? &tpl=`YouTubeFeedItem` &limit=`{LIMIT}` &users=`{USERNAME}`]]
-</ul>
-```
+</ul>```
+
 ### ZooTool
+
 Requires API key, get one here:
 [ZooTool API Key](http://zootool.com/api/keys)
-```html
-<ul>
+
+```<ul>
 	[[!ZooToolFeed? &tpl=`ZooToolFeedItem` &limit=`{LIMIT}` &users=`{USERNAME}` &apiKey=`{API KEY}`]]
-</ul>
-```
+</ul>```
+
 ## Chunk placeholders
 
 Currently only the basics have placeholders provided. The YouTube feed, for example, has more options that you may ever need. If I find I ever use them, I will add them in.
 
 ### Delicious:
+
 ```
 [[+title]]
 [[+link]]
@@ -97,6 +101,7 @@ Currently only the basics have placeholders provided. The YouTube feed, for exam
 [[+username]]
 ```
 ### Flickr:
+
 ```
 [[+id]]
 [[+created]]
@@ -105,6 +110,7 @@ Currently only the basics have placeholders provided. The YouTube feed, for exam
 [[+username]]
 ```
 ### LastFM:
+
 ```
 [[+track]]
 [[+artist]]
@@ -114,6 +120,7 @@ Currently only the basics have placeholders provided. The YouTube feed, for exam
 [[+username]]
 ```
 ### Twitter:
+
 ```
 [[+id]]
 [[+message]]
@@ -123,6 +130,7 @@ Currently only the basics have placeholders provided. The YouTube feed, for exam
 [[+username]]
 ```
 ### Vimeo:
+
 ```
 [[+id]]
 [[+url]]
@@ -132,6 +140,7 @@ Currently only the basics have placeholders provided. The YouTube feed, for exam
 [[+username]]
 ```
 ### YouTube:
+
 ```
 [[+published]]
 [[+picture]]
@@ -141,6 +150,7 @@ Currently only the basics have placeholders provided. The YouTube feed, for exam
 [[+author]]
 ```
 ### ZooTool:
+
 ```
 [[+date]]
 [[+picture]]
