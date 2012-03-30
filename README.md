@@ -5,14 +5,13 @@ Results are cached for 12 hours by the snippet. Make sure you call the snippet u
 Most snippets allow you to specify multiple usernames, however any feeds which require an API key will not yet work with multiple accounts.
 The following feeds are already set up:
 
-* Delicious - most recent bookmarks ```http://feeds.delicious.com/v2/json/{username}```
-* Flickr - most recent photographs in your photostream ```http://api.flickr.com/services/rest/?method=flickr.photos.search&format=json&nojsoncallback=1&api_key={apikey}&user_id={userid}&per_page={limit}&extras=url_m,date_upload```
-* LastFM - recent "loved" tracks or recent "listens" ```http://ws.audioscrobbler.com/2.0/?method=user.getlovedtracks&user={username}&api_key={apikey}&format=json&limit={limit}
-http://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user={username}&api_key={apikey}&format=json&limit={limit}```
-* Twitter - most recent tweets ```https://api.twitter.com/1/statuses/user_timeline.json?screen_name={username}&count={limit}```
-* Vimeo - most recent "likes" ```http://vimeo.com/api/v2/{username}/likes.json```
-* YouTube - Most recent additions to "favourites" playlist ```http://gdata.youtube.com/feeds/api/users/{username}/favorites?max-results={limit}&alt=json```
-* ZooTool - Most recent items (pages or images) ```http://zootool.com/api/users/items/?username={username}&apikey={apikey}&limit={limit}```
+* Delicious - most recent bookmarks
+* Flickr - most recent photographs in your photostream
+* LastFM - recent "loved" tracks or recent "listens"
+* Twitter - most recent tweets
+* Vimeo - most recent "likes"
+* YouTube - Most recent additions to "favourites" playlist
+* ZooTool - Most recent items (pages or images)
 
 ## PHPThumbOf settings
 
