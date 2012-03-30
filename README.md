@@ -13,18 +13,12 @@ The following feeds are already set up:
 * YouTube - Most recent additions to "favourites" playlist
 * ZooTool - Most recent items (pages or images)
 
-## PHPThumbOf settings
+## Requirements/Prerequisites
 
-Ensure you have the following in the "phpthumb_nohotlink_valid_domains" section:
-
-```{http_host},*.flickr.com,*.staticflickr.com,s3.amazonaws.com,*.ytimg.com,userserve-ak.last.fm,*.vimeocdn.com,*.twimg.com```
-
-* Flickr: ```*.flickr.com, *.staticflickr.com```
-* ZooTool: ```s3.amazonaws.com```
-* YouTube Thumbnails: ```.ytimg.com```
-* LastFM Album art: ```userserve-ak.last.fm```
-* Vimeo Thumbnails: ```*.vimeocdn.com```
-* Twitter profile avatars: ```*.twimg.com```
+* Tested on MODx 2.2.0
+* PHPThumbOf
+* API Keys for certain feeds
+* That's it!
 
 ## Available snippets
 
@@ -53,6 +47,12 @@ Requires api key, get one here: [LastFM API Key](http://www.last.fm/api/account)
 ```
 <ul>
 	[[!LastFmFeed? &tpl=`LastFmFeedItem` &limit=`{LIMIT}` &users=`{USERNAME}` &apiKey=`{API KEY}`]]
+</ul>
+```
+
+```
+<ul>
+	[[!LastFmListensFeed? &tpl=`LastFmFeedItem` &limit=`{LIMIT}` &users=`{USERNAME}` &apiKey=`{API KEY}`]]
 </ul>
 ```
 
@@ -90,11 +90,28 @@ Requires API key, get one here: [ZooTool API Key](http://zootool.com/api/keys)
 </ul>
 ```
 
-## Chunk placeholders
+## Chunks
+
+I've provided basic chunks to get you started. Any feed which returns thumbnails/imagery I've used PHPThumbOf, if you use these chunks make sure you have it installed too!
+
+### PHPThumbOf settings
+
+Ensure you have the following in the "phpthumb_nohotlink_valid_domains" section:
+
+```{http_host},*.flickr.com,*.staticflickr.com,s3.amazonaws.com,*.ytimg.com,userserve-ak.last.fm,*.vimeocdn.com,*.twimg.com```
+
+* Flickr: ```*.flickr.com, *.staticflickr.com```
+* ZooTool: ```s3.amazonaws.com```
+* YouTube Thumbnails: ```.ytimg.com```
+* LastFM Album art: ```userserve-ak.last.fm```
+* Vimeo Thumbnails: ```*.vimeocdn.com```
+* Twitter profile avatars: ```*.twimg.com```
+
+### Chunk placeholders
 
 Currently only the basics have placeholders provided. The YouTube feed, for example, has more options that you may ever need. If I find I ever use them, I will add them in.
 
-### Delicious:
+#### Delicious:
 
 ```
 [[+title]]
@@ -102,7 +119,7 @@ Currently only the basics have placeholders provided. The YouTube feed, for exam
 [[+date]]
 [[+username]]
 ```
-### Flickr:
+#### Flickr:
 
 ```
 [[+id]]
@@ -111,7 +128,7 @@ Currently only the basics have placeholders provided. The YouTube feed, for exam
 [[+title]]
 [[+username]]
 ```
-### LastFM:
+#### LastFM:
 
 ```
 [[+track]]
@@ -121,7 +138,7 @@ Currently only the basics have placeholders provided. The YouTube feed, for exam
 [[+date]]
 [[+username]]
 ```
-### Twitter:
+#### Twitter:
 
 ```
 [[+id]]
@@ -131,7 +148,7 @@ Currently only the basics have placeholders provided. The YouTube feed, for exam
 [[+title]]
 [[+username]]
 ```
-### Vimeo:
+#### Vimeo:
 
 ```
 [[+id]]
@@ -141,7 +158,7 @@ Currently only the basics have placeholders provided. The YouTube feed, for exam
 [[+title]]
 [[+username]]
 ```
-### YouTube:
+#### YouTube:
 
 ```
 [[+published]]
@@ -151,7 +168,7 @@ Currently only the basics have placeholders provided. The YouTube feed, for exam
 [[+embedlink]]
 [[+author]]
 ```
-### ZooTool:
+#### ZooTool:
 
 ```
 [[+date]]
