@@ -72,7 +72,7 @@ Requires api key, get one here: [LastFM API Key](http://www.last.fm/api/account)
 
 ```
 <ul>
-	[[!VimeoFeed? &tpl=`VimeoFeedItem` &users=`{USERNAME}`]]
+	[[!VimeoFeed? &tpl=`VimeoFeedItem` &users=`{USERNAME}` &limit=`{LIMIT}`]]
 </ul>
 ```
 
@@ -119,6 +119,7 @@ Currently only the basics have placeholders provided. The YouTube feed, for exam
 
 ```
 [[+title]]
+[[+description]]
 [[+link]]
 [[+date]]
 [[+username]]
