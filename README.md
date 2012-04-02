@@ -130,6 +130,7 @@ Currently only the basics have placeholders provided. The YouTube feed, for exam
 [[+id]]
 [[+created]]
 [[+picture]]
+[[+picturelarge]]
 [[+title]]
 [[+username]]
 ```
