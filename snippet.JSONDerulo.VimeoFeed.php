@@ -2,11 +2,10 @@
 $cacheTime = 43200; // 12 hours
 $feedUrl = 'http://vimeo.com/api/v2/{username}/likes.json';
 $ch = null;
-
 $tpl = $modx->getOption('tpl', $scriptProperties, '');
+$limit = $modx->getOption('limit', $scriptProperties, '2');
 $excludeEmpty = explode(',', $modx->getOption('excludeEmpty', $scriptProperties, 'title'));
 $feeds = explode(',', $modx->getOption('users', $scriptProperties, ''));
-
 $rawFeedData = array();
 
 foreach ($feeds as $username) {
@@ -36,9 +35,17 @@ foreach ($feeds as $username) {
 	if ($feed === null) {
 		continue;
 	}
-	
-	foreach ($feed as $video) {
-		foreach ($excludeEmpty as $k) {
+  
+  	$counter = NULL;
+    
+  	foreach ($feed as $video) {
+		$counter++;
+		
+		if($counter>$limit){
+		      break; 
+		}
+		
+	  	foreach ($excludeEmpty as $k) {
 			if ($video->$k == '') {
 				continue 2;
 			}
