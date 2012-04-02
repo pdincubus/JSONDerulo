@@ -50,6 +50,7 @@ foreach ($feeds as $username) {
 			'title' => $item->d,
 			'link' => $item->u,
 			'date' => strtotime($item->dt),
+		  	'description' => $item->n,
 			'username' => $username,
 		);
 	  
