@@ -19,7 +19,7 @@ Plenty of thouroughly helpful help from [Mister John Noel](https://github.com/jo
 
 ## Requirements/Prerequisites
 
-* Tested on MODx 2.2.0
+* Tested on MODx 2.2.0 / 2.2.1
 * PHPThumbOf
 * API Keys for certain feeds
 * That's it!
