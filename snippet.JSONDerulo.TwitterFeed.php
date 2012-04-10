@@ -1,4 +1,11 @@
 <?php
+/*
+* @author Phil Steer
+* @version 0.6
+* @package JSONDerulo
+* Fetches Twitter feed in JSON format and allows templating via chunk
+*/
+
 $cacheTime = 43200; // 12 hours
 $feedUrl = 'https://api.twitter.com/1/statuses/user_timeline.json?screen_name={username}&count={limit}';
 
@@ -19,32 +26,32 @@ foreach ($feeds as $username) {
 			$ch = curl_init();
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 		}
-		
+
 		curl_setopt_array($ch, array(
 			CURLOPT_URL => str_replace(array('{username}', '{limit}'), array($username, $limit), $feedUrl),
 		));
-		
+
 		$json = curl_exec($ch);
 		if (empty($json)) {
 			continue;
 		}
-		
+
 		$modx->cacheManager->set($cacheId, $json, $cacheTime);
 	}
-	
+
 	$feed = json_decode($json);
-	
+
 	if ($feed === null) {
 		continue;
 	}
-	
+
 	foreach ($feed as $message) {
 		foreach ($excludeEmpty as $k) {
 			if ($message->$k == '') {
 				continue 2;
 			}
 		}
-	
+
 		$rawFeedData[] = array(
 			'id' => $message->id_str,
 			'message' => $message->text,

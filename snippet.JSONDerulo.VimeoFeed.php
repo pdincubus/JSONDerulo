@@ -1,11 +1,21 @@
 <?php
+/*
+* @author Phil Steer
+* @version 0.6
+* @package JSONDerulo
+* Fetches Vimeo likes feed in JSON format and allows templating via chunk
+*/
+
 $cacheTime = 43200; // 12 hours
 $feedUrl = 'http://vimeo.com/api/v2/{username}/likes.json';
+
 $ch = null;
+
 $tpl = $modx->getOption('tpl', $scriptProperties, '');
 $limit = $modx->getOption('limit', $scriptProperties, '2');
 $excludeEmpty = explode(',', $modx->getOption('excludeEmpty', $scriptProperties, 'title'));
 $feeds = explode(',', $modx->getOption('users', $scriptProperties, ''));
+
 $rawFeedData = array();
 
 foreach ($feeds as $username) {
@@ -16,20 +26,20 @@ foreach ($feeds as $username) {
 			$ch = curl_init();
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 		}
-		
+
 		curl_setopt_array($ch, array(
 		  CURLOPT_URL => str_replace(array('{username}'), array($username), $feedUrl),
 		));
-			  
-		
+
+
 	  	$json = curl_exec($ch);
 		if (empty($json)) {
 			continue;
 		}
-		
+
 		$modx->cacheManager->set($cacheId, $json, $cacheTime);
 	}
-	
+
 	$feed = json_decode($json);
   
 	if ($feed === null) {
@@ -40,17 +50,17 @@ foreach ($feeds as $username) {
     
   	foreach ($feed as $video) {
 		$counter++;
-		
+
 		if($counter>$limit){
 		      break; 
 		}
-		
+
 	  	foreach ($excludeEmpty as $k) {
 			if ($video->$k == '') {
 				continue 2;
 			}
 		}
-	
+
 		$rawFeedData[] = array(
 			'id' => $video->id,
 		  	'url' => $video->url,

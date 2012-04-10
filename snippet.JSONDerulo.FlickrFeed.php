@@ -1,4 +1,10 @@
 <?php
+/*
+* @author Phil Steer
+* @version 0.6
+* @package JSONDerulo
+* Fetches Flickr feed in JSON format and allows templating via chunk
+*/
 $cacheTime = 43200; // 12 hours
 $feedUrl = 'http://api.flickr.com/services/rest/?method=flickr.photos.search&format=json&nojsoncallback=1&api_key={apikey}&user_id={userid}&per_page={limit}&extras=url_m,url_l,date_upload';
 
@@ -21,33 +27,33 @@ foreach ($feeds as $userId) {
 			$ch = curl_init();
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 		}
-		
+
 		curl_setopt_array($ch, array(
 		  CURLOPT_URL => str_replace(array('{apikey}', '{userid}', '{limit}'), array($apiKey, $userId, $limit), $feedUrl),
 		));
-			  
-		
+
+
 	  	$json = curl_exec($ch);
 		if (empty($json)) {
 			continue;
 		}
-		
+
 		$modx->cacheManager->set($cacheId, $json, $cacheTime);
 	}
-	
+
 	$feed = json_decode($json);
   
 	if ($feed === null) {
 		continue;
 	}
-	
+
 	foreach ($feed->photos->photo as $photo) {
 		foreach ($excludeEmpty as $k) {
 			if ($photo->$k == '') {
 				continue 2;
 			}
 		}
-	
+
 		$rawFeedData[] = array(
 			'id' => $photo->id,
 			'created' => $photo->dateupload,

@@ -1,4 +1,11 @@
 <?php
+/*
+* @author Phil Steer
+* @version 0.6
+* @package JSONDerulo
+* Fetches YouTube favourites feed in JSON format and allows templating via chunk
+*/
+
 $cacheTime = 43200; // 12 hours
 $feedUrl = 'http://gdata.youtube.com/feeds/api/users/{username}/favorites?max-results={limit}&alt=json';
 
@@ -19,20 +26,20 @@ foreach ($feeds as $username) {
 			$ch = curl_init();
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 		}
-		
+
 		curl_setopt_array($ch, array(
 		  CURLOPT_URL => str_replace(array('{username}', '{limit}'), array($username, $limit), $feedUrl),
 		));
-			  
-		
+
+
 	  	$json = curl_exec($ch);
 		if (empty($json)) {
 			continue;
 		}
-		
+
 		$modx->cacheManager->set($cacheId, $json, $cacheTime);
 	}
-	
+
 	$feed = json_decode($json);
   
 	if ($feed === null) {
@@ -40,7 +47,7 @@ foreach ($feeds as $username) {
 	}
     
     $feeditems = $feed->feed;
-	
+
 	foreach ($feeditems->entry as $video) {
 
 		foreach ($excludeEmpty as $k) {
@@ -48,9 +55,9 @@ foreach ($feeds as $username) {
 				continue 2;
 			}
 		}	  
-	  
+
 	  	$videoId = substr($video->id->{'$t'},42);
-	  
+
 		$rawFeedData[] = array(
 		  	'published' => strtotime($video->published->{'$t'}),
 		  	'picture' => $video->{'media$group'}->{'media$thumbnail'}[0]->url,
@@ -65,7 +72,7 @@ foreach ($feeds as $username) {
 if ($ch !== null) {
 	curl_close($ch);
 }
-	  
+
 $output = '';
 
 foreach ($rawFeedData as $image) {
