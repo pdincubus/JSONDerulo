@@ -1,8 +1,8 @@
 <?php
 /*
 * @author Phil Steer
-* @version 0.6
 * @package JSONDerulo
+* @site https://github.com/pdincubus/JSONDerulo
 * Fetches YouTube favourites feed in JSON format and allows templating via chunk
 */
 
@@ -64,7 +64,7 @@ foreach ($feeds as $username) {
 		  	'title' => $video->title->{'$t'},
 		  	'ytlink' => $video->link[0]->href,
 		  	'embedlink' => 'https://www.youtube.com/v/' .$videoId. '?fs=1',
-		    	'author' => $video->author[0]->name->{'$t'},
+		    'author' => $video->author[0]->name->{'$t'},
 		);
 	}
 }

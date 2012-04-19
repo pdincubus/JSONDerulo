@@ -1,8 +1,8 @@
 <?php
 /*
 * @author Phil Steer
-* @version 0.6
 * @package JSONDerulo
+* @site https://github.com/pdincubus/JSONDerulo
 * Fetches Vimeo likes feed in JSON format and allows templating via chunk
 */
 

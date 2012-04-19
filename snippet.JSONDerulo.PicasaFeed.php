@@ -3,24 +3,24 @@
 * @author Phil Steer
 * @package JSONDerulo
 * @site https://github.com/pdincubus/JSONDerulo
-* Fetches Flickr feed in JSON format and allows templating via chunk
+* Fetches Picasa feed in JSON format and allows templating via chunk
 */
 $cacheTime = 43200; // 12 hours
-$feedUrl = 'http://api.flickr.com/services/rest/?method=flickr.photos.search&format=json&nojsoncallback=1&api_key={apikey}&user_id={userid}&per_page={limit}&extras=url_m,url_l,date_upload';
+$feedUrl = 'https://picasaweb.google.com/data/feed/base/user/{userid}/albumid/{albumid}?kind=photo&alt=json';
 
 $ch = null;
 
 $tpl = $modx->getOption('tpl', $scriptProperties, '');
 $limit = $modx->getOption('limit', $scriptProperties, 2);
-$excludeEmpty = explode(',', $modx->getOption('excludeEmpty', $scriptProperties, 'url_m'));
+$excludeEmpty = explode(',', $modx->getOption('excludeEmpty', $scriptProperties, 'content'));
 $feeds = explode(',', $modx->getOption('users', $scriptProperties, '3'));
-$apiKey = $modx->getOption('apiKey', $scriptProperties, '');
-$userName = $modx->getOption('userName', $scriptProperties, '');
+$albumId = $modx->getOption('albumId', $scriptProperties, '');
+$albumName = $modx->getOption('albumName', $scriptProperties, '');
 
 $rawFeedData = array();
 
 foreach ($feeds as $userId) {
-	$cacheId = 'flickrfeed-'.$userId;
+	$cacheId = 'picasafeed-'.$userId;
   
 	if (($json = $modx->cacheManager->get($cacheId)) === null) {
 		if ($ch === null) {
@@ -29,7 +29,7 @@ foreach ($feeds as $userId) {
 		}
 
 		curl_setopt_array($ch, array(
-		  CURLOPT_URL => str_replace(array('{apikey}', '{userid}', '{limit}'), array($apiKey, $userId, $limit), $feedUrl),
+		  CURLOPT_URL => str_replace(array('{userid}', '{albumid}'), array($userId, $albumId), $feedUrl),
 		));
 
 
@@ -46,8 +46,18 @@ foreach ($feeds as $userId) {
 	if ($feed === null) {
 		continue;
 	}
+	
+	$counter = NULL;
+	
+	$feeditems = $feed->feed;
 
-	foreach ($feed->photos->photo as $photo) {
+	foreach ($feeditems->entry as $photo) {
+		$counter++;
+
+		if($counter>$limit){
+		      break; 
+		}
+		
 		foreach ($excludeEmpty as $k) {
 			if ($photo->$k == '') {
 				continue 2;
@@ -55,12 +65,13 @@ foreach ($feeds as $userId) {
 		}
 
 		$rawFeedData[] = array(
-			'id' => $photo->id,
-			'created' => $photo->dateupload,
-			'picture' => $photo->url_m,
-			'picturelarge' => $photo->url_l,
-			'title' => $photo->title,
-			'username' => $userName,
+			'link' => $photo->link[1]->href,
+			'albumid' => $albumId,
+			'created' => strtotime($photo->published->{'$t'}),
+			'picture' => $photo->content->src,
+			'title' => $photo->{'media$group'}->{'media$title'}->{'$t'},
+			'userid' => $userId,
+			'albumname' => $albumName,
 		);
 	}
 }

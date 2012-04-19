@@ -8,6 +8,7 @@ The following feeds are already set up:
 * Delicious - most recent bookmarks
 * Flickr - most recent photographs in your photostream
 * LastFM - recent "loved" tracks or recent "listens"
+* Picasa - Photos from a named album
 * Twitter - most recent tweets
 * Vimeo - most recent "likes"
 * YouTube - Most recent additions to "favourites" playlist
@@ -94,6 +95,15 @@ Requires API key, get one here: [ZooTool API Key](http://zootool.com/api/keys)
 </ul>
 ```
 
+### Picasa
+
+```
+<ul>
+	[[!PicasaFeed? &tpl=`PicasaFeedItem` &limit=`{LIMIT}` &users=`{USERID}` &albumId=`{ALBUMID}` &albumName=`{ALBUMNAME}`]]
+</ul>
+```
+
+
 ## Chunks
 
 I've provided basic chunks to get you started. Any feed which returns thumbnails/imagery I've used PHPThumbOf, if you use these chunks make sure you have it installed too!
@@ -102,7 +112,7 @@ I've provided basic chunks to get you started. Any feed which returns thumbnails
 
 Ensure you have the following in the "phpthumb_nohotlink_valid_domains" section:
 
-```{http_host},*.flickr.com,*.staticflickr.com,s3.amazonaws.com,*.ytimg.com,userserve-ak.last.fm,*.vimeocdn.com,*.twimg.com```
+```{http_host},*.flickr.com,*.staticflickr.com,s3.amazonaws.com,*.ytimg.com,userserve-ak.last.fm,*.vimeocdn.com,*.twimg.com,*.googleusercontent.com```
 
 * Flickr: ```*.flickr.com, *.staticflickr.com```
 * ZooTool: ```s3.amazonaws.com```
@@ -110,6 +120,7 @@ Ensure you have the following in the "phpthumb_nohotlink_valid_domains" section:
 * LastFM Album art: ```userserve-ak.last.fm```
 * Vimeo Thumbnails: ```*.vimeocdn.com```
 * Twitter profile avatars: ```*.twimg.com```
+* Picasa Thumbnails: ```*.googleusercontent.com```
 
 ### Chunk placeholders
 
@@ -143,6 +154,17 @@ Currently only the basics have placeholders provided. The YouTube feed, for exam
 [[+picture]]
 [[+date]]
 [[+username]]
+```
+### Picasa:
+
+```
+[[+link]]
+[[+albumid]]
+[[+created]]
+[[+picture]]
+[[+title]]
+[[+userid]]
+[[+albumname]]
 ```
 #### Twitter:
 
