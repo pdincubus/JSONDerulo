@@ -61,6 +61,14 @@ Requires api key, get one here: [LastFM API Key](http://www.last.fm/api/account)
 </ul>
 ```
 
+### Picasa
+
+```
+<ul>
+	[[!PicasaFeed? &tpl=`PicasaFeedItem` &limit=`{LIMIT}` &users=`{USERID}` &albumId=`{ALBUMID}` &albumName=`{ALBUMNAME}`]]
+</ul>
+```
+
 ### Twitter
 
 ```
@@ -92,14 +100,6 @@ Requires API key, get one here: [ZooTool API Key](http://zootool.com/api/keys)
 ```
 <ul>
 	[[!ZooToolFeed? &tpl=`ZooToolFeedItem` &limit=`{LIMIT}` &users=`{USERNAME}` &apiKey=`{API KEY}`]]
-</ul>
-```
-
-### Picasa
-
-```
-<ul>
-	[[!PicasaFeed? &tpl=`PicasaFeedItem` &limit=`{LIMIT}` &users=`{USERID}` &albumId=`{ALBUMID}` &albumName=`{ALBUMNAME}`]]
 </ul>
 ```
 
