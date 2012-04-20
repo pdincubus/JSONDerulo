@@ -113,6 +113,7 @@ You can also use MODx's output filters to provide fallback should the feed you r
 
 I've provided basic chunks to get you started. Any feed which returns thumbnails/imagery I've used PHPThumbOf, if you use these chunks make sure you have it installed too!
 
+
 ### PHPThumbOf settings
 
 Ensure you have the following in the "phpthumb_nohotlink_valid_domains" section:
