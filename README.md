@@ -103,6 +103,11 @@ Requires API key, get one here: [ZooTool API Key](http://zootool.com/api/keys)
 </ul>
 ```
 
+You can also use MODx's output filters to provide fallback should the feed you request be empty. E.g. - such as a new twitter account with no tweets yet:
+
+```
+[[!TwitterFeed:default=`<li>No tweets</li>`? &tpl=`TwitterFeedItem` &limit=`10` &users=`NotPsychiatrist`]]
+```
 
 ## Chunks
 
