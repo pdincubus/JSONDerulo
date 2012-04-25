@@ -1,4 +1,4 @@
-# JSONDerulo
+# JSONDerulo - A JSON feed fetcher for MODX Revolution CMS
 
 Snippets and chunks to pull in various social JSON feeds.
 Results are cached for 12 hours by the snippet. Make sure you call the snippet uncached from your templates!
