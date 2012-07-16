@@ -25,6 +25,7 @@ foreach ($feeds as $username) {
 		if ($ch === null) {
 			$ch = curl_init();
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+			curl_setopt($ch,CURLOPT_SSL_VERIFYPEER,0);
 		}
 
 		curl_setopt_array($ch, array(
