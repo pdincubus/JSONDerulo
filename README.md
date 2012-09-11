@@ -25,6 +25,11 @@ Plenty of thouroughly helpful help from [Mister John Noel](https://github.com/jo
 * API Keys for certain feeds
 * That's it!
 
+## Still to do
+
+Having added option to include retweets in the Twitter feed, probably needs some work on placeholders available specific to retweets.
+
+
 ## Available snippets
 
 ### Delicious
@@ -73,7 +78,7 @@ Requires api key, get one here: [LastFM API Key](http://www.last.fm/api/account)
 
 ```
 <ul>
-	[[!TwitterFeed? &tpl=`TwitterFeedItem` &limit=`{LIMIT}` &users=`{USERNAME}`]]
+	[[!TwitterFeed? &tpl=`TwitterFeedItem` &limit=`{LIMIT}` &users=`{USERNAME}` &includeRTs=`0`]]
 </ul>
 ```
 
