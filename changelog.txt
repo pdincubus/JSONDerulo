@@ -1,0 +1,15 @@
+Oooo whatcha say?
+
+For all info: https://github.com/pdincubus/JSONDerulo/
+
+Most recent additions
+---------------------
+
+0.9.1:
+	* Slight fix for Twitter feed.
+
+0.8:
+	* Usually helps when you make sure that ALL the snippets and chunks have actually been packaged!
+
+0.7:
+	* Added Picasa album feed fetching snippet

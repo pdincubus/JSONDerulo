@@ -27,7 +27,8 @@ Plenty of thouroughly helpful help from [Mister John Noel](https://github.com/jo
 
 ## Still to do
 
-Having added option to include retweets in the Twitter feed, probably needs some work on placeholders available specific to retweets.
+~~Having added option to include retweets in the Twitter feed, probably needs some work on placeholders available specific to retweets.~~
+Done. See placeholders further down...
 
 
 ## Available snippets
@@ -78,7 +79,7 @@ Requires api key, get one here: [LastFM API Key](http://www.last.fm/api/account)
 
 ```
 <ul>
-	[[!TwitterFeed? &tpl=`TwitterFeedItem` &limit=`{LIMIT}` &users=`{USERNAME}` &includeRTs=`0`]]
+	[[!TwitterFeed? &tpl=`TwitterFeedItem` &limit=`{LIMIT}` &users=`{USERNAME}` &includeRTs=`{1 or 0}`]]
 </ul>
 ```
 
@@ -171,6 +172,12 @@ Currently only the basics have placeholders provided. The YouTube feed, for exam
 [[+picture]]
 [[+title]]
 [[+username]]
+[[+retweetCount]]
+[[+isRetweet]]
+[[+originalAuthorPicture]]
+[[+originalAuthor]]
+[[+originalUsername]]
+
 ```
 #### Vimeo:
 
