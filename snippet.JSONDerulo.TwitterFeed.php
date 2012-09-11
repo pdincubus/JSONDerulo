@@ -7,12 +7,13 @@
 */
 
 $cacheTime = 43200; // 12 hours
-$feedUrl = 'https://api.twitter.com/1/statuses/user_timeline.json?screen_name={username}&count={limit}';
+$feedUrl = 'https://api.twitter.com/1/statuses/user_timeline.json?screen_name={username}&count={limit}&include_rts={includeRTs}';
 
 $ch = null;
 
 $tpl = $modx->getOption('tpl', $scriptProperties, '');
 $limit = $modx->getOption('limit', $scriptProperties, 2);
+$includeRTs = $modx->getOption('includeRTs', $scriptProperties, 1);
 $excludeEmpty = explode(',', $modx->getOption('excludeEmpty', $scriptProperties, 'text'));
 $feeds = explode(',', $modx->getOption('users', $scriptProperties, 'twitter'));
 
@@ -29,7 +30,7 @@ foreach ($feeds as $username) {
 		}
 
 		curl_setopt_array($ch, array(
-			CURLOPT_URL => str_replace(array('{username}', '{limit}'), array($username, $limit), $feedUrl),
+			CURLOPT_URL => str_replace(array('{username}', '{limit}', '{includeRTs}'), array($username, $limit, $includeRTs), $feedUrl),
 		));
 
 		$json = curl_exec($ch);
