@@ -119,6 +119,8 @@ You can also use the MODx's output filters to provide fallback should the feed y
 [[!TwitterFeed:default=`<li>No tweets</li>`? &tpl=`TwitterFeedItem` &limit=`10` &users=`{USERNAME}`]]
 ```
 
+The basic Twitter chunk also shows you how to use the isRetweet option to switch out your details for the author of the tweet you retweeted. The example isn't the best, but it'll give you the right idea, and will also allow you to integrate a retweet icon if you wish.
+
 ### Chunk placeholders
 
 Currently only the basics have placeholders provided. The YouTube feed, for example, has more options that you may ever need. If I find I ever use them, I will add them in.
