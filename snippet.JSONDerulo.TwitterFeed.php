@@ -47,6 +47,8 @@ foreach ($feeds as $username) {
 		continue;
 	}
 
+	$i = 0;
+
 	foreach ($feed as $message) {
 		foreach ($excludeEmpty as $k) {
 			if ($message->$k == '') {
@@ -54,32 +56,26 @@ foreach ($feeds as $username) {
 			}
 		}
         
+        $rawFeedData[$i] = array(
+            'id' => $message->id_str,
+    		'message' => $message->text,
+    		'created' => strtotime($message->created_at),
+    		'picture' => $message->user->profile_image_url,
+    		'title' => $message->user->name,
+    		'username' => $message->user->screen_name,
+            'retweetCount' => $message->retweet_count,
+            'isRetweet' => '0',
+        );
+        
         if(isset($message->retweeted_status)){
-			$rawFeedData[] = array(
-				'id' => $message->id_str,
-				'message' => $message->text,
-				'created' => strtotime($message->created_at),
-				'picture' => $message->user->profile_image_url,
-				'title' => $message->user->name,
-				'username' => $message->user->screen_name,
-				'retweetCount' => $message->retweet_count,
-				'originalAuthorPicture' => $message->retweeted_status->user->profile_image_url,
-				'originalAuthor' => $message->retweeted_status->user->name,
-				'originalUsername' => $message->retweeted_status->user->screen_name,
-				'isRetweet' => '1',
-			);
-        }else{
-			$rawFeedData[] = array(
-				'id' => $message->id_str,
-				'message' => $message->text,
-				'created' => strtotime($message->created_at),
-				'picture' => $message->user->profile_image_url,
-				'title' => $message->user->name,
-				'username' => $message->user->screen_name,
-				'retweetCount' => $message->retweet_count,
-			);
+           $rawFeedData[$i]['originalAuthorPicture'] = $message->retweeted_status->user->profile_image_url;
+           $rawFeedData[$i]['originalAuthor'] = $message->retweeted_status->user->name;
+           $rawFeedData[$i]['originalUsername'] = $message->retweeted_status->user->screen_name;
+           $rawFeedData[$i]['isRetweet'] = '1';
+           $rawFeedData[$i]['originalId'] = $message->retweeted_status->id;
         }
-
+        
+       $i++;
 	}
 }
 

@@ -177,6 +177,7 @@ Currently only the basics have placeholders provided. The YouTube feed, for exam
 [[+originalAuthorPicture]]
 [[+originalAuthor]]
 [[+originalUsername]]
+[[+originalId]]
 
 ```
 #### Vimeo:
