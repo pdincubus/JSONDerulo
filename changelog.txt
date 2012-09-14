@@ -5,6 +5,9 @@ For all info: https://github.com/pdincubus/JSONDerulo/
 Most recent additions
 ---------------------
 
+1.0:
+	* Twitter changes for retweets.
+	
 0.9.1:
 	* Slight fix for Twitter feed.
 
