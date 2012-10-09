@@ -11,7 +11,7 @@ The following feeds are already set up:
 * Picasa - Photos from a named album
 * Twitter - most recent tweets
 * Vimeo - most recent "likes"
-* YouTube - Most recent additions to "favourites" playlist
+* YouTube - Most recent additions to "favourites" playlist or specific user's uploads
 * ZooTool - Most recent items (pages or images)
 
 ## Thanks!
@@ -96,6 +96,12 @@ Requires api key, get one here: [LastFM API Key](http://www.last.fm/api/account)
 ```
 <ul>
 	[[!YouTubeFeed? &tpl=`YouTubeFeedItem` &limit=`{LIMIT}` &users=`{USERNAME}`]]
+</ul>
+```
+
+```
+<ul>
+[[!YouTubeUploadsFeed? &tpl=`YouTubeFeedItem` &limit=`{LIMIT}` &users=`{USERNAME}`]]
 </ul>
 ```
 
