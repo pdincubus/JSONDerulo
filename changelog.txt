@@ -5,6 +5,9 @@ For all info: https://github.com/pdincubus/JSONDerulo/
 Most recent additions
 ---------------------
 
+1.1:
+	* YouTube user upload snippet added
+
 1.0:
 	* Twitter changes for retweets.
 	
