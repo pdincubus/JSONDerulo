@@ -264,3 +264,11 @@ The transport package will do this automatically for you. (Hopefully).
 To set up a Twitter "App", go to the [Twitter dev site](https://dev.twitter.com/apps/) and choose "Create a new application". Fill in the form and you'll end up with a new "app" which will let you know the consumer secret, consumer key, access token, and access token secret.
 
 Hat tip also to [Stewart Orr](http://www.qodo.co.uk/blog/twitterx-a-new-modx-extra-for-pulling-in-twitter-feeds-using-api-1.1/), whose TwitterX addon reminded me to get my backside in gear and fix this package up!
+
+## Twitter display "requirements"
+
+I've included a new chunk for displaying tweets. This includes several changes which *should* make the output acceptable based on the [Developer display requirements documentation](https://dev.twitter.com/terms/display-requirements). You will need to include the Twitter widgets.js somewhere on the page you're displaying tweets on. You only need this included ONCE on the page, not for each tweet.
+
+```
+<script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
+```
