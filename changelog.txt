@@ -5,6 +5,9 @@ For all info: https://github.com/pdincubus/JSONDerulo/
 Most recent additions
 ---------------------
 
+1.2:
+	* New Twitter feed for use with updated API 1.1
+
 1.1:
 	* YouTube user upload snippet added
 

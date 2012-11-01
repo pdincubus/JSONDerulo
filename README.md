@@ -83,6 +83,16 @@ Requires api key, get one here: [LastFM API Key](http://www.last.fm/api/account)
 </ul>
 ```
 
+### Twitter (New API version)
+
+You need to set up a Twitter "App" to make this work. From March 2013, this is the ONLY way. The method above will stop working altogether by this date. See more information in the Twitter section below!
+
+```
+<ul>
+	[[!TwitterFeedNew? &tpl=`TwitterFeedItem` &limit=`{LIMIT}` &users=`{USERNAME}` &includeRTs=`{1 or 0}` &consumerKey=`{YOUR_CONSUMER_KEY}` &consumerSecret=`{YOUR_CONSUMER_SECRET}` &accessToken=`{YOUR_ACCESS_TOKEN}` &accessTokenSecret=`{YOUR_ACCESS_TOKEN_SECRET}`]]
+</ul>
+```
+
 ### Vimeo
 
 ```
@@ -241,3 +251,16 @@ Ensure you have the following in the "phpthumb_nohotlink_valid_domains" section:
 * Vimeo Thumbnails: ```*.vimeocdn.com```
 * Twitter profile avatars: ```*.twimg.com```
 * Picasa Thumbnails: ```*.googleusercontent.com```
+
+
+## Twitter feed and the new API
+
+Much publicised changes to the Twitter API means that you have to authenticate to get public feed data now. I will keep the original, easy way to get a Twitter feed until the date they switch this off, but you're probably best going through the pain of getting onto the new API stuff now.
+
+This uses the excellent (and thoroughly easy to use) [TwitterOAuth](https://github.com/abraham/twitteroauth/) by [Abraham Williams](https://github.com/abraham) (check out his incredible beard!). If you're adding the JSONDerulo snippets and chunks manually, you're going to need to upload a copy of the TwitterOAuth stuff to {core_path}/components/jsonderulo/
+
+The transport package will do this automatically for you. (Hopefully).
+
+To set up a Twitter "App", go to the [Twitter dev site](https://dev.twitter.com/apps/) and choose "Create a new application". Fill in the form and you'll end up with a new "app" which will let you know the consumer secret, consumer key, access token, and access token secret.
+
+Hat tip also to [Stewart Orr](http://www.qodo.co.uk/blog/twitterx-a-new-modx-extra-for-pulling-in-twitter-feeds-using-api-1.1/), whose TwitterX addon reminded me to get my backside in gear and fix this package up!
