@@ -5,6 +5,7 @@ Results are cached for 12 hours by the snippet. Make sure you call the snippet u
 Most snippets allow you to specify multiple usernames, however any feeds which require an API key will not yet work with multiple accounts.
 The following feeds are already set up:
 
+* App.net - most recent posts
 * Delicious - most recent bookmarks
 * Flickr - most recent photographs in your photostream
 * LastFM - recent "loved" tracks or recent "listens"
@@ -20,7 +21,7 @@ Plenty of thouroughly helpful help from [Mister John Noel](https://github.com/jo
 
 ## Requirements/Prerequisites
 
-* Tested on MODx 2.2.0 / 2.2.1
+* Tested on MODx 2.2.0 - 2.2.5
 * PHPThumbOf
 * API Keys for certain feeds
 * That's it!
@@ -32,6 +33,16 @@ Done. See placeholders further down...
 
 
 ## Available snippets
+
+### App.net
+
+You need your user id to get this working, not your username. You can find it on your profile page. [Hat tip to "man"](https://alpha.app.net/man/post/20858).
+
+```
+<ul>
+  [[!AppDotNetFeed? &tpl=`AppDotNetFeedItem` &userId=`{USERID}` &limit=`{LIMIT}`]]
+</ul>
+```
 
 ### Delicious
 
@@ -141,6 +152,21 @@ The basic Twitter chunk also shows you how to use the isRetweet option to switch
 
 Currently only the basics have placeholders provided. The YouTube feed, for example, has more options that you may ever need. If I find I ever use them, I will add them in.
 
+
+#### App.net:
+
+The App.net feed is very pleasant and gives you the option of either "text" or "html" versions of a post. I've included placeholders for both. The basic chunk I've provided only uses [[+text]].
+
+[[+id]]
+[[+text]]
+[[+html]]
+[[+created]]
+[[+picture]]
+[[+title]]
+[[+username]]
+[[+profile]]
+[[+postUrl]]
+
 #### Delicious:
 
 ```
@@ -150,6 +176,7 @@ Currently only the basics have placeholders provided. The YouTube feed, for exam
 [[+date]]
 [[+username]]
 ```
+
 #### Flickr:
 
 ```
@@ -160,6 +187,7 @@ Currently only the basics have placeholders provided. The YouTube feed, for exam
 [[+title]]
 [[+username]]
 ```
+
 #### LastFM:
 
 ```
@@ -170,6 +198,7 @@ Currently only the basics have placeholders provided. The YouTube feed, for exam
 [[+date]]
 [[+username]]
 ```
+
 ### Picasa:
 
 ```
@@ -181,6 +210,7 @@ Currently only the basics have placeholders provided. The YouTube feed, for exam
 [[+userid]]
 [[+albumname]]
 ```
+
 #### Twitter:
 
 ```
@@ -208,6 +238,7 @@ Currently only the basics have placeholders provided. The YouTube feed, for exam
 [[+title]]
 [[+username]]
 ```
+
 #### YouTube:
 
 ```
@@ -218,6 +249,7 @@ Currently only the basics have placeholders provided. The YouTube feed, for exam
 [[+embedlink]]
 [[+author]]
 ```
+
 #### ZooTool:
 
 ```
@@ -251,6 +283,7 @@ Ensure you have the following in the "phpthumb_nohotlink_valid_domains" section:
 * Vimeo Thumbnails: ```*.vimeocdn.com```
 * Twitter profile avatars: ```*.twimg.com```
 * Picasa Thumbnails: ```*.googleusercontent.com```
+* App.net avatars: ```*.cloudfront.net```
 
 
 ## Twitter feed and the new API
