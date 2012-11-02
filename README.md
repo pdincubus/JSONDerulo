@@ -226,7 +226,6 @@ The App.net feed is very pleasant and gives you the option of either "text" or "
 [[+originalAuthor]]
 [[+originalUsername]]
 [[+originalId]]
-
 ```
 #### Vimeo:
 
