@@ -5,6 +5,9 @@ For all info: https://github.com/pdincubus/JSONDerulo/
 Most recent additions
 ---------------------
 
+1.3:
+	* NEW App.net feed
+
 1.2:
 	* New Twitter feed for use with updated API 1.1
 
