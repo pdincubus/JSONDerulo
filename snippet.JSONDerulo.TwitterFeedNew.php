@@ -21,7 +21,7 @@ $accessTokenSecret =	$modx->getOption('accessTokenSecret', $scriptProperties, ''
 
 $rawFeedData = array();
 
-$cacheId = 'twitterfeednew-'.$username;
+$cacheId = 'twitterfeednew-'.$feeds;
 
 if (($json = $modx->cacheManager->get($cacheId)) === null) {
 		require_once $modx->getOption('core_path').'components/jsonderulo/twitteroauth/twitteroauth.php';
