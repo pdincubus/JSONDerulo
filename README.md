@@ -40,7 +40,7 @@ You need your user id to get this working, not your username. You can find it on
 
 ```
 <ul>
-  [[!AppDotNetFeed? &tpl=`AppDotNetFeedItem` &userId=`{USERID}` &limit=`{LIMIT}`]]
+  [[!AppDotNetFeed? &tpl=`AppDotNetFeedItem` &userId=`USERID` &limit=`LIMIT`]]
 </ul>
 ```
 
@@ -48,7 +48,7 @@ You need your user id to get this working, not your username. You can find it on
 
 ```
 <ul>
-  [[!DeliciousFeed? &tpl=`DeliciousFeedItem` &users=`{USERNAME}` &limit=`{LIMIT}`]]
+  [[!DeliciousFeed? &tpl=`DeliciousFeedItem` &users=`USERNAME` &limit=`LIMIT`]]
 </ul>
 ```
 
@@ -58,7 +58,7 @@ Requires API key, get one here: [Flickr API Key](http://www.flickr.com/services/
 
 ```
 <ul>
-	[[!FlickrFeed? &tpl=`FlickrFeedItem` &limit=`{LIMIT}` &users=`{FLICKR USER ID}` &apiKey=`{API KEY}` &userName=`{USERNAME}`]]
+	[[!FlickrFeed? &tpl=`FlickrFeedItem` &limit=`LIMIT` &users=`FLICKR USER ID` &apiKey=`API KEY` &userName=`USERNAME`]]
 </ul>
 ```
 
@@ -68,13 +68,13 @@ Requires api key, get one here: [LastFM API Key](http://www.last.fm/api/account)
 
 ```
 <ul>
-	[[!LastFmFeed? &tpl=`LastFmFeedItem` &limit=`{LIMIT}` &users=`{USERNAME}` &apiKey=`{API KEY}`]]
+	[[!LastFmFeed? &tpl=`LastFmFeedItem` &limit=`LIMIT` &users=`USERNAME` &apiKey=`API KEY`]]
 </ul>
 ```
 
 ```
 <ul>
-	[[!LastFmListensFeed? &tpl=`LastFmFeedItem` &limit=`{LIMIT}` &users=`{USERNAME}` &apiKey=`{API KEY}`]]
+	[[!LastFmListensFeed? &tpl=`LastFmFeedItem` &limit=`LIMIT` &users=`USERNAME` &apiKey=`API KEY`]]
 </ul>
 ```
 
@@ -82,7 +82,7 @@ Requires api key, get one here: [LastFM API Key](http://www.last.fm/api/account)
 
 ```
 <ul>
-	[[!PicasaFeed? &tpl=`PicasaFeedItem` &limit=`{LIMIT}` &users=`{USERID}` &albumId=`{ALBUMID}` &albumName=`{ALBUMNAME}`]]
+	[[!PicasaFeed? &tpl=`PicasaFeedItem` &limit=`LIMIT` &users=`USERID` &albumId=`ALBUMID` &albumName=`ALBUMNAME`]]
 </ul>
 ```
 
@@ -90,7 +90,7 @@ Requires api key, get one here: [LastFM API Key](http://www.last.fm/api/account)
 
 ```
 <ul>
-	[[!TwitterFeed? &tpl=`TwitterFeedItem` &limit=`{LIMIT}` &users=`{USERNAME}` &includeRTs=`{1 or 0}`]]
+	[[!TwitterFeed? &tpl=`TwitterFeedItem` &limit=`LIMIT` &users=`USERNAME` &includeRTs=`1 or 0`]]
 </ul>
 ```
 
@@ -100,7 +100,7 @@ You need to set up a Twitter "App" to make this work. From March 2013, this is t
 
 ```
 <ul>
-	[[!TwitterFeedNew? &tpl=`TwitterFeedItem` &limit=`{LIMIT}` &users=`{USERNAME}` &includeRTs=`{1 or 0}` &consumerKey=`{YOUR_CONSUMER_KEY}` &consumerSecret=`{YOUR_CONSUMER_SECRET}` &accessToken=`{YOUR_ACCESS_TOKEN}` &accessTokenSecret=`{YOUR_ACCESS_TOKEN_SECRET}`]]
+	[[!TwitterFeedNew? &tpl=`TwitterFeedItem` &limit=`LIMIT` &users=`USERNAME` &includeRTs=`1 or 0` &consumerKey=`YOUR_CONSUMER_KEY` &consumerSecret=`YOUR_CONSUMER_SECRET` &accessToken=`YOUR_ACCESS_TOKEN` &accessTokenSecret=`YOUR_ACCESS_TOKEN_SECRET`]]
 </ul>
 ```
 
@@ -108,7 +108,7 @@ You need to set up a Twitter "App" to make this work. From March 2013, this is t
 
 ```
 <ul>
-	[[!VimeoFeed? &tpl=`VimeoFeedItem` &users=`{USERNAME}` &limit=`{LIMIT}`]]
+	[[!VimeoFeed? &tpl=`VimeoFeedItem` &users=`USERNAME` &limit=`LIMIT`]]
 </ul>
 ```
 
@@ -116,13 +116,13 @@ You need to set up a Twitter "App" to make this work. From March 2013, this is t
 
 ```
 <ul>
-	[[!YouTubeFeed? &tpl=`YouTubeFeedItem` &limit=`{LIMIT}` &users=`{USERNAME}`]]
+	[[!YouTubeFeed? &tpl=`YouTubeFeedItem` &limit=`LIMIT` &users=`USERNAME`]]
 </ul>
 ```
 
 ```
 <ul>
-	[[!YouTubeFeedUploads? &tpl=`YouTubeFeedItem` &limit=`{LIMIT}` &users=`{USERNAME}`]]
+	[[!YouTubeFeedUploads? &tpl=`YouTubeFeedItem` &limit=`LIMIT` &users=`USERNAME`]]
 </ul>
 ```
 
@@ -132,7 +132,7 @@ Requires API key, get one here: [ZooTool API Key](http://zootool.com/api/keys)
 
 ```
 <ul>
-	[[!ZooToolFeed? &tpl=`ZooToolFeedItem` &limit=`{LIMIT}` &users=`{USERNAME}` &apiKey=`{API KEY}`]]
+	[[!ZooToolFeed? &tpl=`ZooToolFeedItem` &limit=`LIMIT` &users=`USERNAME` &apiKey=`API KEY`]]
 </ul>
 ```
 
@@ -143,7 +143,7 @@ I've provided basic chunks to get you started. Any feed which returns thumbnails
 You can also use the MODx's output filters to provide fallback should the feed you request be empty. E.g. - such as a new twitter account with no tweets yet:
 
 ```
-[[!TwitterFeed:default=`<li>No tweets</li>`? &tpl=`TwitterFeedItem` &limit=`10` &users=`{USERNAME}`]]
+[[!TwitterFeed:default=`<li>No tweets</li>`? &tpl=`TwitterFeedItem` &limit=`10` &users=`USERNAME`]]
 ```
 
 The basic Twitter chunk also shows you how to use the isRetweet option to switch out your details for the author of the tweet you retweeted. The example isn't the best, but it'll give you the right idea, and will also allow you to integrate a retweet icon if you wish.
