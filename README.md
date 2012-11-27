@@ -98,9 +98,11 @@ Requires api key, get one here: [LastFM API Key](http://www.last.fm/api/account)
 
 You need to set up a Twitter "App" to make this work. From March 2013, this is the ONLY way. The method above will stop working altogether by this date. See more information in the Twitter section below!
 
+The cacheName option is for users who may want to use the snippet more than once on a site for different users' tweets. Setting this appends the text to the cache filename so multiple feeds can be cached. I've added a string replacement to swap spaces for hyphens in there too.
+
 ```
 <ul>
-	[[!TwitterFeedNew? &tpl=`TwitterFeedItem` &limit=`LIMIT` &users=`USERNAME` &includeRTs=`1 or 0` &consumerKey=`YOUR_CONSUMER_KEY` &consumerSecret=`YOUR_CONSUMER_SECRET` &accessToken=`YOUR_ACCESS_TOKEN` &accessTokenSecret=`YOUR_ACCESS_TOKEN_SECRET`]]
+	[[!TwitterFeedNew? &tpl=`TwitterFeedItem` &limit=`LIMIT` &cacheName=`UNIQUE_NAME_TO_APPEND_TO_CACHE_FILE` &includeRTs=`1 or 0` &consumerKey=`YOUR_CONSUMER_KEY` &consumerSecret=`YOUR_CONSUMER_SECRET` &accessToken=`YOUR_ACCESS_TOKEN` &accessTokenSecret=`YOUR_ACCESS_TOKEN_SECRET`]]
 </ul>
 ```
 

@@ -13,7 +13,7 @@ $tpl = $modx->getOption('tpl', $scriptProperties, '');
 $limit = $modx->getOption('limit', $scriptProperties, 2);
 $includeRTs = $modx->getOption('includeRTs', $scriptProperties, 1);
 $excludeEmpty = explode(',', $modx->getOption('excludeEmpty', $scriptProperties, 'text'));
-$feeds = $modx->getOption('users', $scriptProperties, 'twitter');
+$cacheName = $modx->getOption('cacheName', $scriptProperties, 'twitter');
 $consumerKey = $modx->getOption('consumerKey', $scriptProperties, '');
 $consumerSecret =	$modx->getOption('consumerSecret', $scriptProperties, '');
 $accessToken =	$modx->getOption('accessToken', $scriptProperties, '');
@@ -21,7 +21,8 @@ $accessTokenSecret =	$modx->getOption('accessTokenSecret', $scriptProperties, ''
 
 $rawFeedData = array();
 
-$cacheId = 'twitterfeednew-'.$feeds;
+$cacheName = str_replace(" ", "-", $cacheName);
+$cacheId = 'twitterfeednew-'.$cacheName;
 
 if (($json = $modx->cacheManager->get($cacheId)) === null) {
 		require_once $modx->getOption('core_path').'components/jsonderulo/twitteroauth/twitteroauth.php';
