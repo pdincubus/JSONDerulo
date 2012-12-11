@@ -1,29 +1,29 @@
 <li class="cf">
-	[[+isRetweet:is=`1`:then=`
-	<a href="http://twitter.com/#!/[[+originalUsername]]">
-	<img src="[[+originalAuthorPicture:phpthumbof=`q=85&w=32&h=32`]]" alt="[[+originalAuthor]]">
-	<span class="userfullname">[[+originalAuthor]]</span>
-	<span class="username">@[[+originalUsername]]</span>
-	</a>
-	`:else=`
-	<a href="http://twitter.com/#!/[[+username]]">
-	<img src="[[+picture:phpthumbof=`q=85&w=32&h=32`]]" alt="[[+title]]">
-	<span class="userfullname">[[+title]]</span>
-	<span class="username">@[[+username]]</span>
-	</a>
-	`]]
-	
-	<div class="tweet">
-		<a href="http://twitter.com/#!/[[+username]]/status/[[+id]]">
-			[[+message]]
-		</a>
-	</div>
-	
+  [[+isRetweet:is=`1`:then=`
+  <a href="http://twitter.com/#!/[[+originalUsername]]">
+	<img src="[[+originalAuthorPicture:phpthumbof=`q=85&w=48&h=48`]]" alt="[[+originalAuthor]]">
+	  <span class="userfullname">[[+originalAuthor]]</span>
+	  <span class="username">@[[+originalUsername]]</span>
+  </a>
+  `:else=`
+  <a href="http://twitter.com/#!/[[+username]]">
+	<img src="[[+picture:phpthumbof=`q=85&w=48&h=48`]]" alt="[[+title]]">
+	  <span class="userfullname">[[+title]]</span>
+	  <span class="username">@[[+username]]</span>
+  </a>
+  `]]
+  
+  <div class="tweet">
+	[[+message]]
+  </div>
+  
+  <a href="http://twitter.com/#!/[[+username]]/status/[[+id]]">
 	<time datetime="[[+created:date=`%Y-%m-%d`]]">[[+created:date=`%e %B`]]</time>
-	
-	<ul>
-		<li><a href="https://twitter.com/intent/tweet?in_reply_to=[[+id]]">Reply</a></li>
-		<li><a href="https://twitter.com/intent/retweet?tweet_id=[[+id]]">Retweet</a></li>
-		<li><a href="https://twitter.com/intent/favorite?tweet_id=[[+id]]">Favourite</a></li>
-	</ul>
+  </a>
+  
+  <ul class="cf">
+	<li><a href="https://twitter.com/intent/tweet?in_reply_to=[[+id]]" class="twitterReply">Reply</a></li>
+	<li><a href="https://twitter.com/intent/retweet?tweet_id=[[+id]]" class="twitterRetweet">Retweet</a></li>
+	<li><a href="https://twitter.com/intent/favorite?tweet_id=[[+id]]" class="twitterFavourite">Favourite</a></li>
+  </ul>
 </li>

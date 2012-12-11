@@ -53,24 +53,32 @@ foreach ($feed as $message) {
 						continue 2;
 				}
 		}
-		
+
+		$input = $message->text;
+		// Convert URLs into hyperlinks
+		$input= preg_replace("/(http:\/\/)(.*?)\/([\w\.\/\&\=\?\-\,\:\;\#\_\~\%\+]*)/", "<a href=\"\\0\">\\0</a>", $input);
+		// Convert usernames (@) into links
+		$input= preg_replace("(@([a-zA-Z0-9\_]+))", "<a href=\"http://www.twitter.com/\\1\">\\0</a>", $input);
+		// Convert hash tags (#) to links
+		$input= preg_replace('/(^|\s)#(\w+)/', '\1<a href="http://search.twitter.com/search?q=%23\2">#\2</a>', $input);
+
 		$rawFeedData[$i] = array(
-				'id' => $message->id_str,
-				'message' => $message->text,
-				'created' => strtotime($message->created_at),
-				'picture' => $message->user->profile_image_url,
-				'title' => $message->user->name,
-				'username' => $message->user->screen_name,
-				'retweetCount' => $message->retweet_count,
-				'isRetweet' => '0',
+			'id' => $message->id_str,
+			'message' => $input,
+			'created' => strtotime($message->created_at),
+			'picture' => $message->user->profile_image_url,
+			'title' => $message->user->name,
+			'username' => $message->user->screen_name,
+			'retweetCount' => $message->retweet_count,
+			'isRetweet' => '0',
 		);
 		
 		if(isset($message->retweeted_status)){
-				$rawFeedData[$i]['originalAuthorPicture'] = $message->retweeted_status->user->profile_image_url;
-				$rawFeedData[$i]['originalAuthor'] = $message->retweeted_status->user->name;
-				$rawFeedData[$i]['originalUsername'] = $message->retweeted_status->user->screen_name;
-				$rawFeedData[$i]['isRetweet'] = '1';
-				$rawFeedData[$i]['originalId'] = $message->retweeted_status->id;
+			$rawFeedData[$i]['originalAuthorPicture'] = $message->retweeted_status->user->profile_image_url;
+			$rawFeedData[$i]['originalAuthor'] = $message->retweeted_status->user->name;
+			$rawFeedData[$i]['originalUsername'] = $message->retweeted_status->user->screen_name;
+			$rawFeedData[$i]['isRetweet'] = '1';
+			$rawFeedData[$i]['originalId'] = $message->retweeted_status->id;
 		}
 		
 		$i++;
