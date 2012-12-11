@@ -306,3 +306,5 @@ I've included a new chunk for displaying tweets. This includes several changes w
 ```
 <script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
 ```
+
+Also, hat tip to [basvaneijk](https://github.com/basvaneijk) for the preg_replace stuff to auto link @, # and URLs within the [[+message]]
