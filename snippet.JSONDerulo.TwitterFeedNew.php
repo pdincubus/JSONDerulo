@@ -7,8 +7,6 @@
 * Updated to work with the new API awfulness
 */
 
-$cacheTime = 43200; // 12 hours
-
 $tpl = $modx->getOption('tpl', $scriptProperties, '');
 $limit = $modx->getOption('limit', $scriptProperties, 2);
 $screenName = $modx->getOption('screenName', $scriptProperties, '');
@@ -19,6 +17,7 @@ $consumerKey = $modx->getOption('consumerKey', $scriptProperties, '');
 $consumerSecret =	$modx->getOption('consumerSecret', $scriptProperties, '');
 $accessToken =	$modx->getOption('accessToken', $scriptProperties, '');
 $accessTokenSecret =	$modx->getOption('accessTokenSecret', $scriptProperties, '');
+$cacheTime =	$modx->getOption('cacheTime', $scriptProperties, 43200);
 
 $rawFeedData = array();
 

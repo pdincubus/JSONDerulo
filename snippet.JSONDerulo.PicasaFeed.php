@@ -5,7 +5,7 @@
 * @site https://github.com/pdincubus/JSONDerulo
 * Fetches Picasa feed in JSON format and allows templating via chunk
 */
-$cacheTime = 43200; // 12 hours
+
 $feedUrl = 'https://picasaweb.google.com/data/feed/base/user/{userid}/albumid/{albumid}?kind=photo&alt=json';
 
 $ch = null;
@@ -16,6 +16,7 @@ $excludeEmpty = explode(',', $modx->getOption('excludeEmpty', $scriptProperties,
 $feeds = explode(',', $modx->getOption('users', $scriptProperties, '3'));
 $albumId = $modx->getOption('albumId', $scriptProperties, '');
 $albumName = $modx->getOption('albumName', $scriptProperties, '');
+$cacheTime =	$modx->getOption('cacheTime', $scriptProperties, 43200);
 
 $rawFeedData = array();
 

@@ -6,7 +6,6 @@
 * Fetches Twitter feed in JSON format and allows templating via chunk
 */
 
-$cacheTime = 43200; // 12 hours
 $feedUrl = 'https://alpha-api.app.net/stream/0/users/{userId}/posts?count={limit}';
 
 $ch = null;
@@ -15,6 +14,7 @@ $tpl = $modx->getOption('tpl', $scriptProperties, '');
 $limit = $modx->getOption('limit', $scriptProperties, 2);
 $excludeEmpty = explode(',', $modx->getOption('excludeEmpty', $scriptProperties, 'text'));
 $feeds = explode(',', $modx->getOption('userId', $scriptProperties, 'pd'));
+$cacheTime =	$modx->getOption('cacheTime', $scriptProperties, 43200);
 
 $rawFeedData = array();
 

@@ -5,7 +5,7 @@
 * @site https://github.com/pdincubus/JSONDerulo
 * Fetches Flickr feed in JSON format and allows templating via chunk
 */
-$cacheTime = 43200; // 12 hours
+
 $feedUrl = 'http://api.flickr.com/services/rest/?method=flickr.photos.search&format=json&nojsoncallback=1&api_key={apikey}&user_id={userid}&per_page={limit}&extras=url_m,url_l,date_upload';
 
 $ch = null;
@@ -16,6 +16,7 @@ $excludeEmpty = explode(',', $modx->getOption('excludeEmpty', $scriptProperties,
 $feeds = explode(',', $modx->getOption('users', $scriptProperties, '3'));
 $apiKey = $modx->getOption('apiKey', $scriptProperties, '');
 $userName = $modx->getOption('userName', $scriptProperties, '');
+$cacheTime =	$modx->getOption('cacheTime', $scriptProperties, 43200);
 
 $rawFeedData = array();
 

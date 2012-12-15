@@ -6,7 +6,6 @@
 * Fetches YouTube favourites feed in JSON format and allows templating via chunk
 */
 
-$cacheTime = 43200; // 12 hours
 $feedUrl = 'http://gdata.youtube.com/feeds/api/users/{username}/favorites?max-results={limit}&alt=json';
 
 $ch = null;
@@ -15,6 +14,7 @@ $tpl = $modx->getOption('tpl', $scriptProperties, '');
 $limit = $modx->getOption('limit', $scriptProperties, 2);
 $excludeEmpty = explode(',', $modx->getOption('excludeEmpty', $scriptProperties, 'link'));
 $feeds = explode(',', $modx->getOption('users', $scriptProperties, ''));
+$cacheTime =	$modx->getOption('cacheTime', $scriptProperties, 43200);
 
 $rawFeedData = array();
 

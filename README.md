@@ -1,7 +1,7 @@
 # JSONDerulo - A JSON feed fetcher for MODX Revolution CMS
 
 Snippets and chunks to pull in various social JSON feeds.
-Results are cached for 12 hours by the snippet. Make sure you call the snippet uncached from your templates!
+Results are cached for 12 hours by default, but you can specify your own time limit in seconds using &cacheTime=``. Make sure you call the snippet uncached from your templates!
 Most snippets allow you to specify multiple usernames, however any feeds which require an API key will not yet work with multiple accounts.
 The following feeds are already set up:
 
@@ -21,7 +21,7 @@ Plenty of thouroughly helpful help from [Mister John Noel](https://github.com/jo
 
 ## Requirements/Prerequisites
 
-* Tested on MODx 2.2.0 - 2.2.5
+* Tested on MODx 2.2.x
 * PHPThumbOf
 * API Keys for certain feeds
 * That's it!
@@ -40,7 +40,7 @@ You need your user id to get this working, not your username. You can find it on
 
 ```
 <ul>
-  [[!AppDotNetFeed? &tpl=`AppDotNetFeedItem` &userId=`USERID` &limit=`LIMIT`]]
+  [[!AppDotNetFeed? &tpl=`AppDotNetFeedItem` &userId=`USERID` &limit=`LIMIT` &cacheTime=`CACHE_TIME_IN_SECONDS`]]
 </ul>
 ```
 
@@ -48,7 +48,7 @@ You need your user id to get this working, not your username. You can find it on
 
 ```
 <ul>
-  [[!DeliciousFeed? &tpl=`DeliciousFeedItem` &users=`USERNAME` &limit=`LIMIT`]]
+  [[!DeliciousFeed? &tpl=`DeliciousFeedItem` &users=`USERNAME` &limit=`LIMIT` &cacheTime=`CACHE_TIME_IN_SECONDS`]]
 </ul>
 ```
 
@@ -58,7 +58,7 @@ Requires API key, get one here: [Flickr API Key](http://www.flickr.com/services/
 
 ```
 <ul>
-	[[!FlickrFeed? &tpl=`FlickrFeedItem` &limit=`LIMIT` &users=`FLICKR USER ID` &apiKey=`API KEY` &userName=`USERNAME`]]
+	[[!FlickrFeed? &tpl=`FlickrFeedItem` &limit=`LIMIT` &users=`FLICKR USER ID` &apiKey=`API KEY` &userName=`USERNAME` &cacheTime=`CACHE_TIME_IN_SECONDS`]]
 </ul>
 ```
 
@@ -68,13 +68,13 @@ Requires api key, get one here: [LastFM API Key](http://www.last.fm/api/account)
 
 ```
 <ul>
-	[[!LastFmFeed? &tpl=`LastFmFeedItem` &limit=`LIMIT` &users=`USERNAME` &apiKey=`API KEY`]]
+	[[!LastFmFeed? &tpl=`LastFmFeedItem` &limit=`LIMIT` &users=`USERNAME` &apiKey=`API KEY` &cacheTime=`CACHE_TIME_IN_SECONDS`]]
 </ul>
 ```
 
 ```
 <ul>
-	[[!LastFmListensFeed? &tpl=`LastFmFeedItem` &limit=`LIMIT` &users=`USERNAME` &apiKey=`API KEY`]]
+	[[!LastFmListensFeed? &tpl=`LastFmFeedItem` &limit=`LIMIT` &users=`USERNAME` &apiKey=`API KEY` &cacheTime=`CACHE_TIME_IN_SECONDS`]]
 </ul>
 ```
 
@@ -82,7 +82,7 @@ Requires api key, get one here: [LastFM API Key](http://www.last.fm/api/account)
 
 ```
 <ul>
-	[[!PicasaFeed? &tpl=`PicasaFeedItem` &limit=`LIMIT` &users=`USERID` &albumId=`ALBUMID` &albumName=`ALBUMNAME`]]
+	[[!PicasaFeed? &tpl=`PicasaFeedItem` &limit=`LIMIT` &users=`USERID` &albumId=`ALBUMID` &albumName=`ALBUMNAME` &cacheTime=`CACHE_TIME_IN_SECONDS`]]
 </ul>
 ```
 
@@ -90,7 +90,7 @@ Requires api key, get one here: [LastFM API Key](http://www.last.fm/api/account)
 
 ```
 <ul>
-	[[!TwitterFeed? &tpl=`TwitterFeedItem` &limit=`LIMIT` &users=`USERNAME` &includeRTs=`1 or 0`]]
+	[[!TwitterFeed? &tpl=`TwitterFeedItem` &limit=`LIMIT` &users=`USERNAME` &includeRTs=`1 or 0` &cacheTime=`CACHE_TIME_IN_SECONDS`]]
 </ul>
 ```
 
@@ -104,7 +104,7 @@ The screenName option is *optional*. It will allow you to fetch another user's t
 
 ```
 <ul>
-	[[!TwitterFeedNew? &tpl=`TwitterFeedItem` &limit=`LIMIT` &cacheName=`UNIQUE_NAME_TO_APPEND_TO_CACHE_FILE` &screenName=`USER_SCREEN_NAME_TO_FETCH_TIMELINE_FOR` &includeRTs=`1 or 0` &consumerKey=`YOUR_CONSUMER_KEY` &consumerSecret=`YOUR_CONSUMER_SECRET` &accessToken=`YOUR_ACCESS_TOKEN` &accessTokenSecret=`YOUR_ACCESS_TOKEN_SECRET`]]
+	[[!TwitterFeedNew? &tpl=`TwitterFeedItem` &limit=`LIMIT` &cacheName=`UNIQUE_NAME_TO_APPEND_TO_CACHE_FILE` &screenName=`USER_SCREEN_NAME_TO_FETCH_TIMELINE_FOR` &includeRTs=`1 or 0` &consumerKey=`YOUR_CONSUMER_KEY` &consumerSecret=`YOUR_CONSUMER_SECRET` &accessToken=`YOUR_ACCESS_TOKEN` &accessTokenSecret=`YOUR_ACCESS_TOKEN_SECRET` &cacheTime=`CACHE_TIME_IN_SECONDS`]]
 </ul>
 ```
 
@@ -112,7 +112,7 @@ The screenName option is *optional*. It will allow you to fetch another user's t
 
 ```
 <ul>
-	[[!VimeoFeed? &tpl=`VimeoFeedItem` &users=`USERNAME` &limit=`LIMIT`]]
+	[[!VimeoFeed? &tpl=`VimeoFeedItem` &users=`USERNAME` &limit=`LIMIT` &cacheTime=`CACHE_TIME_IN_SECONDS`]]
 </ul>
 ```
 
@@ -120,13 +120,13 @@ The screenName option is *optional*. It will allow you to fetch another user's t
 
 ```
 <ul>
-	[[!YouTubeFeed? &tpl=`YouTubeFeedItem` &limit=`LIMIT` &users=`USERNAME`]]
+	[[!YouTubeFeed? &tpl=`YouTubeFeedItem` &limit=`LIMIT` &users=`USERNAME` &cacheTime=`CACHE_TIME_IN_SECONDS`]]
 </ul>
 ```
 
 ```
 <ul>
-	[[!YouTubeFeedUploads? &tpl=`YouTubeFeedItem` &limit=`LIMIT` &users=`USERNAME`]]
+	[[!YouTubeFeedUploads? &tpl=`YouTubeFeedItem` &limit=`LIMIT` &users=`USERNAME` &cacheTime=`CACHE_TIME_IN_SECONDS`]]
 </ul>
 ```
 
@@ -136,7 +136,7 @@ Requires API key, get one here: [ZooTool API Key](http://zootool.com/api/keys)
 
 ```
 <ul>
-	[[!ZooToolFeed? &tpl=`ZooToolFeedItem` &limit=`LIMIT` &users=`USERNAME` &apiKey=`API KEY`]]
+	[[!ZooToolFeed? &tpl=`ZooToolFeedItem` &limit=`LIMIT` &users=`USERNAME` &apiKey=`API KEY` &cacheTime=`CACHE_TIME_IN_SECONDS`]]
 </ul>
 ```
 

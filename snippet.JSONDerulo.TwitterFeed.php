@@ -6,7 +6,6 @@
 * Fetches Twitter feed in JSON format and allows templating via chunk
 */
 
-$cacheTime = 43200; // 12 hours
 $feedUrl = 'https://api.twitter.com/1/statuses/user_timeline.json?screen_name={username}&count={limit}&include_rts={includeRTs}';
 
 $ch = null;
@@ -16,6 +15,7 @@ $limit = $modx->getOption('limit', $scriptProperties, 2);
 $includeRTs = $modx->getOption('includeRTs', $scriptProperties, 1);
 $excludeEmpty = explode(',', $modx->getOption('excludeEmpty', $scriptProperties, 'text'));
 $feeds = explode(',', $modx->getOption('users', $scriptProperties, 'twitter'));
+$cacheTime =	$modx->getOption('cacheTime', $scriptProperties, 43200);
 
 $rawFeedData = array();
 

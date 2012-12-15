@@ -5,6 +5,12 @@ For all info: https://github.com/pdincubus/JSONDerulo/
 Most recent additions
 ---------------------
 
+1.3.4:
+  * By request: Added configurable cacheTime option on ALL feed fetchers.
+
+1.3.3:
+  * option to view a different user's tweets using &screenName in the Twitter feed fetcher
+
 1.3.2:
 	* auto linking of [[+message]] in the Twitter feed for @, # and URLs
 	* updated Twitter chunk to reflect this change

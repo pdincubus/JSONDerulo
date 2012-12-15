@@ -6,7 +6,6 @@
 * Fetches LastFM latest loved tracks feed in JSON format and allows templating via chunk
 */
 
-$cacheTime = 43200; // 12 hours
 $feedUrl = 'http://ws.audioscrobbler.com/2.0/?method=user.getlovedtracks&user={username}&api_key={apikey}&format=json&limit={limit}';
 
 $ch = null;
@@ -16,6 +15,7 @@ $limit = $modx->getOption('limit', $scriptProperties, 2);
 $excludeEmpty = explode(',', $modx->getOption('excludeEmpty', $scriptProperties, 'name'));
 $feeds = explode(',', $modx->getOption('users', $scriptProperties, ''));
 $apiKey = $modx->getOption('apiKey', $scriptProperties, '');
+$cacheTime =	$modx->getOption('cacheTime', $scriptProperties, 43200);
 
 $rawFeedData = array();
 

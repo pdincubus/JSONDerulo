@@ -6,7 +6,6 @@
 * Fetches Delicious feed in JSON format and allows templating via chunk
 */
 
-$cacheTime = 43200; // 12 hours
 $feedUrl = 'http://feeds.delicious.com/v2/json/{username}?count={limit}';
 
 $ch = null;
@@ -15,6 +14,7 @@ $tpl = $modx->getOption('tpl', $scriptProperties, '');
 $limit = $modx->getOption('limit', $scriptProperties, 2);
 $excludeEmpty = explode(',', $modx->getOption('excludeEmpty', $scriptProperties, 'd'));
 $feeds = explode(',', $modx->getOption('users', $scriptProperties, ''));
+$cacheTime =	$modx->getOption('cacheTime', $scriptProperties, 43200);
 
 $rawFeedData = array();
 
