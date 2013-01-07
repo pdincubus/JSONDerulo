@@ -1,6 +1,6 @@
 # JSONDerulo - A JSON feed fetcher for MODX Revolution CMS
 
-Snippets and chunks to pull in various social JSON feeds.
+Snippets and chunks to pull in various social JSON feeds. [Available on the MODX Extras repo](http://modx.com/extras/package/jsonderulo23)
 Results are cached for 12 hours by default, but you can specify your own time limit in seconds using &cacheTime=``. Make sure you call the snippet uncached from your templates!
 Most snippets allow you to specify multiple usernames, however any feeds which require an API key will not yet work with multiple accounts.
 The following feeds are already set up:
