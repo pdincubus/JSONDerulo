@@ -173,6 +173,7 @@ Currently only the basics have placeholders provided. The YouTube feed, for exam
 
 The App.net feed is very pleasant and gives you the option of either "text" or "html" versions of a post. I've included placeholders for both. The basic chunk I've provided only uses [[+text]].
 
+```
 [[+id]]
 [[+text]]
 [[+html]]
@@ -182,6 +183,7 @@ The App.net feed is very pleasant and gives you the option of either "text" or "
 [[+username]]
 [[+profile]]
 [[+postUrl]]
+```
 
 #### Delicious:
 
