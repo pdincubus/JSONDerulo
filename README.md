@@ -112,11 +112,15 @@ The screenName option is *optional*. It will allow you to fetch another user's t
 
 As above, you'll need to have an app set up to use the new Twitter API. This version **does not** have the cacheName option, and the screenName is **required**. Pass multiple screenNames separated by commas to get more than one timeline. E.g: &screenName=`twitter,twitterapi`
 
+Combined timelines will be output in the order specified in the call. If you want to randomise the output then you're probably going to need a bit of javascript to shuffle the items after the DOM has finished loading.
+
 ```
 <ul>
 	[[!TwitterFeedNewMultipleFeeds? &tpl=`TwitterFeedItemNew` &limit=`LIMIT` &screenName=`COMMAS_SEPARATED_LIST_OF_SCREEN_NAMES_TO_FETCH_TIMELINE_FOR` &includeRTs=`1 or 0` &consumerKey=`YOUR_CONSUMER_KEY` &consumerSecret=`YOUR_CONSUMER_SECRET` &accessToken=`YOUR_ACCESS_TOKEN` &accessTokenSecret=`YOUR_ACCESS_TOKEN_SECRET` &cacheTime=`CACHE_TIME_IN_SECONDS`]]
 </ul>
 ```
+
+
 
 ### Vimeo
 

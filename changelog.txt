@@ -5,6 +5,9 @@ For all info: https://github.com/pdincubus/JSONDerulo/
 Most recent additions
 ---------------------
 
+1.4.0:
+  * New Twitter multiple timeline combining feed fetcher. See the documentation for more info.
+
 1.3.4:
   * By request: Added configurable cacheTime option on ALL feed fetchers.
 
@@ -12,29 +15,29 @@ Most recent additions
   * option to view a different user's tweets using &screenName in the Twitter feed fetcher
 
 1.3.2:
-	* auto linking of [[+message]] in the Twitter feed for @, # and URLs
-	* updated Twitter chunk to reflect this change
+  * auto linking of [[+message]] in the Twitter feed for @, # and URLs
+  * updated Twitter chunk to reflect this change
 	
 1.3.1:
-	* minor tweaks to new Twitter feed
+  * minor tweaks to new Twitter feed
 
 1.3:
-	* NEW App.net feed
+  * NEW App.net feed
 
 1.2:
-	* New Twitter feed for use with updated API 1.1
+  * New Twitter feed for use with updated API 1.1
 
 1.1:
-	* YouTube user upload snippet added
+  * YouTube user upload snippet added
 
 1.0:
-	* Twitter changes for retweets.
+  * Twitter changes for retweets.
 	
 0.9.1:
-	* Slight fix for Twitter feed.
+  * Slight fix for Twitter feed.
 
 0.8:
-	* Usually helps when you make sure that ALL the snippets and chunks have actually been packaged!
+  * Usually helps when you make sure that ALL the snippets and chunks have actually been packaged!
 
 0.7:
-	* Added Picasa album feed fetching snippet
+  * Added Picasa album feed fetching snippet

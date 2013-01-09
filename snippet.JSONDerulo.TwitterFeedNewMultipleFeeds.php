@@ -23,7 +23,7 @@ $output = '';
 
 foreach ($screenName as $user) {
 
-    $cacheId = 'twitterfeednew-'.$user;
+    $cacheId = 'twitterfeednewmultiplefeeds-'.$user;
     
     if (($json = $modx->cacheManager->get($cacheId)) === null) {
 		require_once $modx->getOption('core_path').'components/jsonderulo/twitteroauth/twitteroauth.php';
