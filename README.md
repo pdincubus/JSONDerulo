@@ -1,7 +1,8 @@
 # JSONDerulo - A JSON feed fetcher for MODX Revolution CMS
 
-Snippets and chunks to pull in various social JSON feeds. [Available on the MODX Extras repo](http://modx.com/extras/package/jsonderulo23)
-Results are cached for 12 hours by default, but you can specify your own time limit in seconds using &cacheTime=``. Make sure you call the snippet uncached from your templates!
+Snippets and chunks to pull in various social JSON feeds. [Available on the MODX Extras repo](http://modx.com/extras/package/jsonderulo23).
+
+Results are cached for 12 hours by default, but you can specify your own time limit in seconds using &cacheTime. Make sure you call the snippet uncached from your templates!
 Most snippets allow you to specify multiple usernames, however any feeds which require an API key will not yet work with multiple accounts.
 The following feeds are already set up:
 
@@ -19,17 +20,14 @@ The following feeds are already set up:
 
 Plenty of thouroughly helpful help from [Mister John Noel](https://github.com/johnnoel) and his code on which these snippets are based.
 
+Also, hat tip to [basvaneijk](https://github.com/basvaneijk) for the preg_replace stuff to auto link @, # and URLs within the [[+message]]
+
 ## Requirements/Prerequisites
 
 * Tested on MODx 2.2.x
 * PHPThumbOf
-* API Keys for certain feeds
+* API Keys/app secrets, etc for certain feeds
 * That's it!
-
-## Still to do
-
-~~Having added option to include retweets in the Twitter feed, probably needs some work on placeholders available specific to retweets.~~
-Done. See placeholders further down...
 
 
 ## Available snippets
@@ -322,5 +320,3 @@ I've included a new chunk for displaying tweets. This includes several changes w
 ```
 <script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
 ```
-
-Also, hat tip to [basvaneijk](https://github.com/basvaneijk) for the preg_replace stuff to auto link @, # and URLs within the [[+message]]
