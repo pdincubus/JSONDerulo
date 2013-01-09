@@ -104,7 +104,17 @@ The screenName option is *optional*. It will allow you to fetch another user's t
 
 ```
 <ul>
-	[[!TwitterFeedNew? &tpl=`TwitterFeedItem` &limit=`LIMIT` &cacheName=`UNIQUE_NAME_TO_APPEND_TO_CACHE_FILE` &screenName=`USER_SCREEN_NAME_TO_FETCH_TIMELINE_FOR` &includeRTs=`1 or 0` &consumerKey=`YOUR_CONSUMER_KEY` &consumerSecret=`YOUR_CONSUMER_SECRET` &accessToken=`YOUR_ACCESS_TOKEN` &accessTokenSecret=`YOUR_ACCESS_TOKEN_SECRET` &cacheTime=`CACHE_TIME_IN_SECONDS`]]
+	[[!TwitterFeedNew? &tpl=`TwitterFeedItemNew` &limit=`LIMIT` &cacheName=`UNIQUE_NAME_TO_APPEND_TO_CACHE_FILE` &screenName=`USER_SCREEN_NAME_TO_FETCH_TIMELINE_FOR` &includeRTs=`1 or 0` &consumerKey=`YOUR_CONSUMER_KEY` &consumerSecret=`YOUR_CONSUMER_SECRET` &accessToken=`YOUR_ACCESS_TOKEN` &accessTokenSecret=`YOUR_ACCESS_TOKEN_SECRET` &cacheTime=`CACHE_TIME_IN_SECONDS`]]
+</ul>
+```
+
+### Twitter (New API version for multiple timelines)
+
+As above, you'll need to have an app set up to use the new Twitter API. This version **does not** have the cacheName option, and the screenName is **required**. Pass multiple screenNames separated by commas to get more than one timeline. E.g: &screenName=`twitter,twitterapi`
+
+```
+<ul>
+	[[!TwitterFeedNewMultipleFeeds? &tpl=`TwitterFeedItemNew` &limit=`LIMIT` &screenName=`COMMAS_SEPARATED_LIST_OF_SCREEN_NAMES_TO_FETCH_TIMELINE_FOR` &includeRTs=`1 or 0` &consumerKey=`YOUR_CONSUMER_KEY` &consumerSecret=`YOUR_CONSUMER_SECRET` &accessToken=`YOUR_ACCESS_TOKEN` &accessTokenSecret=`YOUR_ACCESS_TOKEN_SECRET` &cacheTime=`CACHE_TIME_IN_SECONDS`]]
 </ul>
 ```
 
