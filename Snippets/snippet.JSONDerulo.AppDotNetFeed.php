@@ -3,7 +3,7 @@
 * @author Phil Steer
 * @package JSONDerulo
 * @site https://github.com/pdincubus/JSONDerulo
-* Fetches Twitter feed in JSON format and allows templating via chunk
+* Fetches App.net feed in JSON format and allows templating via chunk
 */
 
 $feedUrl = 'https://alpha-api.app.net/stream/0/users/{userId}/posts?count={limit}';
