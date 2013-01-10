@@ -13,7 +13,7 @@ $ch = null;
 $tpl = $modx->getOption('tpl', $scriptProperties, '');
 $limit = $modx->getOption('limit', $scriptProperties, 2);
 $excludeEmpty = explode(',', $modx->getOption('excludeEmpty', $scriptProperties, 'text'));
-$feeds = explode(',', $modx->getOption('userId', $scriptProperties, 'pd'));
+$feeds = explode(',', $modx->getOption('userId', $scriptProperties, '19445'));
 $cacheTime =	$modx->getOption('cacheTime', $scriptProperties, 43200);
 
 $rawFeedData = array();
