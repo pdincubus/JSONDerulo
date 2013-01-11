@@ -5,6 +5,10 @@ For all info: https://github.com/pdincubus/JSONDerulo/
 Most recent additions
 ---------------------
 
+1.5.0:
+  * NEW Google+ public posts feed
+  * NEW TwitterFeedNewMultipleFeeds lets you choose what time of timeline to return
+
 1.4.0:
   * New Twitter multiple timeline combining feed fetcher. See the documentation for more info.
 

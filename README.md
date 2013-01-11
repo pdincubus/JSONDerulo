@@ -9,6 +9,7 @@ The following feeds are already set up:
 * App.net - most recent posts
 * Delicious - most recent bookmarks
 * Flickr - most recent photographs in your photostream
+* Google+ - most recent public posts
 * LastFM - recent "loved" tracks or recent "listens"
 * Picasa - Photos from a named album
 * Twitter - most recent tweets
@@ -56,7 +57,17 @@ Requires API key, get one here: [Flickr API Key](http://www.flickr.com/services/
 
 ```
 <ul>
-	[[!FlickrFeed? &tpl=`FlickrFeedItem` &limit=`LIMIT` &users=`FLICKR USER ID` &apiKey=`API KEY` &userName=`USERNAME` &cacheTime=`CACHE_TIME_IN_SECONDS`]]
+	[[!FlickrFeed? &tpl=`FlickrFeedItem` &limit=`LIMIT` &users=`FLICKR USER ID` &apiKey=`API_KEY` &userName=`USERNAME` &cacheTime=`CACHE_TIME_IN_SECONDS`]]
+</ul>
+```
+
+### Google+
+
+Requires API key, get one here: [Google API key](https://code.google.com/apis/console/)
+
+```
+<ul>
+    [[!GooglePlusFeed? &tpl=`GooglePlusFeedItem` &limit=`LIMIT` &userId=`USER_ID` &apiKey=`API_KEY` &cacheName=`UNIQUE_NAME_FOR_CACHE_FILE` &cacheTime=`CACHE_TIME_IN_SECONDS`]]
 </ul>
 ```
 
@@ -244,6 +255,24 @@ The App.net feed is very pleasant and gives you the option of either "text" or "
 [[+username]]
 ```
 
+### Google+:
+
+```
+[[+text]]
+[[+html]]
+[[+postId]]
+[[+attachmentUrl]]
+[[+repliesCount]]
+[[+plusCount]]
+[[+resharesCount]]
+[[+postUrl]]
+[[+postDate]]
+[[+profileUrl]]
+[[+avatar]]
+[[+displayName]]
+
+```
+
 #### LastFM:
 
 ```
@@ -337,7 +366,7 @@ Ensure you have the following in the "phpthumb_nohotlink_valid_domains" section:
 * LastFM Album art: ```userserve-ak.last.fm```
 * Vimeo Thumbnails: ```*.vimeocdn.com```
 * Twitter profile avatars: ```*.twimg.com```
-* Picasa Thumbnails: ```*.googleusercontent.com```
+* Picasa/Google+ Thumbnails: ```*.googleusercontent.com```
 * App.net avatars: ```*.cloudfront.net```
 
 
