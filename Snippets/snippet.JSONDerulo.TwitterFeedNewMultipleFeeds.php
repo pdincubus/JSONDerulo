@@ -2,9 +2,9 @@
 /*
 * @author Phil Steer
 * @package JSONDerulo
-* @site https://github.com/pdincubus/JSONDerulo
-* Fetches Twitter feed in JSON format and allows templating via chunk
-* Updated to work with the new API awfulness
+* @site GitHub source: https://github.com/pdincubus/JSONDerulo
+* @site MODX Exta: http://modx.com/extras/package/jsonderulo23
+* Fetches Twitter feeds in JSON format and allows templating via chunk
 */
 
 $tpl = $modx->getOption('tpl', $scriptProperties, '');

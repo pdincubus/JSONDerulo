@@ -2,7 +2,8 @@
 /*
 * @author Phil Steer
 * @package JSONDerulo
-* @site https://github.com/pdincubus/JSONDerulo
+* @site GitHub source: https://github.com/pdincubus/JSONDerulo
+* @site MODX Exta: http://modx.com/extras/package/jsonderulo23
 * Fetches Twitter feed in JSON format and allows templating via chunk
 */
 
@@ -15,7 +16,7 @@ $limit = $modx->getOption('limit', $scriptProperties, 2);
 $includeRTs = $modx->getOption('includeRTs', $scriptProperties, 1);
 $excludeEmpty = explode(',', $modx->getOption('excludeEmpty', $scriptProperties, 'text'));
 $feeds = explode(',', $modx->getOption('users', $scriptProperties, 'twitter'));
-$cacheTime =	$modx->getOption('cacheTime', $scriptProperties, 43200);
+$cacheTime = $modx->getOption('cacheTime', $scriptProperties, 43200);
 
 $rawFeedData = array();
 

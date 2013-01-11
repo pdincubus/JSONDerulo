@@ -2,7 +2,8 @@
 /*
 * @author Phil Steer
 * @package JSONDerulo
-* @site https://github.com/pdincubus/JSONDerulo
+* @site GitHub source: https://github.com/pdincubus/JSONDerulo
+* @site MODX Exta: http://modx.com/extras/package/jsonderulo23
 * Fetches Flickr feed in JSON format and allows templating via chunk
 */
 
@@ -16,7 +17,7 @@ $excludeEmpty = explode(',', $modx->getOption('excludeEmpty', $scriptProperties,
 $feeds = explode(',', $modx->getOption('users', $scriptProperties, '3'));
 $apiKey = $modx->getOption('apiKey', $scriptProperties, '');
 $userName = $modx->getOption('userName', $scriptProperties, '');
-$cacheTime =	$modx->getOption('cacheTime', $scriptProperties, 43200);
+$cacheTime = $modx->getOption('cacheTime', $scriptProperties, 43200);
 
 $rawFeedData = array();
 
