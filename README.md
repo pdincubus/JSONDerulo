@@ -108,9 +108,47 @@ The screenName option is *optional*. It will allow you to fetch another user's t
 
 ### Twitter (New API version for multiple timelines)
 
-As above, you'll need to have an app set up to use the new Twitter API. This version **does not** have the cacheName option, and the screenName is **required**. Pass multiple screenNames separated by commas to get more than one timeline. E.g: &screenName=`twitter,twitterapi`
+As above, you'll need to have an app set up to use the new Twitter API. This version **does not** have the cacheName option, and the screenName is **required**. This is not needed for all timeline types available, but it is used by the snippet for generating a cache filename for the feed. Pass multiple screenNames separated by commas to get more than one timeline. E.g: &screenName=`twitter,twitterapi`
 
-Combined timelines will be output in the order specified in the call. If you want to randomise the output then you're probably going to need a bit of javascript to shuffle the items after the DOM has finished loading.
+Combined timelines will be output in the order specified in the call. If you want to randomise the output then you're probably going to need a bit of javascript to shuffle the items after the DOM has finished loading. Maybe like this handy bit of script I found a while back:
+
+```javascript
+/*------------------------------------------------------------------------------------
+ * Shuffle function
+ *----------------------------------------------------------------------------------*/
+	
+(function($){
+    $.fn.shuffle = function() {
+ 
+        var allElems = this.get(),
+            getRandom = function(max) {
+                return Math.floor(Math.random() * max);
+            },
+            shuffled = $.map(allElems, function(){
+                var random = getRandom(allElems.length),
+                    randEl = $(allElems[random]).clone(true)[0];
+                allElems.splice(random, 1);
+                return randEl;
+           });
+ 
+        this.each(function(i){
+            $(this).replaceWith($(shuffled[i]));
+        });
+ 
+        return $(shuffled);
+    };
+})(jQuery);
+```
+
+For &timelineType, there are a few options:
+
+* user_timeline - the default option. Your tweets.
+* home_timeline - your tweets and tweets from those you follow
+* mentions - Ronseal.
+* retweets_of_me - Ronseal.
+* any other timeline type listed in the [Twitter API docs](https://dev.twitter.com/docs/api/1.1). The four above are likely the most useful!
+
+
 
 ```
 <ul>
