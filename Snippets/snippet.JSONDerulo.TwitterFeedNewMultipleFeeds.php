@@ -11,12 +11,13 @@ $tpl = $modx->getOption('tpl', $scriptProperties, '');
 $limit = $modx->getOption('limit', $scriptProperties, 2);
 $screenName = explode(',', $modx->getOption('screenName', $scriptProperties, ''));
 $includeRTs = $modx->getOption('includeRTs', $scriptProperties, 1);
+$timelineType = $modx->getOption('timelineType', $scriptProperties, 'user_timeline');
 $excludeEmpty = explode(',', $modx->getOption('excludeEmpty', $scriptProperties, 'text'));
 $consumerKey = $modx->getOption('consumerKey', $scriptProperties, '');
-$consumerSecret =	$modx->getOption('consumerSecret', $scriptProperties, '');
+$consumerSecret =$modx->getOption('consumerSecret', $scriptProperties, '');
 $accessToken =	$modx->getOption('accessToken', $scriptProperties, '');
-$accessTokenSecret =	$modx->getOption('accessTokenSecret', $scriptProperties, '');
-$cacheTime =	$modx->getOption('cacheTime', $scriptProperties, 43200);
+$accessTokenSecret = $modx->getOption('accessTokenSecret', $scriptProperties, '');
+$cacheTime = $modx->getOption('cacheTime', $scriptProperties, 43200);
 
 $rawFeedData = array();
 $output = '';
@@ -31,10 +32,10 @@ foreach ($screenName as $user) {
 		$fetch->format = 'json';
 		$fetch->decode_json = FALSE;
 		$fetch->ssl_verifypeer = FALSE;
-		$json = $fetch->get('statuses/user_timeline', array('include_rts' => $includeRTs, 'count' => $limit, 'screen_name' => $user));
+		$json = $fetch->get('statuses/'.$timelineType, array('include_rts' => $includeRTs, 'count' => $limit, 'screen_name' => $user));
 		
 		if (empty($json)) {
-				continue;
+			continue;
 		}
 		
 		$modx->cacheManager->set($cacheId, $json, $cacheTime);
@@ -51,7 +52,7 @@ foreach ($screenName as $user) {
     foreach ($feed as $message) {
 		foreach ($excludeEmpty as $k) {
 			if ($message->$k == '') {
-					continue 2;
+				continue 2;
 			}
 		}
 
