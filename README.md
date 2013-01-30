@@ -132,7 +132,7 @@ The screenName option is *optional*. It will allow you to fetch another user's t
 
 ### PLEASE NOTE - Twitter feeds and count limit
 
-The [Twitter API documentation](https://dev.twitter.com/docs/api/1.1/get/statuses/user_timeline) states under retweets that: "When set to false, the timeline will strip any native retweets (though they will still count toward both the maximal length of the timeline and the slice selected by the count parameter)". This means that if you set the limit to return 5 tweets, and 4 of your most recent tweets are retweets the feed will only return ONE item. This is NOT a bug!
+The [Twitter API documentation](https://dev.twitter.com/docs/api/1.1/get/statuses/user_timeline) states under retweets that: "When set to false, the timeline will strip any native retweets (though they will still count toward both the maximal length of the timeline and the slice selected by the count parameter)". This means that if you set retweets OFF and the limit to return 5 tweets, and 4 of your most recent tweets are retweets the feed will only return ONE item. This is NOT a bug!
 
 ### Twitter (New API version for multiple timelines)
 
