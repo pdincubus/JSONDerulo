@@ -130,6 +130,10 @@ The screenName option is *optional*. It will allow you to fetch another user's t
 </ul>
 ```
 
+### PLEASE NOTE - Twitter feeds and count limit
+
+The [Twitter API documentation](https://dev.twitter.com/docs/api/1.1/get/statuses/user_timeline) states under retweets that: "When set to false, the timeline will strip any native retweets (though they will still count toward both the maximal length of the timeline and the slice selected by the count parameter)". This means that if you set the limit to return 5 tweets, and 4 of your most recent tweets are retweets the feed will only return ONE item. This is NOT a bug!
+
 ### Twitter (New API version for multiple timelines)
 
 As above, you'll need to have an app set up to use the new Twitter API. This version **does not** have the cacheName option, and the screenName is **required**. This is not needed for all timeline types available, but it is used by the snippet for generating a cache filename for the feed. Pass multiple screenNames separated by commas to get more than one timeline. E.g: &screenName=`twitter,twitterapi`
