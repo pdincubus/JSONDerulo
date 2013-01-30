@@ -12,6 +12,7 @@ The following feeds are already set up:
 * Google+ - most recent public posts
 * LastFM - recent "loved" tracks or recent "listens"
 * Picasa - Photos from a named album
+* Tumblr - most recent posts (several post type options)
 * Twitter - most recent tweets
 * Vimeo - most recent "likes"
 * YouTube - Most recent additions to "favourites" playlist or specific user's uploads
@@ -95,6 +96,18 @@ Requires api key, get one here: [LastFM API Key](http://www.last.fm/api/account)
 </ul>
 ```
 
+### Tumblr
+
+The &postType option is optional (will return all post types), but can be set to ```audio```, ```video```, ```photo```, ```link```, ```text```
+
+You can only set ONE postType.
+
+```
+<ul>
+    [[!TumblrFeed? &tpl=`TumblrFeedItem` &limit=`LIMIT` &tag=`TAG TO FILTER BY` &postType=`POST TYPE TO FETCH` &notesInfo=`TRUE or FALSE` &blogUrl=`YOUR TUMBLR URL` &apiKey=`API KEY` &cacheTime=`CACHE_TIME_IN_SECONDS`]]
+</ul>
+```
+
 ### Twitter
 
 ```
@@ -127,10 +140,10 @@ Combined timelines will be output in the order specified in the call. If you wan
 /*------------------------------------------------------------------------------------
  * Shuffle function
  *----------------------------------------------------------------------------------*/
-	
+
 (function($){
     $.fn.shuffle = function() {
- 
+
         var allElems = this.get(),
             getRandom = function(max) {
                 return Math.floor(Math.random() * max);
@@ -141,11 +154,11 @@ Combined timelines will be output in the order specified in the call. If you wan
                 allElems.splice(random, 1);
                 return randEl;
            });
- 
+
         this.each(function(i){
             $(this).replaceWith($(shuffled[i]));
         });
- 
+
         return $(shuffled);
     };
 })(jQuery);
@@ -166,8 +179,6 @@ For &timelineType, there are a few options:
 	[[!TwitterFeedNewMultipleFeeds? &tpl=`TwitterFeedItemNew` &limit=`LIMIT` &screenName=`COMMAS_SEPARATED_LIST_OF_SCREEN_NAMES_TO_FETCH_TIMELINE_FOR` &includeRTs=`1 or 0` &consumerKey=`YOUR_CONSUMER_KEY` &consumerSecret=`YOUR_CONSUMER_SECRET` &accessToken=`YOUR_ACCESS_TOKEN` &accessTokenSecret=`YOUR_ACCESS_TOKEN_SECRET` &cacheTime=`CACHE_TIME_IN_SECONDS`]]
 </ul>
 ```
-
-
 
 ### Vimeo
 
@@ -294,6 +305,69 @@ The App.net feed is very pleasant and gives you the option of either "text" or "
 [[+title]]
 [[+userid]]
 [[+albumname]]
+```
+
+### Tumblr:
+
+Default placeholders:
+
+```
+[[+blogUrl]]
+[[+blogName]]
+[[+blogDescription]]
+[[+post]]
+[[+postType]]
+[[+postUrl]]
+[[+created]]
+[[+createdDate]]
+[[+id]]
+[[+shortUrl]]
+```
+
+For video posts:
+
+```
+[[+caption]]
+[[+videoPermalink]]
+[[+thumbnail]]
+[[+player250]]
+[[+player400]]
+[[+player500]]
+```
+
+For link posts:
+
+```
+[[+title]]
+[[+linkUrl]]
+[[+linkDescription]]
+```
+
+For text posts:
+
+```
+[[+title]]
+[[+content]]
+```
+
+For audio posts:
+
+```
+[[+audioSourceUrl]]
+[[+audioSourceTitle]]
+[[+artist]]
+[[+album]]
+[[+trackName]]
+[[+player]]
+[[+audioUrl]]
+```
+
+For image posts:
+
+```
+[[+caption]]
+[[+imagePermalink]]
+[[+image]]
 ```
 
 #### Twitter:

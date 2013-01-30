@@ -1,0 +1,52 @@
+<li class="cf">
+    <a href="[[+blogUrl]]">[[+blogName]]</a><br>
+    [[+blogDescription]]
+
+    <div class="post">
+        [[+post]]<br>
+        [[+postType]]
+    </div>
+
+    <a href="[[+postUrl]]">Post direct link</a>
+    <time datetime="[[+created:date=`%Y-%m-%d`]]">[[+created:date=`%e %B`]]</time>
+
+    [[+createdDate]]<br>
+    [[+id]]<br>
+    [[+shortUrl]]<br>
+
+    [[+postType:is=`video`:then=`
+    [[+caption]]<br>
+    [[+videoPermalink]]<br>
+    [[+thumbnail]]<br>
+    [[+player250]]<br>
+    [[+player400]]<br>
+    [[+player500]]<br>
+    `]]
+
+    [[+postType:eq=`link`:then=`
+    [[+title]]<br>
+    [[+linkUrl]]<br>
+    [[+linkDescription]]<br>
+    `]]
+
+    [[+postType:eq=`text`:then=`
+    [[+title]]<br>
+    [[+content]]<br>
+    `]]
+
+    [[+postType:eq=`audio`:then=`
+    [[+audioSourceUrl]]<br>
+    [[+audioSourceTitle]]<br>
+    [[+artist]]<br>
+    [[+album]]<br>
+    [[+trackName]]<br>
+    [[+player]]<br>
+    [[+audioUrl]]<br>
+    `]]
+
+    [[+postType:eq=`photo`:then=`
+    [[+caption]]<br>
+    [[+imagePermalink]]<br>
+    [[+image]]<br>
+    `]]
+</li>
