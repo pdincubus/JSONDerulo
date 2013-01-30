@@ -98,7 +98,7 @@ Requires api key, get one here: [LastFM API Key](http://www.last.fm/api/account)
 
 ### Tumblr
 
-The &postType option is optional (will return all post types), but can be set to ```audio```, ```video```, ```photo```, ```link```, ```text```
+The &postType option is optional (if not set, feed will return all post types), but can be set to ```audio```, ```video```, ```photo```, ```link```, ```text```
 
 You can only set ONE postType.
 
