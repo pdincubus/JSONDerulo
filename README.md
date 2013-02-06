@@ -75,11 +75,11 @@ Requires API key, get one here: [Google API key](https://code.google.com/apis/co
 
 ### Google calendar
 
-You'll need to find the calendar's public feed URL. Don't panic, [read the instructions further down the page](#)...
+You'll need to find the calendar's public feed URL. Don't panic, [read the instructions further down the page](#google-calendar-and-public-feed-urls)...
 
 ```
 <ul>
-    [[!GooglePlusFeed? &tpl=`GooglePlusFeedItem` &limit=`LIMIT` &userId=`USER_ID` &apiKey=`API_KEY` &cacheName=`UNIQUE_NAME_FOR_CACHE_FILE` &cacheTime=`CACHE_TIME_IN_SECONDS`]]
+    [[!GoogleCalendarFeed? &feedLocation=`FEED LOCATION` &limit=`LIMIT` &tpl=`GoogleCalendarFeedItem` &cacheTime=`CACHE_TIME_IN_SECONDS`]]
 </ul>
 ```
 
@@ -506,3 +506,5 @@ Look down near the bottom of the first settings screen, you'll see the following
 Right click the XML button, and click "Copy link location". Use this link as the &feedLocation in the snippet call. Easy!
 
 ![Calendar XML feed location](http://pdincubus.github.com/JSONDerulo/img/cal-copy-link.png)
+
+The link should look something like this: ```str1ng0fr4nd0mch4r5%40group.calendar.google.com```
