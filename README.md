@@ -10,6 +10,7 @@ The following feeds are already set up:
 * Delicious - most recent bookmarks
 * Flickr - most recent photographs in your photostream
 * Google+ - most recent public posts
+* Google calendar - upcoming public events
 * LastFM - recent "loved" tracks or recent "listens"
 * Picasa - Photos from a named album
 * Tumblr - most recent posts (several post type options)
@@ -65,6 +66,16 @@ Requires API key, get one here: [Flickr API Key](http://www.flickr.com/services/
 ### Google+
 
 Requires API key, get one here: [Google API key](https://code.google.com/apis/console/)
+
+```
+<ul>
+    [[!GooglePlusFeed? &tpl=`GooglePlusFeedItem` &limit=`LIMIT` &userId=`USER_ID` &apiKey=`API_KEY` &cacheName=`UNIQUE_NAME_FOR_CACHE_FILE` &cacheTime=`CACHE_TIME_IN_SECONDS`]]
+</ul>
+```
+
+### Google calendar
+
+You'll need to find the calendar's public feed URL. Don't panic, [read the instructions further down the page](#)...
 
 ```
 <ul>
@@ -288,6 +299,20 @@ The App.net feed is very pleasant and gives you the option of either "text" or "
 
 ```
 
+### Google Calendar:
+
+```
+[[+timezone]]
+[[+published]]
+[[+title]]
+[[+content]]
+[[+link]]
+[[+calendarName]]
+[[+eventStart]]
+[[+eventEnd]]
+[[+location]]
+```
+
 #### LastFM:
 
 ```
@@ -467,3 +492,17 @@ I've included a new chunk for displaying tweets. This includes several changes w
 ```
 <script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
 ```
+
+## Google calendar and public feed URLs
+
+Click the arrow beside the name of the calendar, then go to settings.
+
+![Calendar Settings](http://pdincubus.github.com/JSONDerulo/img/cal-settings.png)
+
+Look down near the bottom of the first settings screen, you'll see the following:
+
+![Calendar XML feed button](http://pdincubus.github.com/JSONDerulo/img/cal-xml-button.png)
+
+Right click the XML button, and click "Copy link location". Use this link as the &feedLocation in the snippet call. Easy!
+
+![Calendar XML feed location](http://pdincubus.github.com/JSONDerulo/img/cal-copy-link.png)
