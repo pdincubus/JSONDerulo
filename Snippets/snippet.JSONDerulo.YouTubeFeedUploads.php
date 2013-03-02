@@ -7,12 +7,13 @@
 * Fetches YouTube user uploads feed in JSON format and allows templating via chunk
 */
 
-$feedUrl = 'http://gdata.youtube.com/feeds/api/users/{username}/uploads?max-results={limit}&alt=json';
+$feedUrl = 'http://gdata.youtube.com/feeds/api/users/{username}/uploads?max-results={limit}&start-index={offset}&alt=json';
 
 $ch = null;
 
 $tpl = $modx->getOption('tpl', $scriptProperties, '');
 $limit = $modx->getOption('limit', $scriptProperties, 2);
+$startIndex = $modx->getOption('startIndex', $scriptProperties, 1);
 $excludeEmpty = explode(',', $modx->getOption('excludeEmpty', $scriptProperties, 'link'));
 $feeds = explode(',', $modx->getOption('users', $scriptProperties, ''));
 $cacheTime = $modx->getOption('cacheTime', $scriptProperties, 43200);
@@ -29,7 +30,7 @@ foreach ($feeds as $username) {
 		}
 
 		curl_setopt_array($ch, array(
-		  CURLOPT_URL => str_replace(array('{username}', '{limit}'), array($username, $limit), $feedUrl),
+		  CURLOPT_URL => str_replace(array('{username}', '{limit}', '{offset}'), array($username, $limit, $startIndex), $feedUrl),
 		));
 
 
