@@ -119,14 +119,6 @@ You can only set ONE postType.
 </ul>
 ```
 
-### Twitter
-
-```
-<ul>
-	[[!TwitterFeed? &tpl=`TwitterFeedItem` &limit=`LIMIT` &users=`USERNAME` &includeRTs=`1 or 0` &cacheTime=`CACHE_TIME_IN_SECONDS`]]
-</ul>
-```
-
 ### Twitter (New API version)
 
 You need to set up a Twitter "App" to make this work. From March 2013, this is the ONLY way. The method above will stop working altogether by this date. See more information in the Twitter section below!

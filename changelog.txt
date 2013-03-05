@@ -5,6 +5,12 @@ For all info: https://github.com/pdincubus/JSONDerulo/
 Most recent additions
 ---------------------
 
+1.7.1:
+  * REMOVED old style Twitter feed as API 1.0 is now officially retired.
+  * Fix to make sure twitter doesn't caused annoying crash problem if they decide to just randomly blackout API access.
+  * New Twitter chunk with ID check switch to allow for the graceful fallback for no JSON.
+  * Updated MODX extra repo package link to new one.
+
 1.7.0:
   * NEW Google calendar public events feed
 
