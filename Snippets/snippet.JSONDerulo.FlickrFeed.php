@@ -3,7 +3,7 @@
 * @author Phil Steer
 * @package JSONDerulo
 * @site GitHub source: https://github.com/pdincubus/JSONDerulo
-* @site MODX Exta: http://modx.com/extras/package/jsonderulo
+* @site MODX Extra: http://modx.com/extras/package/jsonderulo
 * Fetches Flickr feed in JSON format and allows templating via chunk
 */
 

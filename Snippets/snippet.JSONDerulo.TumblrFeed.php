@@ -3,7 +3,7 @@
 * @author Phil Steer
 * @package JSONDerulo
 * @site https://github.com/pdincubus/JSONDerulo
-* @site MODX Exta: http://modx.com/extras/package/jsonderulo
+* @site MODX Extra: http://modx.com/extras/package/jsonderulo
 * Fetches Tumblr feed in JSON format and allows templating via chunk
 */
 
