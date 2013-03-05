@@ -3,7 +3,7 @@
 * @author Phil Steer
 * @package JSONDerulo
 * @site GitHub source: https://github.com/pdincubus/JSONDerulo
-* @site MODX Exta: http://modx.com/extras/package/jsonderulo23
+* @site MODX Exta: http://modx.com/extras/package/jsonderulo
 * Fetches Google+ public feed in JSON format and allows templating via chunk
 */
 
@@ -25,13 +25,13 @@ $output = '';
 
 foreach ($feeds as $feed) {
 	$cacheId = 'googleplusfeed-'.$cacheName;
-	
+
 	if (($json = $modx->cacheManager->get($cacheId)) === null) {
 		if ($ch === null) {
 			$ch = curl_init();
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 		}
-	
+
 		curl_setopt_array($ch, array(
 		  CURLOPT_URL => str_replace(array('{apikey}', '{userid}', '{limit}'), array($apiKey, $userId, $limit), $feedUrl),
 		));
@@ -40,10 +40,10 @@ foreach ($feeds as $feed) {
 		if (empty($json)) {
 			continue;
 		}
-	
+
 		$modx->cacheManager->set($cacheId, $json, $cacheTime);
 	}
-	
+
 	$feed = json_decode($json);
 
 	if ($feed === null) {

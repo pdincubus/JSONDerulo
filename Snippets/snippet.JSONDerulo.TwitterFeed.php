@@ -3,7 +3,7 @@
 * @author Phil Steer
 * @package JSONDerulo
 * @site GitHub source: https://github.com/pdincubus/JSONDerulo
-* @site MODX Exta: http://modx.com/extras/package/jsonderulo23
+* @site MODX Exta: http://modx.com/extras/package/jsonderulo
 * Fetches Twitter feed in JSON format and allows templating via chunk
 */
 
@@ -22,7 +22,7 @@ $rawFeedData = array();
 
 foreach ($feeds as $username) {
 	$cacheId = 'twitterfeed-'.$username;
-  
+
 	if (($json = $modx->cacheManager->get($cacheId)) === null) {
 		if ($ch === null) {
 			$ch = curl_init();
@@ -56,7 +56,7 @@ foreach ($feeds as $username) {
 				continue 2;
 			}
 		}
-        
+
         $rawFeedData[$i] = array(
             'id' => $message->id_str,
     		'message' => $message->text,
@@ -67,7 +67,7 @@ foreach ($feeds as $username) {
             'retweetCount' => $message->retweet_count,
             'isRetweet' => '0',
         );
-        
+
         if(isset($message->retweeted_status)){
            $rawFeedData[$i]['originalAuthorPicture'] = $message->retweeted_status->user->profile_image_url;
            $rawFeedData[$i]['originalAuthor'] = $message->retweeted_status->user->name;
@@ -75,7 +75,7 @@ foreach ($feeds as $username) {
            $rawFeedData[$i]['isRetweet'] = '1';
            $rawFeedData[$i]['originalId'] = $message->retweeted_status->id;
         }
-        
+
        $i++;
 	}
 }

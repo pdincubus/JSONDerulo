@@ -3,6 +3,7 @@
 * @author Phil Steer
 * @package JSONDerulo
 * @site https://github.com/pdincubus/JSONDerulo
+* @site MODX Exta: http://modx.com/extras/package/jsonderulo
 * Fetches public Google calendar events in JSON format and allows templating via chunk
 */
 

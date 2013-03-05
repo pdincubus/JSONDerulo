@@ -3,7 +3,7 @@
 * @author Phil Steer
 * @package JSONDerulo
 * @site GitHub source: https://github.com/pdincubus/JSONDerulo
-* @site MODX Exta: http://modx.com/extras/package/jsonderulo23
+* @site MODX Exta: http://modx.com/extras/package/jsonderulo
 * Fetches App.net feed in JSON format and allows templating via chunk
 */
 
@@ -21,23 +21,23 @@ $rawFeedData = array();
 
 foreach ($feeds as $user) {
 	$cacheId = 'appdotnetfeed-'.$user;
-	
+
 	if (($json = $modx->cacheManager->get($cacheId)) === null) {
 		if ($ch === null) {
 			$ch = curl_init();
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 			curl_setopt($ch,CURLOPT_SSL_VERIFYPEER,0);
 		}
-		
+
 		curl_setopt_array($ch, array(
 			CURLOPT_URL => str_replace(array('{userId}', '{limit}'), array($user, $limit), $feedUrl),
 		));
-		
+
 		$json = curl_exec($ch);
 		if (empty($json)) {
 			continue;
 		}
-		
+
 		$modx->cacheManager->set($cacheId, $json, $cacheTime);
 	}
 

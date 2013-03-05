@@ -3,7 +3,7 @@
 * @author Phil Steer
 * @package JSONDerulo
 * @site GitHub source: https://github.com/pdincubus/JSONDerulo
-* @site MODX Exta: http://modx.com/extras/package/jsonderulo23
+* @site MODX Exta: http://modx.com/extras/package/jsonderulo
 * Fetches Flickr feed in JSON format and allows templating via chunk
 */
 
@@ -23,7 +23,7 @@ $rawFeedData = array();
 
 foreach ($feeds as $userId) {
 	$cacheId = 'flickrfeed-'.$userId;
-  
+
 	if (($json = $modx->cacheManager->get($cacheId)) === null) {
 		if ($ch === null) {
 			$ch = curl_init();
@@ -44,7 +44,7 @@ foreach ($feeds as $userId) {
 	}
 
 	$feed = json_decode($json);
-  
+
 	if ($feed === null) {
 		continue;
 	}

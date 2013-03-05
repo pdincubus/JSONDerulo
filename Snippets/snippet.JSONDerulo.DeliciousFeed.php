@@ -3,7 +3,7 @@
 * @author Phil Steer
 * @package JSONDerulo
 * @site GitHub source: https://github.com/pdincubus/JSONDerulo
-* @site MODX Exta: http://modx.com/extras/package/jsonderulo23
+* @site MODX Exta: http://modx.com/extras/package/jsonderulo
 * Fetches Delicious feed in JSON format and allows templating via chunk
 */
 
@@ -21,7 +21,7 @@ $rawFeedData = array();
 
 foreach ($feeds as $username) {
 	$cacheId = 'deliciousfeed-'.$username;
-  
+
 	if (($json = $modx->cacheManager->get($cacheId)) === null) {
 		if ($ch === null) {
 			$ch = curl_init();
@@ -63,7 +63,7 @@ foreach ($feeds as $username) {
 		);
 
 	}
- 
+
 }
 
 if ($ch !== null) {
