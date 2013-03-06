@@ -41,7 +41,7 @@ You need your user id to get this working, not your username. You can find it on
 
 ```
 <ul>
-  [[!AppDotNetFeed? &tpl=`AppDotNetFeedItem` &userId=`USERID` &limit=`LIMIT` &cacheTime=`CACHE_TIME_IN_SECONDS`]]
+  [[!AppDotNetFeed? &tpl=`AppDotNetFeedItem` &userId=`USERID` &limit=`LIMIT` &cacheTime=`CACHE_TIME_IN_SECONDS` &cacheName=`UNIQUE_NAME_FOR_CACHE_FILE`]]
 </ul>
 ```
 
@@ -49,7 +49,7 @@ You need your user id to get this working, not your username. You can find it on
 
 ```
 <ul>
-  [[!DeliciousFeed? &tpl=`DeliciousFeedItem` &users=`USERNAME` &limit=`LIMIT` &cacheTime=`CACHE_TIME_IN_SECONDS`]]
+  [[!DeliciousFeed? &tpl=`DeliciousFeedItem` &users=`USERNAME` &limit=`LIMIT` &cacheTime=`CACHE_TIME_IN_SECONDS` &cacheName=`UNIQUE_NAME_FOR_CACHE_FILE`]]
 </ul>
 ```
 
@@ -59,7 +59,7 @@ Requires API key, get one here: [Flickr API Key](http://www.flickr.com/services/
 
 ```
 <ul>
-	[[!FlickrFeed? &tpl=`FlickrFeedItem` &limit=`LIMIT` &users=`FLICKR USER ID` &apiKey=`API_KEY` &userName=`USERNAME` &cacheTime=`CACHE_TIME_IN_SECONDS`]]
+	[[!FlickrFeed? &tpl=`FlickrFeedItem` &limit=`LIMIT` &users=`FLICKR USER ID` &apiKey=`API_KEY` &userName=`USERNAME` &cacheTime=`CACHE_TIME_IN_SECONDS` &cacheName=`UNIQUE_NAME_FOR_CACHE_FILE`]]
 </ul>
 ```
 
@@ -79,7 +79,7 @@ You'll need to find the calendar's public feed URL. Don't panic, [read the instr
 
 ```
 <ul>
-    [[!GoogleCalendarFeed? &feedLocation=`FEED LOCATION` &limit=`LIMIT` &tpl=`GoogleCalendarFeedItem` &cacheTime=`CACHE_TIME_IN_SECONDS`]]
+    [[!GoogleCalendarFeed? &feedLocation=`FEED LOCATION` &limit=`LIMIT` &tpl=`GoogleCalendarFeedItem` &cacheTime=`CACHE_TIME_IN_SECONDS` &cacheName=`UNIQUE_NAME_FOR_CACHE_FILE`]]
 </ul>
 ```
 
@@ -89,13 +89,13 @@ Requires api key, get one here: [LastFM API Key](http://www.last.fm/api/account)
 
 ```
 <ul>
-	[[!LastFmFeed? &tpl=`LastFmFeedItem` &limit=`LIMIT` &users=`USERNAME` &apiKey=`API KEY` &cacheTime=`CACHE_TIME_IN_SECONDS`]]
+	[[!LastFmFeed? &tpl=`LastFmFeedItem` &limit=`LIMIT` &users=`USERNAME` &apiKey=`API KEY` &cacheTime=`CACHE_TIME_IN_SECONDS` &cacheName=`UNIQUE_NAME_FOR_CACHE_FILE`]]
 </ul>
 ```
 
 ```
 <ul>
-	[[!LastFmListensFeed? &tpl=`LastFmFeedItem` &limit=`LIMIT` &users=`USERNAME` &apiKey=`API KEY` &cacheTime=`CACHE_TIME_IN_SECONDS`]]
+	[[!LastFmListensFeed? &tpl=`LastFmFeedItem` &limit=`LIMIT` &users=`USERNAME` &apiKey=`API KEY` &cacheTime=`CACHE_TIME_IN_SECONDS` &cacheName=`UNIQUE_NAME_FOR_CACHE_FILE`]]
 </ul>
 ```
 
@@ -103,7 +103,7 @@ Requires api key, get one here: [LastFM API Key](http://www.last.fm/api/account)
 
 ```
 <ul>
-	[[!PicasaFeed? &tpl=`PicasaFeedItem` &limit=`LIMIT` &users=`USERID` &albumId=`ALBUMID` &albumName=`ALBUMNAME` &cacheTime=`CACHE_TIME_IN_SECONDS`]]
+	[[!PicasaFeed? &tpl=`PicasaFeedItem` &limit=`LIMIT` &users=`USERID` &albumId=`ALBUMID` &albumName=`ALBUMNAME` &cacheTime=`CACHE_TIME_IN_SECONDS` &cacheName=`UNIQUE_NAME_FOR_CACHE_FILE`]]
 </ul>
 ```
 
@@ -115,7 +115,7 @@ You can only set ONE postType.
 
 ```
 <ul>
-    [[!TumblrFeed? &tpl=`TumblrFeedItem` &limit=`LIMIT` &tag=`TAG TO FILTER BY` &postType=`POST TYPE TO FETCH` &notesInfo=`TRUE or FALSE` &blogUrl=`YOUR TUMBLR URL` &apiKey=`API KEY` &cacheTime=`CACHE_TIME_IN_SECONDS`]]
+    [[!TumblrFeed? &tpl=`TumblrFeedItem` &limit=`LIMIT` &tag=`TAG TO FILTER BY` &postType=`POST TYPE TO FETCH` &notesInfo=`TRUE or FALSE` &blogUrl=`YOUR TUMBLR URL` &apiKey=`API KEY` &cacheTime=`CACHE_TIME_IN_SECONDS` &cacheName=`UNIQUE_NAME_FOR_CACHE_FILE`]]
 </ul>
 ```
 
@@ -180,7 +180,6 @@ For &timelineType, there are a few options:
 * any other timeline type listed in the [Twitter API docs](https://dev.twitter.com/docs/api/1.1). The four above are likely the most useful!
 
 
-
 ```
 <ul>
 	[[!TwitterFeedNewMultipleFeeds? &tpl=`TwitterFeedItemNew` &limit=`LIMIT` &screenName=`COMMAS_SEPARATED_LIST_OF_SCREEN_NAMES_TO_FETCH_TIMELINE_FOR` &includeRTs=`1 or 0` &consumerKey=`YOUR_CONSUMER_KEY` &consumerSecret=`YOUR_CONSUMER_SECRET` &accessToken=`YOUR_ACCESS_TOKEN` &accessTokenSecret=`YOUR_ACCESS_TOKEN_SECRET` &cacheTime=`CACHE_TIME_IN_SECONDS`]]
@@ -191,7 +190,7 @@ For &timelineType, there are a few options:
 
 ```
 <ul>
-	[[!VimeoFeed? &tpl=`VimeoFeedItem` &users=`USERNAME` &limit=`LIMIT` &cacheTime=`CACHE_TIME_IN_SECONDS`]]
+	[[!VimeoFeed? &tpl=`VimeoFeedItem` &users=`USERNAME` &limit=`LIMIT` &cacheTime=`CACHE_TIME_IN_SECONDS` &cacheName=`UNIQUE_NAME_FOR_CACHE_FILE`]]
 </ul>
 ```
 
@@ -199,13 +198,13 @@ For &timelineType, there are a few options:
 
 ```
 <ul>
-	[[!YouTubeFeed? &tpl=`YouTubeFeedItem` &limit=`LIMIT` &users=`USERNAME` &cacheTime=`CACHE_TIME_IN_SECONDS`]]
+	[[!YouTubeFeed? &tpl=`YouTubeFeedItem` &limit=`LIMIT` &users=`USERNAME` &cacheTime=`CACHE_TIME_IN_SECONDS` &cacheName=`UNIQUE_NAME_FOR_CACHE_FILE`]]
 </ul>
 ```
 
 ```
 <ul>
-	[[!YouTubeFeedUploads? &tpl=`YouTubeFeedItem` &limit=`LIMIT` &users=`USERNAME` &cacheTime=`CACHE_TIME_IN_SECONDS`]]
+	[[!YouTubeFeedUploads? &tpl=`YouTubeFeedItem` &limit=`LIMIT` &users=`USERNAME` &cacheTime=`CACHE_TIME_IN_SECONDS` &cacheName=`UNIQUE_NAME_FOR_CACHE_FILE`]]
 </ul>
 ```
 
@@ -215,7 +214,7 @@ Requires API key, get one here: [ZooTool API Key](http://zootool.com/api/keys)
 
 ```
 <ul>
-	[[!ZooToolFeed? &tpl=`ZooToolFeedItem` &limit=`LIMIT` &users=`USERNAME` &apiKey=`API KEY` &cacheTime=`CACHE_TIME_IN_SECONDS`]]
+	[[!ZooToolFeed? &tpl=`ZooToolFeedItem` &limit=`LIMIT` &users=`USERNAME` &apiKey=`API KEY` &cacheTime=`CACHE_TIME_IN_SECONDS` &cacheName=`UNIQUE_NAME_FOR_CACHE_FILE`]]
 </ul>
 ```
 
