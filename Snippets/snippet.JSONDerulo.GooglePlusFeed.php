@@ -18,13 +18,15 @@ $userId = $modx->getOption('userId', $scriptProperties, '');
 $apiKey = $modx->getOption('apiKey', $scriptProperties, '');
 $excludeEmpty = explode(',', $modx->getOption('excludeEmpty', $scriptProperties, ''));
 $feeds = explode(',', $modx->getOption('cacheName', $scriptProperties, 'default'));
+$cacheName = $modx->getOption('cacheName', $scriptProperties, '');
 $cacheTime = $modx->getOption('cacheTime', $scriptProperties, 43200);
 
 $rawFeedData = array();
+$cacheName = str_replace(" ", "-", $cacheName);
 $output = '';
 
 foreach ($feeds as $feed) {
-	$cacheId = 'googleplusfeed-'.$cacheName;
+	$cacheId = 'googleplusfeed-'.$cacheName.'-'.$userId;
 
 	if (($json = $modx->cacheManager->get($cacheId)) === null) {
 		if ($ch === null) {

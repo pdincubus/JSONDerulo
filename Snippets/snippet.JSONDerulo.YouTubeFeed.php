@@ -17,12 +17,14 @@ $startIndex = $modx->getOption('startIndex', $scriptProperties, 1);
 $videoParams = $modx->getOption('videoParams', $scriptProperties, '?fs=1');
 $excludeEmpty = explode(',', $modx->getOption('excludeEmpty', $scriptProperties, 'link'));
 $feeds = explode(',', $modx->getOption('users', $scriptProperties, ''));
+$cacheName = $modx->getOption('cacheName', $scriptProperties, '');
 $cacheTime = $modx->getOption('cacheTime', $scriptProperties, 43200);
 
 $rawFeedData = array();
+$cacheName = str_replace(" ", "-", $cacheName);
 
 foreach ($feeds as $username) {
-	$cacheId = 'youtubefeed-'.$username;
+	$cacheId = 'youtubefeed-'.$cacheName.'-'.$username;
 
 	if (($json = $modx->cacheManager->get($cacheId)) === null) {
 		if ($ch === null) {

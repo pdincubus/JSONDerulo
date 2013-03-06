@@ -17,12 +17,14 @@ $excludeEmpty = explode(',', $modx->getOption('excludeEmpty', $scriptProperties,
 $feeds = explode(',', $modx->getOption('users', $scriptProperties, '3'));
 $albumId = $modx->getOption('albumId', $scriptProperties, '');
 $albumName = $modx->getOption('albumName', $scriptProperties, '');
+$cacheName = $modx->getOption('cacheName', $scriptProperties, '');
 $cacheTime = $modx->getOption('cacheTime', $scriptProperties, 43200);
 
 $rawFeedData = array();
+$cacheName = str_replace(" ", "-", $cacheName);
 
 foreach ($feeds as $userId) {
-	$cacheId = 'picasafeed-'.$userId;
+	$cacheId = 'picasafeed-'.$cacheName.'-'.$userId;
 
 	if (($json = $modx->cacheManager->get($cacheId)) === null) {
 		if ($ch === null) {

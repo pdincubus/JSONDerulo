@@ -14,13 +14,15 @@ $ch = null;
 $tpl = $modx->getOption('tpl', $scriptProperties, '');
 $limit = $modx->getOption('limit', $scriptProperties, 2);
 $excludeEmpty = explode(',', $modx->getOption('excludeEmpty', $scriptProperties, 'text'));
-$feeds = explode(',', $modx->getOption('userId', $scriptProperties, '19445'));
+$feeds = explode(',', $modx->getOption('userId', $scriptProperties, ''));
+$cacheName = $modx->getOption('cacheName', $scriptProperties, '');
 $cacheTime = $modx->getOption('cacheTime', $scriptProperties, 43200);
 
 $rawFeedData = array();
+$cacheName = str_replace(" ", "-", $cacheName);
 
 foreach ($feeds as $user) {
-	$cacheId = 'appdotnetfeed-'.$user;
+	$cacheId = 'appdotnetfeed-'.$cacheName.'-'.$user;
 
 	if (($json = $modx->cacheManager->get($cacheId)) === null) {
 		if ($ch === null) {

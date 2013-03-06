@@ -19,12 +19,12 @@ $consumerKey = $modx->getOption('consumerKey', $scriptProperties, '');
 $consumerSecret = $modx->getOption('consumerSecret', $scriptProperties, '');
 $accessToken = $modx->getOption('accessToken', $scriptProperties, '');
 $accessTokenSecret = $modx->getOption('accessTokenSecret', $scriptProperties, '');
+$cacheName = $modx->getOption('cacheName', $scriptProperties, '');
 $cacheTime = $modx->getOption('cacheTime', $scriptProperties, 43200);
 
 $rawFeedData = array();
-$output = '';
-
 $cacheName = str_replace(" ", "-", $cacheName);
+$output = '';
 
 if ($screenName != '') {
 	$cacheId = 'twitterfeednew-'.$screenName.'-'.$cacheName;

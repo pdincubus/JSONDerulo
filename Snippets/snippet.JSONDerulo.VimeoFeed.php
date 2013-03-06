@@ -15,12 +15,14 @@ $tpl = $modx->getOption('tpl', $scriptProperties, '');
 $limit = $modx->getOption('limit', $scriptProperties, '2');
 $excludeEmpty = explode(',', $modx->getOption('excludeEmpty', $scriptProperties, 'title'));
 $feeds = explode(',', $modx->getOption('users', $scriptProperties, ''));
+$cacheName = $modx->getOption('cacheName', $scriptProperties, '');
 $cacheTime = $modx->getOption('cacheTime', $scriptProperties, 43200);
 
 $rawFeedData = array();
+$cacheName = str_replace(" ", "-", $cacheName);
 
 foreach ($feeds as $username) {
-	$cacheId = 'vimeofeed-'.$username;
+	$cacheId = 'vimeofeed-'.$cacheName.'-'.$username;
 
 	if (($json = $modx->cacheManager->get($cacheId)) === null) {
 		if ($ch === null) {
