@@ -5,6 +5,10 @@ For all info: https://github.com/pdincubus/JSONDerulo/
 Most recent additions
 ---------------------
 
+1.7.2:
+  * Includes merged changes from "silentworks" to allow offset and videoParams on YouTube feeds.
+  * Includes cacheName option on most snippets to allow multiple snippet calls on same page to same user account
+
 1.7.1:
   * REMOVED old style Twitter feed as API 1.0 is now officially retired.
   * Fix to make sure twitter doesn't caused annoying crash problem if they decide to just randomly blackout API access.
