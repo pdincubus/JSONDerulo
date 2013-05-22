@@ -35,6 +35,7 @@ if ($screenName != '') {
 if (($json = $modx->cacheManager->get($cacheId)) === null) {
 	require_once $modx->getOption('core_path').'components/jsonderulo/twitteroauth/twitteroauth.php';
 	$fetch = new TwitterOAuth($consumerKey, $consumerSecret, $accessToken, $accessTokenSecret);
+    $fetch->host = "https://api.twitter.com/1.1/";
 	$fetch->format = 'json';
 	$fetch->decode_json = FALSE;
 	$fetch->ssl_verifypeer = FALSE;
