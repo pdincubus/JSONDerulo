@@ -24,69 +24,69 @@ $rawFeedData = array();
 $cacheName = str_replace(" ", "-", $cacheName);
 
 foreach ($feeds as $userId) {
-	$cacheId = 'picasafeed-'.$cacheName.'-'.$userId;
+    $cacheId = 'picasafeed-'.$cacheName.'-'.$userId;
 
-	if (($json = $modx->cacheManager->get($cacheId)) === null) {
-		if ($ch === null) {
-			$ch = curl_init();
-			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-		}
+    if (($json = $modx->cacheManager->get($cacheId)) === null) {
+        if ($ch === null) {
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        }
 
-		curl_setopt_array($ch, array(
-		  CURLOPT_URL => str_replace(array('{userid}', '{albumid}'), array($userId, $albumId), $feedUrl),
-		));
+        curl_setopt_array($ch, array(
+          CURLOPT_URL => str_replace(array('{userid}', '{albumid}'), array($userId, $albumId), $feedUrl),
+        ));
 
 
-	  	$json = curl_exec($ch);
-		if (empty($json)) {
-			continue;
-		}
+        $json = curl_exec($ch);
+        if (empty($json)) {
+            continue;
+        }
 
-		$modx->cacheManager->set($cacheId, $json, $cacheTime);
-	}
+        $modx->cacheManager->set($cacheId, $json, $cacheTime);
+    }
 
-	$feed = json_decode($json);
+    $feed = json_decode($json);
 
-	if ($feed === null) {
-		continue;
-	}
+    if ($feed === null) {
+        continue;
+    }
 
-	$counter = NULL;
+    $counter = NULL;
 
-	$feeditems = $feed->feed;
+    $feeditems = $feed->feed;
 
-	foreach ($feeditems->entry as $photo) {
-		$counter++;
+    foreach ($feeditems->entry as $photo) {
+        $counter++;
 
-		if($counter>$limit){
-		      break;
-		}
+        if($counter>$limit){
+              break;
+        }
 
-		foreach ($excludeEmpty as $k) {
-			if ($photo->$k == '') {
-				continue 2;
-			}
-		}
+        foreach ($excludeEmpty as $k) {
+            if ($photo->$k == '') {
+                continue 2;
+            }
+        }
 
-		$rawFeedData[] = array(
-			'link' => $photo->link[1]->href,
-			'albumid' => $albumId,
-			'created' => strtotime($photo->published->{'$t'}),
-			'picture' => $photo->content->src,
-			'title' => $photo->{'media$group'}->{'media$title'}->{'$t'},
-			'userid' => $userId,
-			'albumname' => $albumName,
-		);
-	}
+        $rawFeedData[] = array(
+            'link' => $photo->link[1]->href,
+            'albumid' => $albumId,
+            'created' => strtotime($photo->published->{'$t'}),
+            'picture' => $photo->content->src,
+            'title' => $photo->{'media$group'}->{'media$title'}->{'$t'},
+            'userid' => $userId,
+            'albumname' => $albumName,
+        );
+    }
 }
 
 if ($ch !== null) {
-	curl_close($ch);
+    curl_close($ch);
 }
 
 $output = '';
 foreach ($rawFeedData as $photo) {
-	$output .= $modx->getChunk($tpl, $photo);
+    $output .= $modx->getChunk($tpl, $photo);
 }
 
 return $output;

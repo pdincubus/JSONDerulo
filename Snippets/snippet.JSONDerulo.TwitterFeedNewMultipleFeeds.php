@@ -15,7 +15,7 @@ $timelineType = $modx->getOption('timelineType', $scriptProperties, 'user_timeli
 $excludeEmpty = explode(',', $modx->getOption('excludeEmpty', $scriptProperties, 'text'));
 $consumerKey = $modx->getOption('consumerKey', $scriptProperties, '');
 $consumerSecret =$modx->getOption('consumerSecret', $scriptProperties, '');
-$accessToken =	$modx->getOption('accessToken', $scriptProperties, '');
+$accessToken =  $modx->getOption('accessToken', $scriptProperties, '');
 $accessTokenSecret = $modx->getOption('accessTokenSecret', $scriptProperties, '');
 $cacheTime = $modx->getOption('cacheTime', $scriptProperties, 43200);
 
@@ -27,68 +27,68 @@ foreach ($screenName as $user) {
     $cacheId = 'twitterfeednewmultiplefeeds-'.$user;
 
     if (($json = $modx->cacheManager->get($cacheId)) === null) {
-		require_once $modx->getOption('core_path').'components/jsonderulo/twitteroauth/twitteroauth.php';
-		$fetch = new TwitterOAuth($consumerKey, $consumerSecret, $accessToken, $accessTokenSecret);
+        require_once $modx->getOption('core_path').'components/jsonderulo/twitteroauth/twitteroauth.php';
+        $fetch = new TwitterOAuth($consumerKey, $consumerSecret, $accessToken, $accessTokenSecret);
         $fetch->host = "https://api.twitter.com/1.1/";
-		$fetch->format = 'json';
-		$fetch->decode_json = FALSE;
-		$fetch->ssl_verifypeer = FALSE;
-		$json = $fetch->get('statuses/'.$timelineType, array('include_rts' => $includeRTs, 'count' => $limit, 'screen_name' => $user));
+        $fetch->format = 'json';
+        $fetch->decode_json = FALSE;
+        $fetch->ssl_verifypeer = FALSE;
+        $json = $fetch->get('statuses/'.$timelineType, array('include_rts' => $includeRTs, 'count' => $limit, 'screen_name' => $user));
 
-		if(!empty($json)) {
-			$modx->cacheManager->set($cacheId, $json, $cacheTime);
-		}
+        if(!empty($json)) {
+            $modx->cacheManager->set($cacheId, $json, $cacheTime);
+        }
     }
 
     $feed = json_decode($json);
 
     if ($feed === null) {
-		$message['message'] = 'No tweets returned.';
-		$output = $modx->getChunk($tpl, $message);
-	} else {
-	    $i = 0;
+        $message['message'] = 'No tweets returned.';
+        $output = $modx->getChunk($tpl, $message);
+    } else {
+        $i = 0;
 
-	    foreach ($feed as $message) {
-			foreach ($excludeEmpty as $k) {
-				if ($message->$k == '') {
-					continue 2;
-				}
-			}
+        foreach ($feed as $message) {
+            foreach ($excludeEmpty as $k) {
+                if ($message->$k == '') {
+                    continue 2;
+                }
+            }
 
-			$input = $message->text;
-			// Convert URLs into hyperlinks
-			$input= preg_replace("/(http:\/\/)(.*?)\/([\w\.\/\&\=\?\-\,\:\;\#\_\~\%\+]*)/", "<a href=\"\\0\">\\0</a>", $input);
-			// Convert usernames (@) into links
-			$input= preg_replace("(@([a-zA-Z0-9\_]+))", "<a href=\"http://www.twitter.com/\\1\">\\0</a>", $input);
-			// Convert hash tags (#) to links
-			$input= preg_replace('/(^|\s)#(\w+)/', '\1<a href="http://search.twitter.com/search?q=%23\2">#\2</a>', $input);
+            $input = $message->text;
+            // Convert URLs into hyperlinks
+            $input= preg_replace("/(http:\/\/)(.*?)\/([\w\.\/\&\=\?\-\,\:\;\#\_\~\%\+]*)/", "<a href=\"\\0\">\\0</a>", $input);
+            // Convert usernames (@) into links
+            $input= preg_replace("(@([a-zA-Z0-9\_]+))", "<a href=\"http://www.twitter.com/\\1\">\\0</a>", $input);
+            // Convert hash tags (#) to links
+            $input= preg_replace('/(^|\s)#(\w+)/', '\1<a href="http://search.twitter.com/search?q=%23\2">#\2</a>', $input);
 
-			$rawFeedData[$i] = array(
-				'id' => $message->id_str,
-				'message' => $input,
-				'created' => strtotime($message->created_at),
-				'picture' => $message->user->profile_image_url,
-				'title' => $message->user->name,
-				'username' => $message->user->screen_name,
-				'retweetCount' => $message->retweet_count,
-				'isRetweet' => '0',
-			);
+            $rawFeedData[$i] = array(
+                'id' => $message->id_str,
+                'message' => $input,
+                'created' => strtotime($message->created_at),
+                'picture' => $message->user->profile_image_url,
+                'title' => $message->user->name,
+                'username' => $message->user->screen_name,
+                'retweetCount' => $message->retweet_count,
+                'isRetweet' => '0',
+            );
 
-			if(isset($message->retweeted_status)){
-				$rawFeedData[$i]['originalAuthorPicture'] = $message->retweeted_status->user->profile_image_url;
-				$rawFeedData[$i]['originalAuthor'] = $message->retweeted_status->user->name;
-				$rawFeedData[$i]['originalUsername'] = $message->retweeted_status->user->screen_name;
-				$rawFeedData[$i]['isRetweet'] = '1';
-				$rawFeedData[$i]['originalId'] = $message->retweeted_status->id;
-			}
+            if(isset($message->retweeted_status)){
+                $rawFeedData[$i]['originalAuthorPicture'] = $message->retweeted_status->user->profile_image_url;
+                $rawFeedData[$i]['originalAuthor'] = $message->retweeted_status->user->name;
+                $rawFeedData[$i]['originalUsername'] = $message->retweeted_status->user->screen_name;
+                $rawFeedData[$i]['isRetweet'] = '1';
+                $rawFeedData[$i]['originalId'] = $message->retweeted_status->id;
+            }
 
-			$i++;
-	    }
+            $i++;
+        }
 
-	    foreach ($rawFeedData as $item) {
-	        $output .= $modx->getChunk($tpl, $item);
-	    }
-	}
+        foreach ($rawFeedData as $item) {
+            $output .= $modx->getChunk($tpl, $item);
+        }
+    }
 }
 
 return $output;

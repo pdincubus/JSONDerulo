@@ -24,64 +24,64 @@ $rawFeedData = array();
 $cacheName = str_replace(" ", "-", $cacheName);
 
 foreach ($feeds as $username) {
-	$cacheId = 'youtubefeed-'.$cacheName.'-'.$username;
+    $cacheId = 'youtubefeed-'.$cacheName.'-'.$username;
 
-	if (($json = $modx->cacheManager->get($cacheId)) === null) {
-		if ($ch === null) {
-			$ch = curl_init();
-			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-		}
+    if (($json = $modx->cacheManager->get($cacheId)) === null) {
+        if ($ch === null) {
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        }
 
-		curl_setopt_array($ch, array(
-		  CURLOPT_URL => str_replace(array('{username}', '{limit}', '{offset}'), array($username, $limit, $startIndex), $feedUrl),
-		));
+        curl_setopt_array($ch, array(
+          CURLOPT_URL => str_replace(array('{username}', '{limit}', '{offset}'), array($username, $limit, $startIndex), $feedUrl),
+        ));
 
 
-	  	$json = curl_exec($ch);
-		if (empty($json)) {
-			continue;
-		}
+        $json = curl_exec($ch);
+        if (empty($json)) {
+            continue;
+        }
 
-		$modx->cacheManager->set($cacheId, $json, $cacheTime);
-	}
+        $modx->cacheManager->set($cacheId, $json, $cacheTime);
+    }
 
-	$feed = json_decode($json);
+    $feed = json_decode($json);
 
-	if ($feed === null) {
-		continue;
-	}
+    if ($feed === null) {
+        continue;
+    }
 
     $feeditems = $feed->feed;
 
-	foreach ($feeditems->entry as $video) {
+    foreach ($feeditems->entry as $video) {
 
-		foreach ($excludeEmpty as $k) {
-			if ($video->$k == '') {
-				continue 2;
-			}
-		}
+        foreach ($excludeEmpty as $k) {
+            if ($video->$k == '') {
+                continue 2;
+            }
+        }
 
-	  	$videoId = substr($video->id->{'$t'},42);
+        $videoId = substr($video->id->{'$t'},42);
 
-		$rawFeedData[] = array(
-		  	'published' => strtotime($video->published->{'$t'}),
-		  	'picture' => $video->{'media$group'}->{'media$thumbnail'}[0]->url,
-		  	'title' => $video->title->{'$t'},
-		  	'ytlink' => $video->link[0]->href,
-		  	'embedlink' => 'https://www.youtube.com/v/' .$videoId. $videoParams,
-		    'author' => $video->author[0]->name->{'$t'},
-		);
-	}
+        $rawFeedData[] = array(
+            'published' => strtotime($video->published->{'$t'}),
+            'picture' => $video->{'media$group'}->{'media$thumbnail'}[0]->url,
+            'title' => $video->title->{'$t'},
+            'ytlink' => $video->link[0]->href,
+            'embedlink' => 'https://www.youtube.com/v/' .$videoId. $videoParams,
+            'author' => $video->author[0]->name->{'$t'},
+        );
+    }
 }
 
 if ($ch !== null) {
-	curl_close($ch);
+    curl_close($ch);
 }
 
 $output = '';
 
 foreach ($rawFeedData as $image) {
-	$output .= $modx->getChunk($tpl, $image);
+    $output .= $modx->getChunk($tpl, $image);
 }
 
 return $output;

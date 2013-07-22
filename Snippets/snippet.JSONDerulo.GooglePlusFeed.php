@@ -26,62 +26,62 @@ $cacheName = str_replace(" ", "-", $cacheName);
 $output = '';
 
 foreach ($feeds as $feed) {
-	$cacheId = 'googleplusfeed-'.$cacheName.'-'.$userId;
+    $cacheId = 'googleplusfeed-'.$cacheName.'-'.$userId;
 
-	if (($json = $modx->cacheManager->get($cacheId)) === null) {
-		if ($ch === null) {
-			$ch = curl_init();
-			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-		}
+    if (($json = $modx->cacheManager->get($cacheId)) === null) {
+        if ($ch === null) {
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        }
 
-		curl_setopt_array($ch, array(
-		  CURLOPT_URL => str_replace(array('{apikey}', '{userid}', '{limit}'), array($apiKey, $userId, $limit), $feedUrl),
-		));
+        curl_setopt_array($ch, array(
+          CURLOPT_URL => str_replace(array('{apikey}', '{userid}', '{limit}'), array($apiKey, $userId, $limit), $feedUrl),
+        ));
 
-		$json = curl_exec($ch);
-		if (empty($json)) {
-			continue;
-		}
+        $json = curl_exec($ch);
+        if (empty($json)) {
+            continue;
+        }
 
-		$modx->cacheManager->set($cacheId, $json, $cacheTime);
-	}
+        $modx->cacheManager->set($cacheId, $json, $cacheTime);
+    }
 
-	$feed = json_decode($json);
+    $feed = json_decode($json);
 
-	if ($feed === null) {
-		continue;
-	}
+    if ($feed === null) {
+        continue;
+    }
 
-	$i = 0;
+    $i = 0;
 
-	foreach ($feed->items as $message) {
+    foreach ($feed->items as $message) {
 
-		$rawFeedData[$i] = array(
-			'avatar' => $message->actor->image->url,
-			'displayName' => $message->actor->displayName,
-			'profileUrl' => $message->actor->url,
-			'postId' => $message->id,
-			'postDate' => strtotime($message->published),
-			'text' => $message->title,
-			'html' => $message->object->content,
-			'url' => $message->url,
-			'attachmentUrl' => $message->object->attachments->url,
-			'repliesCount' => $message->object->replies->totalItems,
-			'plusCount' => $message->object->plusoners->totalItems,
-			'resharesCount' => $message->object->resharers->totalItems,
-		);
+        $rawFeedData[$i] = array(
+            'avatar' => $message->actor->image->url,
+            'displayName' => $message->actor->displayName,
+            'profileUrl' => $message->actor->url,
+            'postId' => $message->id,
+            'postDate' => strtotime($message->published),
+            'text' => $message->title,
+            'html' => $message->object->content,
+            'url' => $message->url,
+            'attachmentUrl' => $message->object->attachments->url,
+            'repliesCount' => $message->object->replies->totalItems,
+            'plusCount' => $message->object->plusoners->totalItems,
+            'resharesCount' => $message->object->resharers->totalItems,
+        );
 
-		$i++;
+        $i++;
 
-	}
+    }
 }
 
 if ($ch !== null) {
-	curl_close($ch);
+    curl_close($ch);
 }
 
 foreach ($rawFeedData as $message) {
-	$output .= $modx->getChunk($tpl, $message);
+    $output .= $modx->getChunk($tpl, $message);
 }
 
 return $output;

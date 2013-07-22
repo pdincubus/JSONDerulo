@@ -22,66 +22,66 @@ $rawFeedData = array();
 $cacheName = str_replace(" ", "-", $cacheName);
 
 foreach ($feeds as $username) {
-	$cacheId = 'vimeofeed-'.$cacheName.'-'.$username;
+    $cacheId = 'vimeofeed-'.$cacheName.'-'.$username;
 
-	if (($json = $modx->cacheManager->get($cacheId)) === null) {
-		if ($ch === null) {
-			$ch = curl_init();
-			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-		}
+    if (($json = $modx->cacheManager->get($cacheId)) === null) {
+        if ($ch === null) {
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        }
 
-		curl_setopt_array($ch, array(
-		  CURLOPT_URL => str_replace(array('{username}'), array($username), $feedUrl),
-		));
+        curl_setopt_array($ch, array(
+          CURLOPT_URL => str_replace(array('{username}'), array($username), $feedUrl),
+        ));
 
 
-	  	$json = curl_exec($ch);
-		if (empty($json)) {
-			continue;
-		}
+        $json = curl_exec($ch);
+        if (empty($json)) {
+            continue;
+        }
 
-		$modx->cacheManager->set($cacheId, $json, $cacheTime);
-	}
+        $modx->cacheManager->set($cacheId, $json, $cacheTime);
+    }
 
-	$feed = json_decode($json);
+    $feed = json_decode($json);
 
-	if ($feed === null) {
-		continue;
-	}
+    if ($feed === null) {
+        continue;
+    }
 
-  	$counter = NULL;
+    $counter = NULL;
 
-  	foreach ($feed as $video) {
-		$counter++;
+    foreach ($feed as $video) {
+        $counter++;
 
-		if($counter>$limit){
-		      break;
-		}
+        if($counter>$limit){
+              break;
+        }
 
-	  	foreach ($excludeEmpty as $k) {
-			if ($video->$k == '') {
-				continue 2;
-			}
-		}
+        foreach ($excludeEmpty as $k) {
+            if ($video->$k == '') {
+                continue 2;
+            }
+        }
 
-		$rawFeedData[] = array(
-			'id' => $video->id,
-		  	'url' => $video->url,
-			'created' => strtotime($video->upload_date),
-			'picture' => $video->thumbnail_large,
-			'title' => $video->title,
-			'username' => $userName,
-		);
-	}
+        $rawFeedData[] = array(
+            'id' => $video->id,
+            'url' => $video->url,
+            'created' => strtotime($video->upload_date),
+            'picture' => $video->thumbnail_large,
+            'title' => $video->title,
+            'username' => $userName,
+        );
+    }
 }
 
 if ($ch !== null) {
-	curl_close($ch);
+    curl_close($ch);
 }
 
 $output = '';
 foreach ($rawFeedData as $video) {
-	$output .= $modx->getChunk($tpl, $video);
+    $output .= $modx->getChunk($tpl, $video);
 }
 
 return $output;
