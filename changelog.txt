@@ -5,6 +5,10 @@ For all info: https://github.com/pdincubus/JSONDerulo/
 Most recent additions
 ---------------------
 
+1.7.4:
+  * Added YouTube v.3 API public playlist fetcher.
+  * twitteroauth should now avoid throwing an error about class OAuthException.
+
 1.7.3:
   * Switch the Twitter new API to ACTUALLY use 1.1. WTF. I mean really.
 

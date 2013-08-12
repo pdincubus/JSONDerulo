@@ -17,6 +17,7 @@ The following feeds are already set up:
 * Twitter - most recent tweets
 * Vimeo - most recent "likes"
 * YouTube - Most recent additions to "favourites" playlist or specific user's uploads
+* YouTube - (For API v.3 - fetch a public playlist)
 * ZooTool - Most recent items (pages or images)
 
 ## Thanks!
@@ -28,7 +29,7 @@ Also, hat tip to [basvaneijk](https://github.com/basvaneijk) for the preg_replac
 ## Requirements/Prerequisites
 
 * Tested on MODx 2.2.x
-* PHPThumbOf
+* PHPThumbOf / pThumb
 * API Keys/app secrets, etc for certain feeds
 * That's it!
 
@@ -205,6 +206,12 @@ For &timelineType, there are a few options:
 ```
 <ul>
 	[[!YouTubeFeedUploads? &tpl=`YouTubeFeedItem` &limit=`LIMIT` &users=`USERNAME` &cacheTime=`CACHE_TIME_IN_SECONDS` &cacheName=`UNIQUE_NAME_FOR_CACHE_FILE`]]
+</ul>
+```
+
+```
+<ul>
+    [[!YouTubeFeedV3PublicPlaylist? &tpl=`YouTubeFeedItem` &limit=`LIMIT` &playlistId=`YOUR_PLAYLIST_ID` &cacheTime=`CACHE_TIME_IN_SECONDS` &cacheName=`UNIQUE_NAME_FOR_CACHE_FILE` &apiKey=`YOUR_V3_API_KEY`]]
 </ul>
 ```
 
