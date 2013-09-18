@@ -1,0 +1,1084 @@
+<?php
+//-----------------------------------------------------------
+//  Package info
+//-----------------------------------------------------------
+/*
+ *  @author: Phil Steer
+ *  @package: JSONDerulo
+ *  @site: GitHub source: https://github.com/pdincubus/JSONDerulo
+ *  @site: MODX Extra: http://modx.com/extras/package/jsonderulo
+ *  @version: 2.0
+ *  @description: Fetches social feeds in JSON format
+*/
+
+//-----------------------------------------------------------
+//  Current feeds supported:
+//-----------------------------------------------------------
+/*
+ *  App.net public posts
+ *  Delicious public bookmarks
+ *  Flickr recent photos [requires API key - http://www.flickr.com/services/apps/create/apply]
+ *  Google Calendar public events
+ *  Google+ public posts [requires API key - https://code.google.com/apis/console/]
+ *  LastFM loved tunes [requires API Key - http://www.last.fm/api/account]
+ *  LastFM recent listens [requires API Key - http://www.last.fm/api/account]
+ *  Picasa album photos
+ *  Tumblr posts
+ *  Twitter timeline [requires keys and secrets, set up an app - https://dev.twitter.com/apps]
+ *  Vimeo recent likes
+ *  YouTube (API v2) uploaded videos
+ *  YouTube (API v2) favourites
+ *  YouTube (API v3) public playlist videos [requires API key - https://code.google.com/apis/console/]
+ *  ZooTool bookmarked items [requires API Key - http://zootool.com/api/keys]
+ */
+
+//-----------------------------------------------------------
+//  Generic options and var init
+//-----------------------------------------------------------
+
+$cacheName = $modx->getOption('cacheName', $scriptProperties, '');
+$cacheTime = $modx->getOption('cacheTime', $scriptProperties, 43200);
+$tpl = $modx->getOption('tpl', $scriptProperties, '');
+$limit = $modx->getOption('limit', $scriptProperties, 2);
+$ch = null;
+$rawFeedData = array();
+$cacheName = str_replace(" ", "-", $cacheName);
+
+//-----------------------------------------------------------
+//  App.net user posts feed
+//-----------------------------------------------------------
+if( $feed == 'appnet' ) {
+    $feedUrl = 'https://alpha-api.app.net/stream/0/users/{userId}/posts?count={limit}';
+    $excludeEmpty = explode(',', $modx->getOption('excludeEmpty', $scriptProperties, 'text'));
+    $feeds = explode(',', $modx->getOption('userId', $scriptProperties, ''));
+
+    foreach ($feeds as $user) {
+        $cacheId = 'jsonderulo-appdotnetfeed-'.$cacheName.'-'.$user;
+
+        if (($json = $modx->cacheManager->get($cacheId)) === null) {
+            if ($ch === null) {
+                $ch = curl_init();
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                curl_setopt($ch,CURLOPT_SSL_VERIFYPEER,0);
+            }
+
+            curl_setopt_array($ch, array(
+                CURLOPT_URL => str_replace(array('{userId}', '{limit}'), array($user, $limit), $feedUrl),
+            ));
+
+            $json = curl_exec($ch);
+            if (empty($json)) {
+                continue;
+            }
+
+            $modx->cacheManager->set($cacheId, $json, $cacheTime);
+        }
+
+        $feed = json_decode($json);
+
+        if ($feed === null) {
+            continue;
+        }
+
+        $feeditems = $feed->data;
+
+        $i = 0;
+
+        foreach ($feeditems as $message) {
+            foreach ($excludeEmpty as $k) {
+                if ($message->$k == '') {
+                    continue 2;
+                }
+            }
+
+            $input = $message->text;
+            // Convert URLs into hyperlinks
+            $input= preg_replace("/(http:\/\/)(.*?)\/([\w\.\/\&\=\?\-\,\:\;\#\_\~\%\+]*)/", "<a href=\"\\0\">\\0</a>", $input);
+            // Convert usernames (@) into links
+            $input= preg_replace("(@([a-zA-Z0-9\_]+))", "<a href=\"https://alpha.app.net/\\1\">\\0</a>", $input);
+            // Convert hash tags (#) to links
+            $input= preg_replace('/(^|\s)#(\w+)/', '\1<a href="https://alpha.app.net/hashtags/\2">#\2</a>', $input);
+
+            $rawFeedData[$i] = array(
+                'id' => $message->id,
+                'text' => $input,
+                'html' => $message->html,
+                'created' => strtotime($message->created_at),
+                'picture' => $message->user->avatar_image->url,
+                'title' => $message->user->name,
+                'username' => $message->user->username,
+                'profile' => $message->user->canonical_url,
+                'postUrl' => $message->canonical_url,
+            );
+
+            $i++;
+        }
+    }
+
+    foreach ($rawFeedData as $message) {
+        $output .= $modx->getChunk($tpl, $message);
+    }
+
+//-----------------------------------------------------------
+//  Delicious bookmarks feed
+//-----------------------------------------------------------
+} elseif( $feed == 'delicious' ) {
+    $feedUrl = 'http://feeds.delicious.com/v2/json/{username}?count={limit}';
+
+    $excludeEmpty = explode(',', $modx->getOption('excludeEmpty', $scriptProperties, 'd'));
+    $feeds = explode(',', $modx->getOption('users', $scriptProperties, ''));
+
+    foreach ($feeds as $username) {
+        $cacheId = 'jsonderulo-deliciousfeed-'.$cacheName.'-'.$username;
+
+        if (($json = $modx->cacheManager->get($cacheId)) === null) {
+            if ($ch === null) {
+                $ch = curl_init();
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            }
+
+            curl_setopt_array($ch, array(
+              CURLOPT_URL => str_replace(array('{username}', '{limit}'), array($username, $limit), $feedUrl),
+            ));
+
+            $json = curl_exec($ch);
+            if (empty($json)) {
+                continue;
+            }
+
+            $modx->cacheManager->set($cacheId, $json, $cacheTime);
+        }
+
+        $feed = json_decode($json);
+
+        if ($feed === null) {
+            continue;
+        }
+
+        foreach ($feed as $item) {
+            foreach ($excludeEmpty as $k) {
+                if ($item->$k == '') {
+                    continue 2;
+                }
+            }
+
+            $rawFeedData[] = array(
+                'title' => $item->d,
+                'link' => $item->u,
+                'date' => strtotime($item->dt),
+                'description' => $item->n,
+                'username' => $username,
+            );
+        }
+    }
+
+    foreach ($rawFeedData as $item) {
+        $output .= $modx->getChunk($tpl, $item);
+    }
+
+//-----------------------------------------------------------
+//  Flickr user's photos
+//-----------------------------------------------------------
+} elseif( $feed == 'flickr' ) {
+    $feedUrl = 'http://api.flickr.com/services/rest/?method=flickr.photos.search&format=json&nojsoncallback=1&api_key={apikey}&user_id={userid}&per_page={limit}&extras=url_m,url_l,date_upload';
+
+    $excludeEmpty = explode(',', $modx->getOption('excludeEmpty', $scriptProperties, 'url_m'));
+    $feeds = explode(',', $modx->getOption('users', $scriptProperties, '3'));
+    $apiKey = $modx->getOption('apiKey', $scriptProperties, '');
+    $userName = $modx->getOption('userName', $scriptProperties, '');
+
+    foreach ($feeds as $userId) {
+        $cacheId = 'jsonderulo-flickrfeed-'.$cacheName.'-'.$userId;
+
+        if (($json = $modx->cacheManager->get($cacheId)) === null) {
+            if ($ch === null) {
+                $ch = curl_init();
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            }
+
+            curl_setopt_array($ch, array(
+              CURLOPT_URL => str_replace(array('{apikey}', '{userid}', '{limit}'), array($apiKey, $userId, $limit), $feedUrl),
+            ));
+
+
+            $json = curl_exec($ch);
+            if (empty($json)) {
+                continue;
+            }
+
+            $modx->cacheManager->set($cacheId, $json, $cacheTime);
+        }
+
+        $feed = json_decode($json);
+
+        if ($feed === null) {
+            continue;
+        }
+
+        foreach ($feed->photos->photo as $photo) {
+            foreach ($excludeEmpty as $k) {
+                if ($photo->$k == '') {
+                    continue 2;
+                }
+            }
+
+            $rawFeedData[] = array(
+                'id' => $photo->id,
+                'created' => $photo->dateupload,
+                'picture' => $photo->url_m,
+                'picturelarge' => $photo->url_l,
+                'title' => $photo->title,
+                'username' => $userName,
+            );
+        }
+    }
+
+    foreach ($rawFeedData as $photo) {
+        $output .= $modx->getChunk($tpl, $photo);
+    }
+
+//-----------------------------------------------------------
+//  Google calendar public events
+//-----------------------------------------------------------
+} elseif( $feed == 'googlecalendar' ) {
+    $feedUrl = 'http://www.google.com/calendar/feeds/{feedlocation}/public/full?alt=json&orderby=starttime&max-results={limit}&singleevents=true&sortorder=ascending&futureevents=true';
+
+    $excludeEmpty = explode(',', $modx->getOption('excludeEmpty', $scriptProperties, 'link'));
+    $feeds = explode(',', $modx->getOption('feedLocation', $scriptProperties, ''));
+
+    foreach ($feeds as $username) {
+        $cacheId = 'jsonderulo-googlecalendarfeed-'.$cacheName.'-'.$username;
+
+        if (($json = $modx->cacheManager->get($cacheId)) === null) {
+            if ($ch === null) {
+                $ch = curl_init();
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            }
+
+            curl_setopt_array($ch, array(
+              CURLOPT_URL => str_replace(array('{feedlocation}', '{limit}'), array($username, $limit), $feedUrl),
+            ));
+
+            $json = curl_exec($ch);
+
+            if (empty($json)) {
+                continue;
+            }
+
+            $modx->cacheManager->set($cacheId, $json, $cacheTime);
+        }
+
+        $feed = json_decode($json);
+
+        if ($feed === null) {
+            continue;
+        }
+
+        $feeditems = $feed->feed;
+
+        if($feeditems->entry) {
+
+            $timezone = $feeditems->{'gCal$timezone'}->value;
+            $calendarName = $feeditems->title->{'$t'};
+
+            foreach ($feeditems->entry as $event) {
+                foreach ($excludeEmpty as $k) {
+                    if ($event->$k == '') {
+                        continue 2;
+                    }
+                }
+
+                $rawFeedData[] = array(
+                    'published' => strtotime($event->published->{'$t'}),
+                    'timezone' => $timezone,
+                    'title' => $event->title->{'$t'},
+                    'content' => $event->content->{'$t'},
+                    'link' => $event->link[0]->href,
+                    'calendarName' => $calendarName,
+                    'eventEnd' => strtotime($event->{'gd$when'}[0]->endTime),
+                    'eventStart' => strtotime($event->{'gd$when'}[0]->startTime),
+                    'location' => $event->{'gd$where'}[0]->valueString,
+                );
+            }
+
+            foreach ($rawFeedData as $item) {
+                $output .= $modx->getChunk($tpl, $item);
+            }
+
+        } else {
+            $item['title'] = 'No events.';
+            $output = $modx->getChunk($tpl, $item);
+        }
+    }
+
+//-----------------------------------------------------------
+//  Google+ public posts
+//-----------------------------------------------------------
+} elseif( $feed == 'googleplus' ) {
+    $feedUrl = 'https://www.googleapis.com/plus/v1/people/{userid}/activities/public?alt=json&pp=1&key={apikey}&maxResults={limit}';
+
+    $userId = $modx->getOption('userId', $scriptProperties, '');
+    $apiKey = $modx->getOption('apiKey', $scriptProperties, '');
+    $excludeEmpty = explode(',', $modx->getOption('excludeEmpty', $scriptProperties, ''));
+    $feeds = explode(',', $modx->getOption('cacheName', $scriptProperties, 'default'));
+
+    foreach ($feeds as $feed) {
+        $cacheId = 'jsonderulo-googleplusfeed-'.$cacheName.'-'.$userId;
+
+        if (($json = $modx->cacheManager->get($cacheId)) === null) {
+            if ($ch === null) {
+                $ch = curl_init();
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            }
+
+            curl_setopt_array($ch, array(
+              CURLOPT_URL => str_replace(array('{apikey}', '{userid}', '{limit}'), array($apiKey, $userId, $limit), $feedUrl),
+            ));
+
+            $json = curl_exec($ch);
+            if (empty($json)) {
+                continue;
+            }
+
+            $modx->cacheManager->set($cacheId, $json, $cacheTime);
+        }
+
+        $feed = json_decode($json);
+
+        if ($feed === null) {
+            continue;
+        }
+
+        $i = 0;
+
+        foreach ($feed->items as $message) {
+
+            $rawFeedData[$i] = array(
+                'avatar' => $message->actor->image->url,
+                'displayName' => $message->actor->displayName,
+                'profileUrl' => $message->actor->url,
+                'postId' => $message->id,
+                'postDate' => strtotime($message->published),
+                'text' => $message->title,
+                'html' => $message->object->content,
+                'url' => $message->url,
+                'attachmentUrl' => $message->object->attachments->url,
+                'repliesCount' => $message->object->replies->totalItems,
+                'plusCount' => $message->object->plusoners->totalItems,
+                'resharesCount' => $message->object->resharers->totalItems,
+            );
+
+            $i++;
+        }
+    }
+
+    foreach ($rawFeedData as $message) {
+        $output .= $modx->getChunk($tpl, $message);
+    }
+
+//-----------------------------------------------------------
+//  Last.fm user loved tunes
+//-----------------------------------------------------------
+} elseif( $feed == 'lastfm' ) {
+    $feedUrl = 'http://ws.audioscrobbler.com/2.0/?method=user.getlovedtracks&user={username}&api_key={apikey}&format=json&limit={limit}';
+
+    $excludeEmpty = explode(',', $modx->getOption('excludeEmpty', $scriptProperties, 'name'));
+    $feeds = explode(',', $modx->getOption('users', $scriptProperties, ''));
+    $apiKey = $modx->getOption('apiKey', $scriptProperties, '');
+
+    foreach ($feeds as $username) {
+        $cacheId = 'jsonderulo-lastfmfeed-'.$cacheName.'-'.$username;
+
+        if (($json = $modx->cacheManager->get($cacheId)) === null) {
+            if ($ch === null) {
+                $ch = curl_init();
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            }
+
+            curl_setopt_array($ch, array(
+              CURLOPT_URL => str_replace(array('{apikey}', '{username}', '{limit}'), array($apiKey, $username, $limit), $feedUrl),
+            ));
+
+            $json = curl_exec($ch);
+            if (empty($json)) {
+                continue;
+            }
+
+            $modx->cacheManager->set($cacheId, $json, $cacheTime);
+        }
+
+        $feed = json_decode($json);
+
+        if ($feed === null) {
+            continue;
+        }
+
+      $feedtracks = $feed->lovedtracks;
+
+        foreach ($feedtracks->track as $item) {
+            foreach ($excludeEmpty as $k) {
+                if ($item->$k == '') {
+                    continue 2;
+                }
+            }
+
+            $rawFeedData[] = array(
+                'track' => $item->name,
+                'artist' => $item->artist->name,
+                'link' => $item->url,
+                'picture' => $item->image[3]->{'#text'},
+                'date' => $item->date->uts,
+                'username' => $username,
+            );
+        }
+    }
+
+    foreach ($rawFeedData as $item) {
+        $output .= $modx->getChunk($tpl, $item);
+    }
+
+//-----------------------------------------------------------
+//  Last.fm user listened tunes
+//-----------------------------------------------------------
+} elseif( $feed == 'lastfmlistens' ) {
+    $feedUrl = 'http://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user={username}&api_key={apikey}&format=json&limit={limit}';
+
+    $excludeEmpty = explode(',', $modx->getOption('excludeEmpty', $scriptProperties, 'name'));
+    $feeds = explode(',', $modx->getOption('users', $scriptProperties, ''));
+    $apiKey = $modx->getOption('apiKey', $scriptProperties, '');
+
+    foreach ($feeds as $username) {
+        $cacheId = 'jsonderulo-lastfmlistensfeed-'.$cacheName.'-'.$username;
+
+        if (($json = $modx->cacheManager->get($cacheId)) === null) {
+            if ($ch === null) {
+                $ch = curl_init();
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            }
+
+            curl_setopt_array($ch, array(
+              CURLOPT_URL => str_replace(array('{apikey}', '{username}', '{limit}'), array($apiKey, $username, $limit), $feedUrl),
+            ));
+
+            $json = curl_exec($ch);
+            if (empty($json)) {
+                continue;
+            }
+
+            $modx->cacheManager->set($cacheId, $json, $cacheTime);
+        }
+
+        $feed = json_decode($json);
+
+        if ($feed === null) {
+            continue;
+        }
+
+      $feedtracks = $feed->recenttracks;
+
+        foreach ($feedtracks->track as $item) {
+            foreach ($excludeEmpty as $k) {
+                if ($item->$k == '') {
+                    continue 2;
+                }
+            }
+
+            $rawFeedData[] = array(
+                'track' => $item->name,
+                'artist' => $item->artist->name,
+                'link' => $item->url,
+                'picture' => $item->image[3]->{'#text'},
+                'date' => $item->date->uts,
+                'username' => $username,
+            );
+        }
+    }
+
+    foreach ($rawFeedData as $item) {
+        $output .= $modx->getChunk($tpl, $item);
+    }
+
+//-----------------------------------------------------------
+//  Picasa album feed
+//-----------------------------------------------------------
+} elseif( $feed == 'picasa' ) {
+    $feedUrl = 'https://picasaweb.google.com/data/feed/base/user/{userid}/albumid/{albumid}?kind=photo&alt=json';
+
+    $excludeEmpty = explode(',', $modx->getOption('excludeEmpty', $scriptProperties, 'content'));
+    $feeds = explode(',', $modx->getOption('users', $scriptProperties, '3'));
+    $albumId = $modx->getOption('albumId', $scriptProperties, '');
+    $albumName = $modx->getOption('albumName', $scriptProperties, '');
+
+    foreach ($feeds as $userId) {
+        $cacheId = 'jsonderulo-picasafeed-'.$cacheName.'-'.$userId;
+
+        if (($json = $modx->cacheManager->get($cacheId)) === null) {
+            if ($ch === null) {
+                $ch = curl_init();
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            }
+
+            curl_setopt_array($ch, array(
+              CURLOPT_URL => str_replace(array('{userid}', '{albumid}'), array($userId, $albumId), $feedUrl),
+            ));
+
+
+            $json = curl_exec($ch);
+            if (empty($json)) {
+                continue;
+            }
+
+            $modx->cacheManager->set($cacheId, $json, $cacheTime);
+        }
+
+        $feed = json_decode($json);
+
+        if ($feed === null) {
+            continue;
+        }
+
+        $counter = NULL;
+        $feeditems = $feed->feed;
+
+        foreach ($feeditems->entry as $photo) {
+            $counter++;
+
+            if($counter>$limit){
+                  break;
+            }
+
+            foreach ($excludeEmpty as $k) {
+                if ($photo->$k == '') {
+                    continue 2;
+                }
+            }
+
+            $rawFeedData[] = array(
+                'link' => $photo->link[1]->href,
+                'albumid' => $albumId,
+                'created' => strtotime($photo->published->{'$t'}),
+                'picture' => $photo->content->src,
+                'title' => $photo->{'media$group'}->{'media$title'}->{'$t'},
+                'userid' => $userId,
+                'albumname' => $albumName,
+            );
+        }
+    }
+
+    foreach ($rawFeedData as $photo) {
+        $output .= $modx->getChunk($tpl, $photo);
+    }
+
+//-----------------------------------------------------------
+//  Tumblr posts
+//-----------------------------------------------------------
+} elseif( $feed == 'tumblr' ) {
+    $feedUrl = 'http://api.tumblr.com/v2/blog/{blogurl}/posts{posttype}?notes_info={notesinfo}&tag={tag}&limit={limit}&api_key={apikey}';
+
+    $feeds = explode(',', $modx->getOption('blogUrl', $scriptProperties, ''));
+    $postType = $modx->getOption('postType', $scriptProperties, '');
+    $tag = $modx->getOption('tag', $scriptProperties, '');
+    $notesInfo = $modx->getOption('notesInfo', $scriptProperties, 'false');
+    $apiKey = $modx->getOption('apiKey', $scriptProperties, '');
+
+    foreach ($feeds as $tumblr) {
+        $cacheId = 'jsonderulo-tumblrfeed-'.$cacheName.'-'.$tumblr;
+
+        if (($json = $modx->cacheManager->get($cacheId)) === null) {
+            if ($ch === null) {
+                $ch = curl_init();
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                curl_setopt($ch,CURLOPT_SSL_VERIFYPEER,0);
+            }
+
+            curl_setopt_array($ch, array(
+                CURLOPT_URL => str_replace(array('{apikey}', '{posttype}', '{limit}', '{tag}', '{notesinfo}', '{blogurl}'), array($apiKey, '/'.$postType, $limit, $tag, $notesInfo, $blogUrl), $feedUrl),
+                ));
+
+            $json = curl_exec($ch);
+            if (empty($json)) {
+                continue;
+            }
+
+            $modx->cacheManager->set($cacheId, $json, $cacheTime);
+        }
+
+        $feed = json_decode($json);
+
+        if ($feed === null) {
+            continue;
+        }
+
+        $feeditems = $feed->response->posts;
+
+        $blogName = $feed->response->blog->title;
+        $blogUrl = $feed->response->blog->url;
+        $blogDescription = $feed->response->blog->description;
+
+        $i = 0;
+
+        foreach ($feeditems as $post) {
+
+            $rawFeedData[$i] = array(
+                'id' => $post->id,
+                'post' => $post->text,
+                'created' => strtotime($post->timestamp),
+                'createdDate' => $post->date,
+                'blogName' => $blogName,
+                'blogUrl' => $blogUrl,
+                'blogDescription' => $blogDescription,
+                'postUrl' => $post->post_url,
+                'postType' => $post->type,
+                'shortUrl' => $post->short_url,
+                );
+
+            if($post->type=='video'){
+                $rawFeedData[$i]['caption'] = $post->caption;
+                $rawFeedData[$i]['videoPermalink'] = $post->permalink_url;
+                $rawFeedData[$i]['thumbnail'] = $post->thumbnail_url;
+                $rawFeedData[$i]['player250'] = $post->player[0]->embed_code;
+                $rawFeedData[$i]['player400'] = $post->player[1]->embed_code;
+                $rawFeedData[$i]['player500'] = $post->player[2]->embed_code;
+            }
+
+            if($post->type=='link'){
+                $rawFeedData[$i]['title'] = $post->title;
+                $rawFeedData[$i]['linkUrl'] = $post->url;
+                $rawFeedData[$i]['linkDescription'] = $post->description;
+            }
+
+            if($post->type=='text'){
+                $rawFeedData[$i]['title'] = $post->title;
+                $rawFeedData[$i]['content'] = $post->body;
+            }
+
+            if($post->type=='audio'){
+                $rawFeedData[$i]['audioSourceUrl'] = $post->caption;
+                $rawFeedData[$i]['audioSourceTitle'] = $post->source_title;
+                $rawFeedData[$i]['artist'] = $post->artist;
+                $rawFeedData[$i]['album'] = $post->album;
+                $rawFeedData[$i]['trackName'] = $post->track_name;
+                $rawFeedData[$i]['player'] = $post->player;
+                $rawFeedData[$i]['audioUrl'] = $post->audio_url;
+            }
+
+            if($post->type=='photo'){
+                $rawFeedData[$i]['caption'] = $post->caption;
+                $rawFeedData[$i]['imagePermalink'] = $post->image_permalink;
+                $rawFeedData[$i]['image'] = $post->photos->original_size->url;
+            }
+
+            $i++;
+        }
+    }
+
+    foreach ($rawFeedData as $message) {
+        $output .= $modx->getChunk($tpl, $message);
+    }
+
+//-----------------------------------------------------------
+//  Twitter timeline
+//-----------------------------------------------------------
+} elseif( $feed == 'twitter' ) {
+    $screenName = $modx->getOption('screenName', $scriptProperties, '');
+    $includeRTs = $modx->getOption('includeRTs', $scriptProperties, 1);
+    $timelineType = $modx->getOption('timelineType', $scriptProperties, 'user_timeline');
+    $excludeEmpty = explode(',', $modx->getOption('excludeEmpty', $scriptProperties, 'text'));
+    $consumerKey = $modx->getOption('consumerKey', $scriptProperties, '');
+    $consumerSecret = $modx->getOption('consumerSecret', $scriptProperties, '');
+    $accessToken = $modx->getOption('accessToken', $scriptProperties, '');
+    $accessTokenSecret = $modx->getOption('accessTokenSecret', $scriptProperties, '');
+
+    if ($screenName != '') {
+        $cacheId = 'jsonderulo-twitterfeednew-'.$screenName.'-'.$cacheName;
+    }else{
+        $cacheId = 'jsonderulo-twitterfeednew-'.$cacheName;
+    }
+
+    if (($json = $modx->cacheManager->get($cacheId)) === null) {
+        require_once $modx->getOption('core_path').'components/jsonderulo/twitteroauth/twitteroauth.php';
+        $fetch = new TwitterOAuth($consumerKey, $consumerSecret, $accessToken, $accessTokenSecret);
+        $fetch->host = "https://api.twitter.com/1.1/";
+        $fetch->format = 'json';
+        $fetch->decode_json = FALSE;
+        $fetch->ssl_verifypeer = FALSE;
+        $json = $fetch->get('statuses/'.$timelineType, array('include_rts' => $includeRTs, 'count' => $limit, 'screen_name' => $user));
+
+        if(!empty($json)) {
+            $modx->cacheManager->set($cacheId, $json, $cacheTime);
+        }
+    }
+
+    $feed = json_decode($json);
+
+    if ($feed === null) {
+        $message['message'] = 'No tweets returned.';
+        $output = $modx->getChunk($tpl, $message);
+    } else {
+        $i = 0;
+
+        foreach ($feed as $message) {
+            foreach ($excludeEmpty as $k) {
+                if ($message->$k == '') {
+                    continue 2;
+                }
+            }
+
+            $input = $message->text;
+            // Convert URLs into hyperlinks
+            $input= preg_replace("/(http:\/\/)(.*?)\/([\w\.\/\&\=\?\-\,\:\;\#\_\~\%\+]*)/", "<a href=\"\\0\">\\0</a>", $input);
+            // Convert usernames (@) into links
+            $input= preg_replace("(@([a-zA-Z0-9\_]+))", "<a href=\"http://www.twitter.com/\\1\">\\0</a>", $input);
+            // Convert hash tags (#) to links
+            $input= preg_replace('/(^|\s)#(\w+)/', '\1<a href="http://search.twitter.com/search?q=%23\2">#\2</a>', $input);
+
+            $rawFeedData[$i] = array(
+                'id' => $message->id_str,
+                'message' => $input,
+                'created' => strtotime($message->created_at),
+                'picture' => $message->user->profile_image_url,
+                'title' => $message->user->name,
+                'username' => $message->user->screen_name,
+                'retweetCount' => $message->retweet_count,
+                'isRetweet' => '0',
+            );
+
+            if(isset($message->retweeted_status)){
+                $rawFeedData[$i]['originalAuthorPicture'] = $message->retweeted_status->user->profile_image_url;
+                $rawFeedData[$i]['originalAuthor'] = $message->retweeted_status->user->name;
+                $rawFeedData[$i]['originalUsername'] = $message->retweeted_status->user->screen_name;
+                $rawFeedData[$i]['isRetweet'] = '1';
+                $rawFeedData[$i]['originalId'] = $message->retweeted_status->id;
+            }
+
+            $i++;
+        }
+
+        foreach ($rawFeedData as $message) {
+            $output .= $modx->getChunk($tpl, $message);
+        }
+    }
+
+//-----------------------------------------------------------
+//  Vimeo likes
+//-----------------------------------------------------------
+} elseif( $feed == 'vimeo' ) {
+    $feedUrl = 'http://vimeo.com/api/v2/{username}/likes.json';
+
+    $excludeEmpty = explode(',', $modx->getOption('excludeEmpty', $scriptProperties, 'title'));
+    $feeds = explode(',', $modx->getOption('users', $scriptProperties, ''));
+
+    foreach ($feeds as $username) {
+        $cacheId = 'jsonderulo-vimeofeed-'.$cacheName.'-'.$username;
+
+        if (($json = $modx->cacheManager->get($cacheId)) === null) {
+            if ($ch === null) {
+                $ch = curl_init();
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            }
+
+            curl_setopt_array($ch, array(
+              CURLOPT_URL => str_replace(array('{username}'), array($username), $feedUrl),
+            ));
+
+
+            $json = curl_exec($ch);
+            if (empty($json)) {
+                continue;
+            }
+
+            $modx->cacheManager->set($cacheId, $json, $cacheTime);
+        }
+
+        $feed = json_decode($json);
+
+        if ($feed === null) {
+            continue;
+        }
+
+        $counter = NULL;
+
+        foreach ($feed as $video) {
+            $counter++;
+
+            if($counter>$limit){
+                  break;
+            }
+
+            foreach ($excludeEmpty as $k) {
+                if ($video->$k == '') {
+                    continue 2;
+                }
+            }
+
+            $rawFeedData[] = array(
+                'id' => $video->id,
+                'url' => $video->url,
+                'created' => strtotime($video->upload_date),
+                'picture' => $video->thumbnail_large,
+                'title' => $video->title,
+                'username' => $userName,
+            );
+        }
+    }
+
+    foreach ($rawFeedData as $video) {
+        $output .= $modx->getChunk($tpl, $video);
+    }
+
+//-----------------------------------------------------------
+//  YouTube API V2 favourites
+//-----------------------------------------------------------
+} elseif( $feed == 'youtubev2' ) {
+    $feedUrl = 'http://gdata.youtube.com/feeds/api/users/{username}/favorites?max-results={limit}&start-index={offset}&alt=json';
+
+    $startIndex = $modx->getOption('startIndex', $scriptProperties, 1);
+    $videoParams = $modx->getOption('videoParams', $scriptProperties, '?fs=1');
+    $excludeEmpty = explode(',', $modx->getOption('excludeEmpty', $scriptProperties, 'link'));
+    $feeds = explode(',', $modx->getOption('users', $scriptProperties, ''));
+
+    foreach ($feeds as $username) {
+        $cacheId = 'jsonderulo-youtubefeed-'.$cacheName.'-'.$username;
+
+        if (($json = $modx->cacheManager->get($cacheId)) === null) {
+            if ($ch === null) {
+                $ch = curl_init();
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            }
+
+            curl_setopt_array($ch, array(
+              CURLOPT_URL => str_replace(array('{username}', '{limit}', '{offset}'), array($username, $limit, $startIndex), $feedUrl),
+            ));
+
+
+            $json = curl_exec($ch);
+            if (empty($json)) {
+                continue;
+            }
+
+            $modx->cacheManager->set($cacheId, $json, $cacheTime);
+        }
+
+        $feed = json_decode($json);
+
+        if ($feed === null) {
+            continue;
+        }
+
+        $feeditems = $feed->feed;
+
+        foreach ($feeditems->entry as $video) {
+
+            foreach ($excludeEmpty as $k) {
+                if ($video->$k == '') {
+                    continue 2;
+                }
+            }
+
+            $videoId = substr($video->id->{'$t'},42);
+
+            $rawFeedData[] = array(
+                'published' => strtotime($video->published->{'$t'}),
+                'picture' => $video->{'media$group'}->{'media$thumbnail'}[0]->url,
+                'title' => $video->title->{'$t'},
+                'ytlink' => $video->link[0]->href,
+                'embedlink' => 'https://www.youtube.com/v/' .$videoId. $videoParams,
+                'author' => $video->author[0]->name->{'$t'},
+            );
+        }
+    }
+
+    foreach ($rawFeedData as $image) {
+        $output .= $modx->getChunk($tpl, $image);
+    }
+
+//-----------------------------------------------------------
+//  YouTube API V2 uploads
+//-----------------------------------------------------------
+} elseif( $feed == 'youtubev2uploads' ) {
+    $feedUrl = 'http://gdata.youtube.com/feeds/api/users/{username}/uploads?max-results={limit}&start-index={offset}&alt=json';
+
+    $startIndex = $modx->getOption('startIndex', $scriptProperties, 1);
+    $videoParams = $modx->getOption('videoParams', $scriptProperties, '?fs=1');
+    $excludeEmpty = explode(',', $modx->getOption('excludeEmpty', $scriptProperties, 'link'));
+    $feeds = explode(',', $modx->getOption('users', $scriptProperties, ''));
+
+    foreach ($feeds as $username) {
+        $cacheId = 'jsonderulo-youtubeuploadsfeed-'.$cacheName.'-'.$username;
+
+        if (($json = $modx->cacheManager->get($cacheId)) === null) {
+            if ($ch === null) {
+                $ch = curl_init();
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            }
+
+            curl_setopt_array($ch, array(
+              CURLOPT_URL => str_replace(array('{username}', '{limit}', '{offset}'), array($username, $limit, $startIndex), $feedUrl),
+            ));
+
+
+            $json = curl_exec($ch);
+            if (empty($json)) {
+                continue;
+            }
+
+            $modx->cacheManager->set($cacheId, $json, $cacheTime);
+        }
+
+        $feed = json_decode($json);
+
+        if ($feed === null) {
+            continue;
+        }
+
+        $feeditems = $feed->feed;
+
+        foreach ($feeditems->entry as $video) {
+
+            foreach ($excludeEmpty as $k) {
+                if ($video->$k == '') {
+                    continue 2;
+                }
+            }
+
+            $videoId = substr($video->id->{'$t'},42);
+
+            $rawFeedData[] = array(
+                'published' => strtotime($video->published->{'$t'}),
+                'picture' => $video->{'media$group'}->{'media$thumbnail'}[0]->url,
+                'title' => $video->title->{'$t'},
+                'ytlink' => $video->link[0]->href,
+                'embedlink' => 'https://www.youtube.com/v/' .$videoId. $videoParams,
+                'author' => $video->author[0]->name->{'$t'},
+            );
+        }
+    }
+
+    foreach ($rawFeedData as $image) {
+        $output .= $modx->getChunk($tpl, $image);
+    }
+
+//-----------------------------------------------------------
+//  YouTube API V3 public playlist
+//-----------------------------------------------------------
+} elseif( $feed == 'youtubev3playlist' ) {
+    $feedUrl = 'https://www.googleapis.com/youtube/v3/playlistItems?part=id%2C+snippet%2CcontentDetails%2Cstatus&playlistId={playlistid}&fields=etag%2Citems%2CpageInfo&key={apikey}&maxResults={limit}';
+
+    $playlist = $modx->getOption('playlistId', $scriptProperties, '');
+    $apiKey = $modx->getOption('apiKey', $scriptProperties, '');
+
+    $cacheId = 'jsonderulo-youtubefeedv3publicplaylist-'.$cacheName.'-'.$playlist;
+
+    if (($json = $modx->cacheManager->get($cacheId)) === null) {
+        if ($ch === null) {
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        }
+
+        curl_setopt_array($ch, array(
+            CURLOPT_URL => str_replace(array('{playlistid}', '{limit}', '{apikey}'), array($playlist, $limit, $apiKey), $feedUrl),
+            ));
+
+
+        $json = curl_exec($ch);
+        if (empty($json)) {
+            continue;
+        }
+
+        $modx->cacheManager->set($cacheId, $json, $cacheTime);
+    }
+
+    $feed = json_decode($json);
+
+    if ($feed === null) {
+        $image['title'] = 'No videos returned.';
+        $output = $modx->getChunk($tpl, $image);
+    } else {
+
+        foreach ($feed->items as $video) {
+            $rawFeedData[] = array(
+                'published' => strtotime($video->snippet->publishedAt),
+                'picture' => $video->snippet->thumbnails->high->url,
+                'title' => $video->snippet->title,
+                'description' => $video->snippet->description,
+                'ytlink' => 'http://www.youtube.com/watch?v=' . $video->snippet->resourceId->videoId,
+                'embedlink' => 'https://www.youtube.com/v/' . $video->snippet->resourceId->videoId,
+                'author' => $video->author[0]->name->{'$t'},
+                );
+        }
+
+        foreach ($rawFeedData as $image) {
+            $output .= $modx->getChunk($tpl, $image);
+        }
+    }
+
+//-----------------------------------------------------------
+//  ZooTool bookmarked stuff
+//-----------------------------------------------------------
+} elseif( $feed == 'zootool' ) {
+    $feedUrl = 'http://zootool.com/api/users/items/?username={username}&apikey={apikey}&limit={limit}';
+
+    $excludeEmpty = explode(',', $modx->getOption('excludeEmpty', $scriptProperties, 'image'));
+    $feeds = explode(',', $modx->getOption('users', $scriptProperties, ''));
+    $apiKey = $modx->getOption('apiKey', $scriptProperties, '');
+
+    foreach ($feeds as $username) {
+        $cacheId = 'jsonderulo-zootoolfeed-'.$cacheName.'-'.$username;
+
+        if (($json = $modx->cacheManager->get($cacheId)) === null) {
+            if ($ch === null) {
+                $ch = curl_init();
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            }
+
+            curl_setopt_array($ch, array(
+              CURLOPT_URL => str_replace(array('{apikey}', '{username}', '{limit}'), array($apiKey, $username, $limit), $feedUrl),
+            ));
+
+
+            $json = curl_exec($ch);
+            if (empty($json)) {
+                continue;
+            }
+
+            $modx->cacheManager->set($cacheId, $json, $cacheTime);
+        }
+
+        $feed = json_decode($json);
+
+        if ($feed === null) {
+            continue;
+        }
+
+        foreach ($feed as $image) {
+            foreach ($excludeEmpty as $k) {
+                if ($image->$k == '') {
+                    continue 2;
+                }
+            }
+
+            $rawFeedData[] = array(
+                'date' => $image->added,
+                'picture' => $image->image,
+                'title' => $image->title,
+                'username' => $username,
+                'referrer' => $image->referer,
+                'permalink' => $image->permalink,
+            );
+        }
+    }
+
+    foreach ($rawFeedData as $image) {
+        $output .= $modx->getChunk($tpl, $image);
+    }
+}
+
+//-----------------------------------------------------------
+//  close curl connection, return data from snippet
+//-----------------------------------------------------------
+
+if ($ch !== null) {
+    curl_close($ch);
+}
+
+return $output;
