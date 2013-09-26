@@ -5,6 +5,9 @@ For all info: https://github.com/pdincubus/JSONDerulo/
 Most recent additions
 ---------------------
 
+2.0.1:
+    * Tweak to ensure &feed is pulled into snippet correctly.
+
 2.0:
     * Combined all snippets into one for ease of maintenance
     * Fixed a couple of minor stupid things
