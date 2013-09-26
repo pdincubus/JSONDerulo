@@ -36,6 +36,7 @@
 //  Generic options and var init
 //-----------------------------------------------------------
 
+$feed = $modx->getOption('feed', $scriptProperties, '');
 $cacheName = $modx->getOption('cacheName', $scriptProperties, '');
 $cacheTime = $modx->getOption('cacheTime', $scriptProperties, 43200);
 $tpl = $modx->getOption('tpl', $scriptProperties, '');
