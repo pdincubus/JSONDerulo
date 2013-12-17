@@ -7,7 +7,7 @@
  *  @package: JSONDerulo
  *  @site: GitHub source: https://github.com/pdincubus/JSONDerulo
  *  @site: MODX Extra: http://modx.com/extras/package/jsonderulo
- *  @version: 2.0
+ *  @version: 2.0.2
  *  @description: Fetches social feeds in JSON format
 */
 
@@ -703,7 +703,7 @@ if( $feed == 'appnet' ) {
         $fetch->format = 'json';
         $fetch->decode_json = FALSE;
         $fetch->ssl_verifypeer = FALSE;
-        $json = $fetch->get('statuses/'.$timelineType, array('include_rts' => $includeRTs, 'count' => $limit, 'screen_name' => $user));
+        $json = $fetch->get('statuses/'.$timelineType, array('include_rts' => $includeRTs, 'count' => $limit, 'screen_name' => $screenName));
 
         if(!empty($json)) {
             $modx->cacheManager->set($cacheId, $json, $cacheTime);
@@ -729,9 +729,9 @@ if( $feed == 'appnet' ) {
             // Convert URLs into hyperlinks
             $input= preg_replace("/(http:\/\/)(.*?)\/([\w\.\/\&\=\?\-\,\:\;\#\_\~\%\+]*)/", "<a href=\"\\0\">\\0</a>", $input);
             // Convert usernames (@) into links
-            $input= preg_replace("(@([a-zA-Z0-9\_]+))", "<a href=\"http://www.twitter.com/\\1\">\\0</a>", $input);
+            $input= preg_replace("(@([a-zA-Z0-9\_]+))", "<a href=\"https://www.twitter.com/\\1\">\\0</a>", $input);
             // Convert hash tags (#) to links
-            $input= preg_replace('/(^|\s)#(\w+)/', '\1<a href="http://search.twitter.com/search?q=%23\2">#\2</a>', $input);
+            $input= preg_replace('/(^|\s)#(\w+)/', '\1<a href="https://twitter.com/search?q=%23\2&src=hash">#\2</a>', $input);
 
             $rawFeedData[$i] = array(
                 'id' => $message->id_str,
