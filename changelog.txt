@@ -5,6 +5,9 @@ For all info: https://github.com/pdincubus/JSONDerulo/
 Most recent additions
 ---------------------
 
+2.0.2:
+    * Fix twitter feed "search" links and $user/$screenName thing.
+
 2.0.1:
     * Tweak to ensure &feed is pulled into snippet correctly.
 
