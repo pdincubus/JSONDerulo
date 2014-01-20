@@ -197,7 +197,6 @@ The screenName option is *optional*. It will allow you to fetch another user's f
         &cacheTime=`CACHE_TIME_IN_SECONDS`
         &cacheName=`UNIQUE_NAME_TO_APPEND_TO_CACHE_FILE`
         &screenName=`USER_SCREEN_NAME_TO_FETCH_TIMELINE_FOR`
-        &includeRTs=`1 or 0`
         &consumerKey=`YOUR_CONSUMER_KEY`
         &consumerSecret=`YOUR_CONSUMER_SECRET`
         &accessToken=`YOUR_ACCESS_TOKEN`
