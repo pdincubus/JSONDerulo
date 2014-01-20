@@ -14,7 +14,7 @@ The following feeds are already set up:
 * LastFM - recent "loved" tracks or recent "listens"
 * Picasa - Photos from a named album
 * Tumblr - most recent posts (several post type options)
-* Twitter - most recent tweets
+* Twitter - most recent tweets, or a user's favourites
 * Vimeo - most recent "likes"
 * YouTube - Most recent additions to "favourites" playlist or specific user's uploads
 * YouTube - (For API v.3 - fetch a public playlist)

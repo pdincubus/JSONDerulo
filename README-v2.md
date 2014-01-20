@@ -184,6 +184,28 @@ The screenName option is *optional*. It will allow you to fetch another user's t
 </ul>
 ```
 
+### Twitter Favourites
+
+The screenName option is *optional*. It will allow you to fetch another user's favourites (if public). If this is not provided, it will default to the user whose consumer key, etc, that you are using.
+
+```
+<ul>
+    [[!JSONDerulo?
+        &feed=`twitterFaves`
+        &tpl=`jd.twitter`
+        &limit=`LIMIT`
+        &cacheTime=`CACHE_TIME_IN_SECONDS`
+        &cacheName=`UNIQUE_NAME_TO_APPEND_TO_CACHE_FILE`
+        &screenName=`USER_SCREEN_NAME_TO_FETCH_TIMELINE_FOR`
+        &includeRTs=`1 or 0`
+        &consumerKey=`YOUR_CONSUMER_KEY`
+        &consumerSecret=`YOUR_CONSUMER_SECRET`
+        &accessToken=`YOUR_ACCESS_TOKEN`
+        &accessTokenSecret=`YOUR_ACCESS_TOKEN_SECRET`
+    ]]
+</ul>
+```
+
 ### Vimeo
 
 ```
