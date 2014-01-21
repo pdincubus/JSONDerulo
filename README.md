@@ -246,6 +246,7 @@ For image posts:
 [[+title]]
 [[+ytlink]]
 [[+embedlink]]
+[[+videoId]]
 [[+author]]
 ```
 

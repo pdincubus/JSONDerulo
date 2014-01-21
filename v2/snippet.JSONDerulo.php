@@ -968,6 +968,7 @@ if( $feed == 'appnet' ) {
                 'title' => $video->title->{'$t'},
                 'ytlink' => $video->link[0]->href,
                 'embedlink' => 'https://www.youtube.com/v/' .$videoId. $videoParams,
+                'videoId' => $videoId,
                 'author' => $video->author[0]->name->{'$t'},
             );
         }
@@ -1034,6 +1035,7 @@ if( $feed == 'appnet' ) {
                 'title' => $video->title->{'$t'},
                 'ytlink' => $video->link[0]->href,
                 'embedlink' => 'https://www.youtube.com/v/' .$videoId. $videoParams,
+                'videoId' => $videoId,
                 'author' => $video->author[0]->name->{'$t'},
             );
         }
@@ -1088,6 +1090,7 @@ if( $feed == 'appnet' ) {
                 'description' => $video->snippet->description,
                 'ytlink' => 'http://www.youtube.com/watch?v=' . $video->snippet->resourceId->videoId,
                 'embedlink' => 'https://www.youtube.com/v/' . $video->snippet->resourceId->videoId,
+                'videoId' => $video->snippet->resourceId->videoId,
                 'author' => $video->author[0]->name->{'$t'},
                 );
         }
