@@ -5,6 +5,9 @@ For all info: https://github.com/pdincubus/JSONDerulo/
 Most recent additions
 ---------------------
 
+2.2.0:
+    * Added ability to fetch more than one feed and combine automatically on Twitter feed fetcher, just comma separate the screenName option, ie - &screenName=`pdincubus,modx`
+
 2.1.0:
     * Added Twitter user favourites feed option.
     * fixed limit/count on Twitter feed

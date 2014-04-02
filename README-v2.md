@@ -166,6 +166,8 @@ The cacheName option is for users who may want to use the snippet more than once
 
 The screenName option is *optional*. It will allow you to fetch another user's timeline. If this is not provided, it will default to the user whose consumer key, etc, that you are using.
 
+UPDATE: You can fetch and combine more than one screenName if you comma separate them. Not massively likely to be useful if you fetch more than a couple of feeds and only want a limit of 2 or 3, as you may never seen anything from some accounts if they do not tweet as regularly as any of the others you're pulling in.
+
 ```
 <ul>
     [[!JSONDerulo?
