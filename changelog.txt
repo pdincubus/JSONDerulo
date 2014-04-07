@@ -4,6 +4,8 @@ For all info: https://github.com/pdincubus/JSONDerulo/
 
 Most recent additions
 ---------------------
+2.3.0:
+    * NEW Eventbrite user events feed. More info in README and README-v2
 
 2.2.0:
     * Added ability to fetch more than one feed and combine automatically on Twitter feed fetcher, just comma separate the screenName option, ie - &screenName=`pdincubus,modx`

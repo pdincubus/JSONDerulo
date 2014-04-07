@@ -82,6 +82,25 @@ The App.net feed is very pleasant and gives you the option of either "text" or "
 [[+username]]
 ```
 
+#### Eventbrite
+
+```
+[[+title]]
+[[+textDescription]]
+[[+htmlDescription]]
+[[+organiserName]]
+[[+organiserId]]
+[[+venueName]]
+[[+venueAddress]]
+[[+venueLatitude]]
+[[+venueLongitude]]
+[[+url]]
+[[+eventStart]]
+[[+eventEnd]]
+[[+eventCapacity]]
+[[+eventFormat]]
+```
+
 #### Flickr:
 
 ```

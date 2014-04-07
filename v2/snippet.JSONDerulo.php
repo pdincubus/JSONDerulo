@@ -7,7 +7,7 @@
  *  @package: JSONDerulo
  *  @site: GitHub source: https://github.com/pdincubus/JSONDerulo
  *  @site: MODX Extra: http://modx.com/extras/package/jsonderulo
- *  @version: 2.2.0
+ *  @version: 2.3.0
  *  @description: Fetches social feeds in JSON format
 */
 
@@ -17,6 +17,7 @@
 /*
  *  App.net public posts
  *  Delicious public bookmarks
+ *  Eventbrite user events [requires Single user oAuth token - see 'Personal Tokens' on the Authentication page: http://developer.eventbrite.com/docs/auth/]
  *  Flickr recent photos [requires API key - http://www.flickr.com/services/apps/create/apply]
  *  Google Calendar public events
  *  Google+ public posts [requires API key - https://code.google.com/apis/console/]
@@ -199,6 +200,73 @@ if( $feed == 'appnet' ) {
                 'username' => $username,
             );
         }
+    }
+
+    foreach ($rawFeedData as $item) {
+        $output .= $modx->getChunk($tpl, $item);
+    }
+
+//-----------------------------------------------------------
+//  Eventbrite user events
+//-----------------------------------------------------------
+} elseif( $feed == 'eventbrite' ) {
+    $feedUrl = 'https://www.eventbriteapi.com/v3/users/me/owned_events/?status={status}&order_by={orderby}&token={token}';
+
+    $excludeEmpty = explode(',', $modx->getOption('excludeEmpty', $scriptProperties, 'url'));
+    $userId = $modx->getOption('userId', $scriptProperties, '');
+    $status = $modx->getOption('status', $scriptProperties, 'live');
+    $orderBy = $modx->getOption('orderBy', $scriptProperties, 'start_asc');
+    $limit = $modx->getOption('limit', $scriptProperties, 3);
+
+    $cacheId = 'jsonderulo-deliciousfeed-'.$cacheName.'-'.$userId;
+
+    if (($json = $modx->cacheManager->get($cacheId)) === null) {
+        if ($ch === null) {
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        }
+
+        curl_setopt_array($ch, array(
+          CURLOPT_URL => str_replace(array('{status}', '{orderby}', '{token}'), array($status, $orderBy, $token), $feedUrl),
+        ));
+
+        $json = curl_exec($ch);
+        if (empty($json)) {
+            continue;
+        }
+
+        $modx->cacheManager->set($cacheId, $json, $cacheTime);
+    }
+
+    $feed = json_decode($json);
+
+    if ($feed === null) {
+        continue;
+    }
+
+    for ($i = 0; $i <= $limit-1; $i++) {
+        foreach ($excludeEmpty as $k) {
+            if ($feed->events[$i]->$k == '') {
+                continue 2;
+            }
+        }
+
+        $rawFeedData[$i] = array(
+            'title' => $feed->events[$i]->name->text,
+            'textDescription' => $feed->events[$i]->description->text,
+            'htmlDescription' => $feed->events[$i]->description->html,
+            'organiserName' => $feed->events[$i]->organizer->name,
+            'organiserId' => $feed->events[$i]->organizer->id,
+            'venueName' => $feed->events[$i]->venue->name,
+            'venueAddress' => $feed->events[$i]->venue->address_1 . '<br>' . $feed->events[$i]->venue->city . '<br>' . $feed->events[$i]->venue->region . '<br>' . $feed->events[$i]->venue->country_name . '<br>' . $feed->events[$i]->venue->country,
+            'venueLatitude' => $feed->events[$i]->venue->latitude,
+            'venueLongitude' => $feed->events[$i]->venue->longitude,
+            'url' => $feed->events[$i]->url,
+            'eventStart' => $feed->events[$i]->start->utc,
+            'eventEnd' => $feed->events[$i]->end->utc,
+            'eventCapacity' => $feed->events[$i]->capacity,
+            'eventFormat' => $feed->events[$i]->format->name,
+        );
     }
 
     foreach ($rawFeedData as $item) {

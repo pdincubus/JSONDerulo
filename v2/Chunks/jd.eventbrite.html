@@ -1,0 +1,25 @@
+<li>
+    <h2>[[+title]]</h2>
+    <p>[[+textDescription]]</p>
+
+    <div>[[+htmlDescription]]</div>
+
+    <p>Organiser name: [[+organiserName]]</p>
+    <p>Organiser ID: [[+organiserId]]</p>
+    <p>
+        [[+venueName]]<br>
+        [[+venueAddress]]
+    </p>
+
+    <img src="http://maps.googleapis.com/maps/api/staticmap?center=[[+venueLatitude]],[[+venueLongitude]]&amp;markers=[[+venueLatitude]],[[+venueLongitude]]&amp;zoom=13&amp;size=300x200&amp;maptype=roadmap&amp;sensor=false" alt="Google Static Map - venue location">
+
+    <a href="[[+url]]">Book tickets</a>
+
+    <p>
+        Event start: [[+eventStart:strtotime:date=`%d-%m-%Y %I:%M %p`]]<br>
+        Event end: [[+eventEnd:strtotime:date=`%d-%m-%Y %I:%M %p`]]
+    </p>
+
+    <p>Event capacity: [[+eventCapacity]]</p>
+    <p>Event format: [[+eventFormat]]</p>
+</li>

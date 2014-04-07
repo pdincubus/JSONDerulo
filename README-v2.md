@@ -13,7 +13,8 @@ You need your user id to get this working, not your username. You can find it on
         &tpl=`jd.appNet`
         &limit=`LIMIT`
         &cacheTime=`CACHE_TIME_IN_SECONDS`
-        &cacheName=`UNIQUE_NAME_FOR_CACHE_FILE` &userId=`USERID`
+        &cacheName=`UNIQUE_NAME_FOR_CACHE_FILE`
+        &userId=`USERID`
     ]]
 </ul>
 ```
@@ -27,10 +28,34 @@ You need your user id to get this working, not your username. You can find it on
         &tpl=`jd.delicious`
         &limit=`LIMIT`
         &cacheTime=`CACHE_TIME_IN_SECONDS`
-        &cacheName=`UNIQUE_NAME_FOR_CACHE_FILE` &users=`USERNAME`
+        &cacheName=`UNIQUE_NAME_FOR_CACHE_FILE`
+        &users=`USERNAME`
     ]]
 </ul>
 ```
+
+### Eventbrite
+
+Requires Single user oAuth token - see 'Personal Tokens' on the [Authentication page](http://developer.eventbrite.com/docs/auth/)
+status options are: all, draft, live, cancelled, started and ended.
+orderBy options are: start_asc, start_desc, created_asc and created_desc.
+
+
+```
+<ul>
+    [[!JSONDerulo?
+        &feed=`eventbrite`
+        &tpl=`jd.eventbrite`
+        &limit=`LIMIT`
+        &status=`STATUS`
+        &orderBy=`ORDER`
+        &token=`YOUR_EVENTBRITE_OAUTH_TOKEN`
+        &cacheTime=`CACHE_TIME_IN_SECONDS`
+        &cacheName=`UNIQUE_NAME_FOR_CACHE_FILE`
+    ]]
+</ul>
+```
+
 
 ### Flickr
 
