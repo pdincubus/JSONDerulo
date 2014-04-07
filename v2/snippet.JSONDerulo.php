@@ -213,12 +213,11 @@ if( $feed == 'appnet' ) {
     $feedUrl = 'https://www.eventbriteapi.com/v3/users/me/owned_events/?status={status}&order_by={orderby}&token={token}';
 
     $excludeEmpty = explode(',', $modx->getOption('excludeEmpty', $scriptProperties, 'url'));
-    $userId = $modx->getOption('userId', $scriptProperties, '');
     $status = $modx->getOption('status', $scriptProperties, 'live');
     $orderBy = $modx->getOption('orderBy', $scriptProperties, 'start_asc');
     $limit = $modx->getOption('limit', $scriptProperties, 3);
 
-    $cacheId = 'jsonderulo-deliciousfeed-'.$cacheName.'-'.$userId;
+    $cacheId = 'jsonderulo-eventbritefeed-'.$cacheName;
 
     if (($json = $modx->cacheManager->get($cacheId)) === null) {
         if ($ch === null) {
