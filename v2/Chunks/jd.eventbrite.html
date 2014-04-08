@@ -1,19 +1,46 @@
 <li>
-    <h2>[[+title]]</h2>
-    <p>[[+textDescription]]</p>
-
-    <div>[[+htmlDescription]]</div>
-
-    <p>Organiser name: [[+organiserName]]</p>
-    <p>Organiser ID: [[+organiserId]]</p>
     <p>
-        [[+venueName]]<br>
-        [[+venueAddress]]
+        [[+textDescription]]
     </p>
 
-    <img src="http://maps.googleapis.com/maps/api/staticmap?center=[[+venueLatitude]],[[+venueLongitude]]&amp;markers=[[+venueLatitude]],[[+venueLongitude]]&amp;zoom=13&amp;size=300x200&amp;maptype=roadmap&amp;sensor=false" alt="Google Static Map - venue location">
+    <p>
+        <strong>Where?</strong><br>
+        [[+venueName]]<br>
+        [[+venueName]]<br>
+        [[+venueAddress1]]<br>
+        [[+venueAddress2]]<br>
+        [[+venueCity]]<br>
+        [[+venueRegion]]<br>
+        [[+venueCountryName]]<br>
+        [[+venueCountry]]
+    </p>
 
-    <a href="[[+url]]">Book tickets</a>
+    [[+ticketType1:notempty=`<p>
+        Ticket type: [[+ticketType1]]<br>
+        Cost: [[+ticketCost1]]<br>
+        Booking fee: [[+ticketFee1]]<br>
+        Is ticket a freebie? [[+ticketFree1]]<br>
+        Quantity total: [[+ticketTypeQuantity1]]<br>
+        Tickets sold: [[+ticketTypeSold1]]
+    </p>`]]
+
+    [[+ticketType2:notempty=`<p>
+        Ticket type: [[+ticketType2]]<br>
+        Cost: [[+ticketCost2]]<br>
+        Booking fee: [[+ticketFee2]]<br>
+        Is ticket a freebie? [[+ticketFree2]]<br>
+        Quantity total: [[+ticketTypeQuantity2]]<br>
+        Tickets sold: [[+ticketTypeSold2]]
+    </p>`]]
+
+    [[+ticketType3:notempty=`<p>
+        Ticket type: [[+ticketType3]]<br>
+        Cost: [[+ticketCost3]]<br>
+        Booking fee: [[+ticketFee3]]<br>
+        Is ticket a freebie? [[+ticketFree3]]<br>
+        Quantity total: [[+ticketTypeQuantity3]]<br>
+        Tickets sold: [[+ticketTypeSold3]]
+    </p>`]]
 
     <p>
         Event start: [[+eventStart:strtotime:date=`%d-%m-%Y %I:%M %p`]]<br>
@@ -22,4 +49,8 @@
 
     <p>Event capacity: [[+eventCapacity]]</p>
     <p>Event format: [[+eventFormat]]</p>
+
+    <img src="http://maps.googleapis.com/maps/api/staticmap?center=[[+venueLatitude]],[[+venueLongitude]]&amp;markers=[[+venueLatitude]],[[+venueLongitude]]&amp;zoom=13&amp;size=530x240&amp;maptype=roadmap&amp;sensor=false" alt="Google Static Map - venue location">
+
+    <a href="[[+url]]">Book tickets</a>
 </li>

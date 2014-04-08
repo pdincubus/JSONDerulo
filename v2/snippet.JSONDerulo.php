@@ -7,7 +7,7 @@
  *  @package: JSONDerulo
  *  @site: GitHub source: https://github.com/pdincubus/JSONDerulo
  *  @site: MODX Extra: http://modx.com/extras/package/jsonderulo
- *  @version: 2.3.0
+ *  @version: 2.3.2
  *  @description: Fetches social feeds in JSON format
 */
 
@@ -257,7 +257,12 @@ if( $feed == 'appnet' ) {
             'organiserName' => $feed->events[$i]->organizer->name,
             'organiserId' => $feed->events[$i]->organizer->id,
             'venueName' => $feed->events[$i]->venue->name,
-            'venueAddress' => $feed->events[$i]->venue->address_1 . '<br>' . $feed->events[$i]->venue->city . '<br>' . $feed->events[$i]->venue->region . '<br>' . $feed->events[$i]->venue->country_name . '<br>' . $feed->events[$i]->venue->country,
+            'venueAddress1' => $feed->events[$i]->venue->address->address_1,
+            'venueAddress2' => $feed->events[$i]->venue->address->address_2,
+            'venueCity' => $feed->events[$i]->venue->address->city,
+            'venueRegion' => $feed->events[$i]->venue->address->region,
+            'venueCountryName' => $feed->events[$i]->venue->address->country_name,
+            'venueCountry' => $feed->events[$i]->venue->address->country,
             'venueLatitude' => $feed->events[$i]->venue->latitude,
             'venueLongitude' => $feed->events[$i]->venue->longitude,
             'url' => $feed->events[$i]->url,
@@ -266,6 +271,18 @@ if( $feed == 'appnet' ) {
             'eventCapacity' => $feed->events[$i]->capacity,
             'eventFormat' => $feed->events[$i]->format->name,
         );
+
+        $j = 1;
+        foreach ($feed->events[$i]->ticket_classes as $ticket_class) {
+            $rawFeedData[$i]['ticketType'.$j] = $ticket_class->name;
+            $rawFeedData[$i]['ticketCost'.$j] = $ticket_class->cost->value;
+            $rawFeedData[$i]['ticketFee'.$j] = $ticket_class->fee->value;
+            $rawFeedData[$i]['ticketFree'.$j] = $ticket_class->free;
+            $rawFeedData[$i]['ticketTypeQuantity'.$j] = $ticket_class->quantity_total;
+            $rawFeedData[$i]['ticketTypeSold'.$j] = $ticket_class->quantity_sold;
+
+            $j++;
+        }
     }
 
     foreach ($rawFeedData as $item) {
