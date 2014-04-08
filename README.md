@@ -91,7 +91,12 @@ The App.net feed is very pleasant and gives you the option of either "text" or "
 [[+organiserName]]
 [[+organiserId]]
 [[+venueName]]
-[[+venueAddress]]
+[[+venueAddress1]]
+[[+venueAddress2]]
+[[+venueCity]]
+[[+venueRegion]]
+[[+venueCountryName]]
+[[+venueCountry]]
 [[+venueLatitude]]
 [[+venueLongitude]]
 [[+url]]
@@ -100,6 +105,20 @@ The App.net feed is very pleasant and gives you the option of either "text" or "
 [[+eventCapacity]]
 [[+eventFormat]]
 ```
+
+There are also some placeholders generated for ticket types (if you add these to your event). They're looped through with the index tagged on to the name. So if your event has only one type of ticket, you'd get these placeholders made available to you:
+
+```
+[[+ticketType1]]
+[[+ticketCost1]]
+[[+ticketFee1]]
+[[+ticketFree1]]
+[[+ticketTypeQuantity1]]
+[[+ticketTypeSold1]]
+```
+
+The basic chunk provided has placeholders set for up to three ticket classes - if you have more, just add more!
+
 
 #### Flickr:
 
