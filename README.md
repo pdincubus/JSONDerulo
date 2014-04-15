@@ -104,6 +104,7 @@ The App.net feed is very pleasant and gives you the option of either "text" or "
 [[+eventEnd]]
 [[+eventCapacity]]
 [[+eventFormat]]
+[[+eventId]]
 ```
 
 There are also some placeholders generated for ticket types (if you add these to your event). They're looped through with the index tagged on to the name. So if your event has only one type of ticket, you'd get these placeholders made available to you:

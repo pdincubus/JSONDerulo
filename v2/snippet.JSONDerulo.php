@@ -270,6 +270,7 @@ if( $feed == 'appnet' ) {
             'eventEnd' => $feed->events[$i]->end->utc,
             'eventCapacity' => $feed->events[$i]->capacity,
             'eventFormat' => $feed->events[$i]->format->name,
+            'eventId' => $feed->events[$i]->id,
         );
 
         $j = 1;

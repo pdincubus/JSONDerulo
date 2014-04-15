@@ -5,6 +5,9 @@ For all info: https://github.com/pdincubus/JSONDerulo/
 Most recent additions
 ---------------------
 
+2.3.3:
+    * Added eventId placeholder for Eventbrite
+
 2.3.2:
     * Lots of updates to the Eventbrite feed fetcher
 
