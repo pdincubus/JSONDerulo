@@ -195,16 +195,26 @@ if( $feed == 'appnet' ) {
     if (($json = $modx->cacheManager->get($cacheId)) === null) {
         if ($ch === null) {
             $ch = curl_init();
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt_array($ch, array(
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_CONNECTTIMEOUT => 10,
+                CURLOPT_TIMEOUT => 60,
+                CURLOPT_USERAGENT => 'php',
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_FOLLOWLOCATION => true,
+            ));
         }
 
+        $eventbriteUrl = str_replace(array('{status}', '{orderby}', '{token}'), array($status, $orderBy, $token), $feedUrl);
+
         curl_setopt_array($ch, array(
-          CURLOPT_URL => str_replace(array('{status}', '{orderby}', '{token}'), array($status, $orderBy, $token), $feedUrl),
+          CURLOPT_URL => $eventbriteUrl,
         ));
 
         $json = curl_exec($ch);
+
         if (empty($json)) {
-            continue;
+            return 'No events returned';
         }
 
         $modx->cacheManager->set($cacheId, $json, $cacheTime);
@@ -262,6 +272,7 @@ if( $feed == 'appnet' ) {
     foreach ($rawFeedData as $item) {
         $output .= $modx->getChunk($tpl, $item);
     }
+
 
 //-----------------------------------------------------------
 //  Flickr user's photos
