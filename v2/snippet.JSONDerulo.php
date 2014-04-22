@@ -7,7 +7,7 @@
  *  @package: JSONDerulo
  *  @site: GitHub source: https://github.com/pdincubus/JSONDerulo
  *  @site: MODX Extra: http://modx.com/extras/package/jsonderulo
- *  @version: 2.3.2
+ *  @version: 2.3.4
  *  @description: Fetches social feeds in JSON format
 */
 
@@ -46,33 +46,6 @@ $limit = $modx->getOption('limit', $scriptProperties, 2);
 $ch = null;
 $rawFeedData = array();
 $cacheName = str_replace(" ", "-", $cacheName);
-
-function sksort(&$array, $subkey, $sort_ascending)
-{
-    if (count($array))
-        $temp_array[key($array)] = array_shift($array);
-    foreach($array as $key => $val){
-        $offset = 0;
-        $found = false;
-        foreach($temp_array as $tmp_key => $tmp_val)
-        {
-            if(!$found and strtolower($val[$subkey]) > strtolower($tmp_val[$subkey]))
-            {
-                $temp_array = array_merge( (array)array_slice($temp_array,0,$offset),
-                    array($key => $val),
-                    array_slice($temp_array,$offset)
-                    );
-                $found = true;
-            }
-            $offset++;
-        }
-        if(!$found) $temp_array = array_merge($temp_array, array($key => $val));
-    }
-    if ($sort_ascending)
-        $array = array_reverse($temp_array);
-    else
-        $array = $temp_array;
-}
 
 //-----------------------------------------------------------
 //  App.net user posts feed
@@ -833,6 +806,33 @@ if( $feed == 'appnet' ) {
 
     foreach($feeds as $feed) {
         $tweets = array_merge($tweets, $feed);
+    }
+
+    function sksort(&$array, $subkey, $sort_ascending)
+    {
+        if (count($array))
+            $temp_array[key($array)] = array_shift($array);
+        foreach($array as $key => $val){
+            $offset = 0;
+            $found = false;
+            foreach($temp_array as $tmp_key => $tmp_val)
+            {
+                if(!$found and strtolower($val[$subkey]) > strtolower($tmp_val[$subkey]))
+                {
+                    $temp_array = array_merge( (array)array_slice($temp_array,0,$offset),
+                        array($key => $val),
+                        array_slice($temp_array,$offset)
+                        );
+                    $found = true;
+                }
+                $offset++;
+            }
+            if(!$found) $temp_array = array_merge($temp_array, array($key => $val));
+        }
+        if ($sort_ascending)
+            $array = array_reverse($temp_array);
+        else
+            $array = $temp_array;
     }
 
     sksort($tweets, 'created_at', false);
