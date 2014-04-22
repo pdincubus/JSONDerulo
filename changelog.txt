@@ -5,6 +5,9 @@ For all info: https://github.com/pdincubus/JSONDerulo/
 Most recent additions
 ---------------------
 
+2.3.4:
+    * Move sksort function into Twitter feed part to avoid errors
+
 2.3.3:
     * Added eventId placeholder for Eventbrite
 
