@@ -7,7 +7,7 @@
  *  @package: JSONDerulo
  *  @site: GitHub source: https://github.com/pdincubus/JSONDerulo
  *  @site: MODX Extra: http://modx.com/extras/package/jsonderulo
- *  @version: 2.3.4
+ *  @version: 2.3.5
  *  @description: Fetches social feeds in JSON format
 */
 
@@ -23,7 +23,6 @@
  *  Google+ public posts [requires API key - https://code.google.com/apis/console/]
  *  LastFM loved tunes [requires API Key - http://www.last.fm/api/account]
  *  LastFM recent listens [requires API Key - http://www.last.fm/api/account]
- *  Picasa album photos
  *  Tumblr posts
  *  Twitter timeline [requires keys and secrets, set up an app - https://dev.twitter.com/apps]
  *  Twitter favourites [requires keys and secrets as above]
@@ -31,7 +30,6 @@
  *  YouTube (API v2) uploaded videos
  *  YouTube (API v2) favourites
  *  YouTube (API v3) public playlist videos [requires API key - https://code.google.com/apis/console/]
- *  ZooTool bookmarked items [requires API Key - http://zootool.com/api/keys]
  */
 
 //-----------------------------------------------------------
@@ -594,77 +592,6 @@ if( $feed == 'appnet' ) {
 
     foreach ($rawFeedData as $item) {
         $output .= $modx->getChunk($tpl, $item);
-    }
-
-//-----------------------------------------------------------
-//  Picasa album feed
-//-----------------------------------------------------------
-} elseif( $feed == 'picasa' ) {
-    $feedUrl = 'https://picasaweb.google.com/data/feed/base/user/{userid}/albumid/{albumid}?kind=photo&alt=json';
-
-    $excludeEmpty = explode(',', $modx->getOption('excludeEmpty', $scriptProperties, 'content'));
-    $feeds = explode(',', $modx->getOption('users', $scriptProperties, '3'));
-    $albumId = $modx->getOption('albumId', $scriptProperties, '');
-    $albumName = $modx->getOption('albumName', $scriptProperties, '');
-
-    foreach ($feeds as $userId) {
-        $cacheId = 'jsonderulo-picasafeed-'.$cacheName.'-'.$userId;
-
-        if (($json = $modx->cacheManager->get($cacheId)) === null) {
-            if ($ch === null) {
-                $ch = curl_init();
-                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            }
-
-            curl_setopt_array($ch, array(
-              CURLOPT_URL => str_replace(array('{userid}', '{albumid}'), array($userId, $albumId), $feedUrl),
-            ));
-
-
-            $json = curl_exec($ch);
-            if (empty($json)) {
-                continue;
-            }
-
-            $modx->cacheManager->set($cacheId, $json, $cacheTime);
-        }
-
-        $feed = json_decode($json);
-
-        if ($feed === null) {
-            continue;
-        }
-
-        $counter = NULL;
-        $feeditems = $feed->feed;
-
-        foreach ($feeditems->entry as $photo) {
-            $counter++;
-
-            if($counter>$limit){
-                  break;
-            }
-
-            foreach ($excludeEmpty as $k) {
-                if ($photo->$k == '') {
-                    continue 2;
-                }
-            }
-
-            $rawFeedData[] = array(
-                'link' => $photo->link[1]->href,
-                'albumid' => $albumId,
-                'created' => strtotime($photo->published->{'$t'}),
-                'picture' => $photo->content->src,
-                'title' => $photo->{'media$group'}->{'media$title'}->{'$t'},
-                'userid' => $userId,
-                'albumname' => $albumName,
-            );
-        }
-    }
-
-    foreach ($rawFeedData as $photo) {
-        $output .= $modx->getChunk($tpl, $photo);
     }
 
 //-----------------------------------------------------------
@@ -1237,67 +1164,6 @@ if( $feed == 'appnet' ) {
             $output .= $modx->getChunk($tpl, $image);
         }
     }
-
-//-----------------------------------------------------------
-//  ZooTool bookmarked stuff
-//-----------------------------------------------------------
-} elseif( $feed == 'zootool' ) {
-    $feedUrl = 'http://zootool.com/api/users/items/?username={username}&apikey={apikey}&limit={limit}';
-
-    $excludeEmpty = explode(',', $modx->getOption('excludeEmpty', $scriptProperties, 'image'));
-    $feeds = explode(',', $modx->getOption('users', $scriptProperties, ''));
-    $apiKey = $modx->getOption('apiKey', $scriptProperties, '');
-
-    foreach ($feeds as $username) {
-        $cacheId = 'jsonderulo-zootoolfeed-'.$cacheName.'-'.$username;
-
-        if (($json = $modx->cacheManager->get($cacheId)) === null) {
-            if ($ch === null) {
-                $ch = curl_init();
-                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            }
-
-            curl_setopt_array($ch, array(
-              CURLOPT_URL => str_replace(array('{apikey}', '{username}', '{limit}'), array($apiKey, $username, $limit), $feedUrl),
-            ));
-
-
-            $json = curl_exec($ch);
-            if (empty($json)) {
-                continue;
-            }
-
-            $modx->cacheManager->set($cacheId, $json, $cacheTime);
-        }
-
-        $feed = json_decode($json);
-
-        if ($feed === null) {
-            continue;
-        }
-
-        foreach ($feed as $image) {
-            foreach ($excludeEmpty as $k) {
-                if ($image->$k == '') {
-                    continue 2;
-                }
-            }
-
-            $rawFeedData[] = array(
-                'date' => $image->added,
-                'picture' => $image->image,
-                'title' => $image->title,
-                'username' => $username,
-                'referrer' => $image->referer,
-                'permalink' => $image->permalink,
-            );
-        }
-    }
-
-    foreach ($rawFeedData as $image) {
-        $output .= $modx->getChunk($tpl, $image);
-    }
-}
 
 //-----------------------------------------------------------
 //  close curl connection, return data from snippet
