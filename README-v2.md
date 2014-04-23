@@ -143,23 +143,6 @@ Requires api key, get one here: [LastFM API Key](http://www.last.fm/api/account)
 </ul>
 ```
 
-### Picasa
-
-```
-<ul>
-    [[!JSONDerulo?
-        &feed=`picasa`
-        &tpl=`jd.picasa`
-        &limit=`LIMIT`
-        &cacheTime=`CACHE_TIME_IN_SECONDS`
-        &cacheName=`UNIQUE_NAME_FOR_CACHE_FILE`
-        &users=`USERID`
-        &albumId=`ALBUMID`
-        &albumName=`ALBUMNAME`
-    ]]
-</ul>
-```
-
 ### Tumblr
 
 The &postType option is optional (if not set, feed will return all post types), but can be set to ```audio```, ```video```, ```photo```, ```link```, ```text```
@@ -291,20 +274,3 @@ The screenName option is *optional*. It will allow you to fetch another user's f
 
 Grab an API key for v3 from [Google API Console](https://code.google.com/apis/console/). Ensure you switch API v3 access on!
 
-### ZooTool
-
-Requires API key, get one here: [ZooTool API Key](http://zootool.com/api/keys)
-
-```
-<ul>
-    [[!JSONDerulo?
-        &feed=`zootool`
-        &tpl=`jd.zooTool`
-        &limit=`LIMIT`
-        &cacheTime=`CACHE_TIME_IN_SECONDS`
-        &cacheName=`UNIQUE_NAME_FOR_CACHE_FILE`
-        &users=`USERNAME`
-        &apiKey=`API KEY`
-    ]]
-</ul>
-```

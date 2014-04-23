@@ -12,13 +12,13 @@ The following feeds are already set up:
 * Google+ - most recent public posts
 * Google calendar - upcoming public events
 * LastFM - recent "loved" tracks or recent "listens"
-* Picasa - Photos from a named album
+* <del>Picasa - Photos from a named album</del>
 * Tumblr - most recent posts (several post type options)
 * Twitter - most recent tweets, or a user's favourites
 * Vimeo - most recent "likes"
 * YouTube - Most recent additions to "favourites" playlist or specific user's uploads
 * YouTube - (For API v.3 - fetch a public playlist)
-* ZooTool - Most recent items (pages or images)
+* <del>ZooTool - Most recent items (pages or images)</del>
 
 ## Thanks!
 
@@ -175,17 +175,6 @@ The basic chunk provided has placeholders set for up to three ticket classes - i
 [[+username]]
 ```
 
-### Picasa:
-
-```
-[[+link]]
-[[+albumid]]
-[[+created]]
-[[+picture]]
-[[+title]]
-[[+userid]]
-[[+albumname]]
-```
 
 ### Tumblr:
 
@@ -289,16 +278,6 @@ For image posts:
 [[+author]]
 ```
 
-#### ZooTool:
-
-```
-[[+date]]
-[[+picture]]
-[[+title]]
-[[+username]]
-[[+referrer]]
-[[+permalink]]
-```
 
 ### CSS
 
