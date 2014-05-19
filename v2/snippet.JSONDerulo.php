@@ -7,7 +7,7 @@
  *  @package: JSONDerulo
  *  @site: GitHub source: https://github.com/pdincubus/JSONDerulo
  *  @site: MODX Extra: http://modx.com/extras/package/jsonderulo
- *  @version: 2.3.6
+ *  @version: 2.3.7
  *  @description: Fetches social feeds in JSON format
 */
 
@@ -714,6 +714,7 @@ if( $feed == 'appnet' ) {
     $consumerSecret = $modx->getOption('consumerSecret', $scriptProperties, '');
     $accessToken = $modx->getOption('accessToken', $scriptProperties, '');
     $accessTokenSecret = $modx->getOption('accessTokenSecret', $scriptProperties, '');
+    $sortDir = $modx->getOption('sortDir', $scriptProperties, 'ASC');
 
     $feeds = array();
     $tweets = array();
@@ -746,17 +747,17 @@ if( $feed == 'appnet' ) {
         $tweets = array_merge($tweets, $feed);
     }
 
-    function sksort(&$array, $subkey, $sort_ascending)
-    {
-        if (count($array))
+    function sksort( &$array, $subkey, $sort_ascending ) {
+        if ( count($array) ) {
             $temp_array[key($array)] = array_shift($array);
-        foreach($array as $key => $val){
+        }
+
+        foreach ( $array as $key => $val ) {
             $offset = 0;
             $found = false;
-            foreach($temp_array as $tmp_key => $tmp_val)
-            {
-                if(!$found and strtolower($val[$subkey]) > strtolower($tmp_val[$subkey]))
-                {
+
+            foreach ( $temp_array as $tmp_key => $tmp_val ) {
+                if(!$found and strtolower($val[$subkey]) > strtolower($tmp_val[$subkey])) {
                     $temp_array = array_merge( (array)array_slice($temp_array,0,$offset),
                         array($key => $val),
                         array_slice($temp_array,$offset)
@@ -765,15 +766,29 @@ if( $feed == 'appnet' ) {
                 }
                 $offset++;
             }
-            if(!$found) $temp_array = array_merge($temp_array, array($key => $val));
+
+            if ( !$found ) {
+                $temp_array = array_merge($temp_array, array($key => $val));
+            }
         }
-        if ($sort_ascending)
+
+        if ($sort_ascending == true) {
             $array = array_reverse($temp_array);
-        else
+        } else {
             $array = $temp_array;
+        }
     }
 
-    sksort($tweets, 'created_at', false);
+    foreach( $tweets as $i => $t ) {
+        $tweets[$i]['created_at_timestamp'] = strtotime($t['created_at']);
+    }
+
+    if ( $sortDir == 'ASC' ) {
+        sksort($tweets, 'created_at_timestamp', true);
+    } else {
+        sksort($tweets, 'created_at_timestamp', false);
+    }
+
     array_splice($tweets, $limit);
     $tweets = json_decode(json_encode($tweets));
 

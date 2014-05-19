@@ -190,6 +190,7 @@ UPDATE: You can fetch and combine more than one screenName if you comma separate
         &consumerSecret=`YOUR_CONSUMER_SECRET`
         &accessToken=`YOUR_ACCESS_TOKEN`
         &accessTokenSecret=`YOUR_ACCESS_TOKEN_SECRET`
+        &sortDir=`ASC_OR_DESC`
     ]]
 </ul>
 ```

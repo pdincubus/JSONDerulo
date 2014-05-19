@@ -4,6 +4,10 @@ For all info: https://github.com/pdincubus/JSONDerulo/
 
 Most recent additions
 ---------------------
+2.3.7:
+    * Add sortDir option to Twitter feed. (Hat tip to creatabledesign on GitHub)
+    * Added unix timestamp for tweet created on so that sorting actually sorts properly!
+
 2.3.6:
     * FFS.
 
