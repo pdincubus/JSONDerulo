@@ -1047,7 +1047,7 @@ if( $feed == 'appnet' ) {
                 'picture' => $video->{'media$group'}->{'media$thumbnail'}[0]->url,
                 'title' => $video->title->{'$t'},
                 'ytlink' => $video->link[0]->href,
-                'embedlink' => 'https://www.youtube.com/v/' .$videoId. $videoParams,
+                'embedlink' => 'https://www.youtube.com/embed/' .$videoId. $videoParams,
                 'videoId' => $videoId,
                 'author' => $video->author[0]->name->{'$t'},
             );
@@ -1114,7 +1114,7 @@ if( $feed == 'appnet' ) {
                 'picture' => $video->{'media$group'}->{'media$thumbnail'}[0]->url,
                 'title' => $video->title->{'$t'},
                 'ytlink' => $video->link[0]->href,
-                'embedlink' => 'https://www.youtube.com/v/' .$videoId. $videoParams,
+                'embedlink' => 'https://www.youtube.com/embed/' .$videoId. $videoParams,
                 'videoId' => $videoId,
                 'author' => $video->author[0]->name->{'$t'},
             );
@@ -1169,7 +1169,7 @@ if( $feed == 'appnet' ) {
                 'title' => $video->snippet->title,
                 'description' => $video->snippet->description,
                 'ytlink' => 'http://www.youtube.com/watch?v=' . $video->snippet->resourceId->videoId,
-                'embedlink' => 'https://www.youtube.com/v/' . $video->snippet->resourceId->videoId,
+                'embedlink' => 'https://www.youtube.com/embed/' . $video->snippet->resourceId->videoId,
                 'videoId' => $video->snippet->resourceId->videoId,
                 'author' => $video->author[0]->name->{'$t'},
                 );
