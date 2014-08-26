@@ -7,7 +7,7 @@
  *  @package: JSONDerulo
  *  @site: GitHub source: https://github.com/pdincubus/JSONDerulo
  *  @site: MODX Extra: http://modx.com/extras/package/jsonderulo
- *  @version: 2.3.7
+ *  @version: 2.3.8
  *  @description: Fetches social feeds in JSON format
 */
 
@@ -276,7 +276,7 @@ if( $feed == 'appnet' ) {
 //  Flickr user's photos
 //-----------------------------------------------------------
 } elseif( $feed == 'flickr' ) {
-    $feedUrl = 'http://api.flickr.com/services/rest/?method=flickr.photos.search&format=json&nojsoncallback=1&api_key={apikey}&user_id={userid}&per_page={limit}&extras=url_m,url_l,date_upload';
+    $feedUrl = 'https://api.flickr.com/services/rest/?method=flickr.photos.search&format=json&nojsoncallback=1&api_key={apikey}&user_id={userid}&per_page={limit}&extras=url_m,url_l,date_upload';
 
     $excludeEmpty = explode(',', $modx->getOption('excludeEmpty', $scriptProperties, 'url_m'));
     $feeds = explode(',', $modx->getOption('users', $scriptProperties, '3'));
