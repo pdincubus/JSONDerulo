@@ -164,6 +164,28 @@ The basic chunk provided has placeholders set for up to three ticket classes - i
 [[+location]]
 ```
 
+###Instagram
+
+```
+[[+attribution]]
+[[+tags]]
+[[+locationLat]]
+[[+locationLong]]
+[[+locationName]]
+[[+filter]]
+[[+link]]
+[[+likes]]
+[[+date]]
+[[+image]]
+[[+caption]]
+[[+username]]
+[[+userFullName]]
+[[+avatar]]
+[[+userBio]]
+[[+userWebsite]]
+```
+
+
 #### LastFM:
 
 ```

@@ -111,6 +111,24 @@ You'll need to find the calendar's public feed URL. Don't panic, [read the instr
 </ul>
 ```
 
+###Instagram
+
+Requires client ID, get one here: [Instagram developers](http://instagram.com/developer/clients/manage/)
+
+```
+<ul>
+    [[!JSONDerulo?
+        &feed=`instagram`
+        &tpl=`jd.instagram`
+        &limit=`LIMIT`
+        &cacheTime=`CACHE_TIME_IN_SECONDS`
+        &cacheName=`UNIQUE_NAME_FOR_CACHE_FILE`
+        &users=`USER ID`
+        &apiKey=`CLIENT ID`
+    ]]
+</ul>
+```
+
 ### LastFM
 
 Requires api key, get one here: [LastFM API Key](http://www.last.fm/api/account)

@@ -5,6 +5,9 @@ For all info: https://github.com/pdincubus/JSONDerulo/
 Most recent additions
 ---------------------
 
+2.4.0:
+    * NEW! Added instagram user public recent media feed
+
 2.3.8:
     * Fixed Flickr URL to be HTTPS
 
