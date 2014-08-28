@@ -7,7 +7,7 @@
  *  @package: JSONDerulo
  *  @site: GitHub source: https://github.com/pdincubus/JSONDerulo
  *  @site: MODX Extra: http://modx.com/extras/package/jsonderulo
- *  @version: 2.3.8
+ *  @version: 2.4.0
  *  @description: Fetches social feeds in JSON format
 */
 
@@ -21,6 +21,7 @@
  *  Flickr recent photos [requires API key - http://www.flickr.com/services/apps/create/apply]
  *  Google Calendar public events
  *  Google+ public posts [requires API key - https://code.google.com/apis/console/]
+ *  Instagram user public media [requires client ID - [http://instagram.com/developer/clients/manage/]
  *  LastFM loved tunes [requires API Key - http://www.last.fm/api/account]
  *  LastFM recent listens [requires API Key - http://www.last.fm/api/account]
  *  Tumblr posts
@@ -337,7 +338,7 @@ if( $feed == 'appnet' ) {
 //  Google calendar public events
 //-----------------------------------------------------------
 } elseif( $feed == 'googlecalendar' ) {
-    $feedUrl = 'http://www.google.com/calendar/feeds/{feedlocation}/public/full?alt=json&orderby=starttime&max-results={limit}&singleevents=true&sortorder=ascending&futureevents=true';
+    $feedUrl = 'https://www.google.com/calendar/feeds/{feedlocation}/public/full?alt=json&orderby=starttime&max-results={limit}';
 
     $excludeEmpty = explode(',', $modx->getOption('excludeEmpty', $scriptProperties, 'link'));
     $feeds = explode(',', $modx->getOption('feedLocation', $scriptProperties, ''));
@@ -471,6 +472,71 @@ if( $feed == 'appnet' ) {
     foreach ($rawFeedData as $message) {
         $output .= $modx->getChunk($tpl, $message);
     }
+
+//-----------------------------------------------------------
+//  Instagram user public media
+//-----------------------------------------------------------
+} elseif( $feed == 'instagram' ) {
+    $feedUrl = 'https://api.instagram.com/v1/users/{userid}/media/recent/?client_id={apikey}&count={limit}';
+
+    $excludeEmpty = explode(',', $modx->getOption('excludeEmpty', $scriptProperties, 'name'));
+    $feeds = explode(',', $modx->getOption('users', $scriptProperties, ''));
+    $apiKey = $modx->getOption('apiKey', $scriptProperties, '');
+
+    foreach ($feeds as $username) {
+        $cacheId = 'jsonderulo-instagram-'.$cacheName.'-'.$username;
+
+        if (($json = $modx->cacheManager->get($cacheId)) === null) {
+            if ($ch === null) {
+                $ch = curl_init();
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            }
+
+            curl_setopt_array($ch, array(
+              CURLOPT_URL => str_replace(array('{apikey}', '{userid}', '{limit}'), array($apiKey, $username, $limit), $feedUrl),
+            ));
+
+            $json = curl_exec($ch);
+            if (empty($json)) {
+                continue;
+            }
+
+            $modx->cacheManager->set($cacheId, $json, $cacheTime);
+        }
+
+        $feed = json_decode($json);
+
+        if ($feed === null) {
+            continue;
+        }
+
+        foreach ($feed->data as $item) {
+            $rawFeedData[] = array(
+                'attribution' => $item->attribution,
+                'tags' => $item->tags,
+                'locationLat' => $item->location->latitude,
+                'locationLong' => $item->location->longitude,
+                'locationName' => $item->location->name,
+                'filter' => $item->filter,
+                'link' => $item->link,
+                'likes' => $item->likes->count,
+                'date' => $item->created_time,
+                'image' => $item->images->standard_resolution->url,
+                'caption' => $item->caption->text,
+                'username' => $item->user->username,
+                'userFullName' => $item->user->full_name,
+                'avatar' => $item->user->profile_picture,
+                'userBio' => $item->user->bio,
+                'userWebsite' => $item->user->website,
+            );
+        }
+    }
+
+    foreach ($rawFeedData as $item) {
+        $output .= $modx->getChunk($tpl, $item);
+    }
+
+
 
 //-----------------------------------------------------------
 //  Last.fm user loved tunes
