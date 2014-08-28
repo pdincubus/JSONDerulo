@@ -11,8 +11,8 @@ The following feeds are already set up:
 * Flickr - most recent photographs in your photostream
 * Google+ - most recent public posts
 * Google calendar - upcoming public events
+* Instagram - user public media
 * LastFM - recent "loved" tracks or recent "listens"
-* <del>Picasa - Photos from a named album</del>
 * Tumblr - most recent posts (several post type options)
 * Twitter - most recent tweets, or a user's favourites
 * Vimeo - most recent "likes"
