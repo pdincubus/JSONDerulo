@@ -147,6 +147,7 @@ The basic chunk provided has placeholders set for up to three ticket classes - i
 [[+profileUrl]]
 [[+avatar]]
 [[+displayName]]
+[[+fullImage]]
 
 ```
 

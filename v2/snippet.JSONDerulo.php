@@ -7,7 +7,7 @@
  *  @package: JSONDerulo
  *  @site: GitHub source: https://github.com/pdincubus/JSONDerulo
  *  @site: MODX Extra: http://modx.com/extras/package/jsonderulo
- *  @version: 2.4.0
+ *  @version: 2.4.1
  *  @description: Fetches social feeds in JSON format
 */
 
@@ -463,6 +463,7 @@ if( $feed == 'appnet' ) {
                 'repliesCount' => $message->object->replies->totalItems,
                 'plusCount' => $message->object->plusoners->totalItems,
                 'resharesCount' => $message->object->resharers->totalItems,
+                'fullImage' => $message->object->attachments[0]->fullImage->url,
             );
 
             $i++;

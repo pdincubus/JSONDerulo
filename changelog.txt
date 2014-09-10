@@ -4,6 +4,8 @@ For all info: https://github.com/pdincubus/JSONDerulo/
 
 Most recent additions
 ---------------------
+2.4.1:
+    * Added fullImage placeholder for G+ public posts with image attachments (thanks to thijsvandamme)
 
 2.4.0:
     * NEW! Added instagram user public recent media feed
