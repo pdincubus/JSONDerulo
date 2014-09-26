@@ -757,7 +757,7 @@ if( $feed == 'appnet' ) {
             if($post->type=='photo'){
                 $rawFeedData[$i]['caption'] = $post->caption;
                 $rawFeedData[$i]['imagePermalink'] = $post->image_permalink;
-                $rawFeedData[$i]['image'] = $post->photos->original_size->url;
+                $rawFeedData[$i]['image'] = $post->photos[0]->original_size->url;
             }
 
             $i++;
