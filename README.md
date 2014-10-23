@@ -272,12 +272,16 @@ For image posts:
 [[+title]]
 [[+username]]
 [[+retweetCount]]
+[[+favouriteCount]]
+[[+inReplyToStatusId]]
+[[+inReplyToScreenName]]
 [[+isRetweet]]
 [[+originalAuthorPicture]]
 [[+originalAuthor]]
 [[+originalUsername]]
 [[+originalId]]
 ```
+
 #### Vimeo:
 
 ```

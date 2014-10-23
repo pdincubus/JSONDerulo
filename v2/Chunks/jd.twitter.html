@@ -1,34 +1,39 @@
 <li class="cf">
   [[+id:notempty=`
 
-  [[+isRetweet:is=`1`:then=`
-  <a href="http://twitter.com/#!/[[+originalUsername]]">
-    <img src="[[+originalAuthorPicture:phpthumbof=`q=85&w=48&h=48`]]" alt="[[+originalAuthor]]">
-    <span class="userfullname">[[+originalAuthor]]</span>
-    <span class="username">@[[+originalUsername]]</span>
-  </a>
-  `:else=`
-  <a href="http://twitter.com/#!/[[+username]]">
-    <img src="[[+picture:phpthumbof=`q=85&w=48&h=48`]]" alt="[[+title]]">
-    <span class="userfullname">[[+title]]</span>
-    <span class="username">@[[+username]]</span>
-  </a>
-  `]]
+    [[+isRetweet:is=`1`:then=`
+      <a href="https://twitter.com[[+originalUsername]]">
+        <img src="[[+originalAuthorPicture:phpthumbof=`q=85&w=48&h=48`]]" alt="[[+originalAuthor]]">
+        <span class="userfullname">[[+originalAuthor]]</span>
+        <span class="username">@[[+originalUsername]]</span>
+      </a>
+    `:else=`
+      <a href="https://twitter.com[[+username]]">
+        <img src="[[+picture:phpthumbof=`q=85&w=48&h=48`]]" alt="[[+title]]">
+        <span class="userfullname">[[+title]]</span>
+        <span class="username">@[[+username]]</span>
+      </a>
+    `]]
 
-  <div class="tweet">
-    [[+message]]
-  </div>
+    <div class="tweet">
+      [[+inReplyToStatusId:notempty=`<p>In reply to <a href="https://twitter.com/[[+inReplyToScreenName]]/status/[[+inReplyToStatusId]]" class="replyTo">[[+inReplyToScreenName]]</a></p>`]]
+      [[+message]]
 
-  <a href="http://twitter.com/#!/[[+username]]/status/[[+id]]">
-    <time datetime="[[+created:date=`%Y-%m-%d`]]">[[+created:date=`%e %B`]]</time>
-  </a>
+      <span class="retweets">Retweets: [[+retweetCount]]</span>
+      <span class="favourites">Favourites: [[+favouriteCount]]</span>
+    </div>
 
-  <ul class="cf">
-    <li><a href="https://twitter.com/intent/tweet?in_reply_to=[[+id]]" class="twitterReply">Reply</a></li>
-    <li><a href="https://twitter.com/intent/retweet?tweet_id=[[+id]]" class="twitterRetweet">Retweet</a></li>
-    <li><a href="https://twitter.com/intent/favorite?tweet_id=[[+id]]" class="twitterFavourite">Favourite</a></li>
-  </ul>
+    <a href="https://twitter.com/[[+username]]/status/[[+id]]">
+      <time datetime="[[+created:date=`%Y-%m-%d`]]">[[+created:date=`%e %B`]]</time>
+    </a>
+
+    <ul class="cf">
+      <li><a href="https://twitter.com/intent/tweet?in_reply_to=[[+id]]" class="twitterReply">Reply</a></li>
+      <li><a href="https://twitter.com/intent/retweet?tweet_id=[[+id]]" class="twitterRetweet">Retweet</a></li>
+      <li><a href="https://twitter.com/intent/favorite?tweet_id=[[+id]]" class="twitterFavourite">Favourite</a></li>
+    </ul>
+
   `:default=`
-  [[+message]]
+    [[+message]]
   `]]
 </li>
