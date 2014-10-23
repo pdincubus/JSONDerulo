@@ -4,6 +4,11 @@ For all info: https://github.com/pdincubus/JSONDerulo/
 
 Most recent additions
 ---------------------
+
+2.4.2:
+    * Small tweak to tumblr feed (thanks to romangetman)
+    * New placeholders for twitter feed: "in reply to" options and included missing favourite count
+
 2.4.1:
     * Added fullImage placeholder for G+ public posts with image attachments (thanks to thijsvandamme)
 
