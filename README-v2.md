@@ -96,7 +96,11 @@ Requires API key, get one here: [Google API key](https://code.google.com/apis/co
 
 ### Google calendar
 
-You'll need to find the calendar's public feed URL. Don't panic, [read the instructions further down the page](#google-calendar-and-public-feed-urls)...
+Requires API key - [Google API key](https://code.google.com/apis/console/)
+
+```feedLocation``` should be your Google Calendar ID.
+
+```timeMin``` don't include this unless you want to show some past events (default from now) - format is ```Y-m-d\TH:i:sP```
 
 ```
 <ul>
@@ -107,6 +111,8 @@ You'll need to find the calendar's public feed URL. Don't panic, [read the instr
         &cacheTime=`CACHE_TIME_IN_SECONDS`
         &cacheName=`UNIQUE_NAME_FOR_CACHE_FILE`
         &feedLocation=`FEED LOCATION`
+        &apiKey=`SERVER API KEY`
+        &timeMin=`DEFAULT NOW`
     ]]
 </ul>
 ```

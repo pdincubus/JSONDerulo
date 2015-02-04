@@ -19,7 +19,7 @@
  *  Delicious public bookmarks
  *  Eventbrite user events [requires Single user oAuth token - see 'Personal Tokens' on the Authentication page: http://developer.eventbrite.com/docs/auth/]
  *  Flickr recent photos [requires API key - http://www.flickr.com/services/apps/create/apply]
- *  Google Calendar public events
+ *  Google Calendar (API v3) public events [requires API key - https://code.google.com/apis/console/]
  *  Google+ public posts [requires API key - https://code.google.com/apis/console/]
  *  Instagram user public media [requires client ID - [http://instagram.com/developer/clients/manage/]
  *  LastFM loved tunes [requires API Key - http://www.last.fm/api/account]
@@ -338,9 +338,11 @@ if( $feed == 'appnet' ) {
 //  Google calendar public events
 //-----------------------------------------------------------
 } elseif( $feed == 'googlecalendar' ) {
-    $feedUrl = 'https://www.google.com/calendar/feeds/{feedlocation}/public/full?alt=json&orderby=starttime&max-results={limit}';
+    $feedUrl = 'https://www.googleapis.com/calendar/v3/calendars/{feedlocation}/events?key={apiKey}&orderBy=startTime&singleEvents=true&maxResults={limit}&timeMin={timeMin}';
 
-    $excludeEmpty = explode(',', $modx->getOption('excludeEmpty', $scriptProperties, 'link'));
+    $apiKey = $modx->getOption('apiKey', $scriptProperties, '');
+    $timeMin = urlencode($modx->getOption('timeMin', $scriptProperties, date("Y-m-d\TH:i:sP")));
+    $excludeEmpty = explode(',', $modx->getOption('excludeEmpty', $scriptProperties, 'htmlLink'));
     $feeds = explode(',', $modx->getOption('feedLocation', $scriptProperties, ''));
 
     foreach ($feeds as $username) {
@@ -353,7 +355,7 @@ if( $feed == 'appnet' ) {
             }
 
             curl_setopt_array($ch, array(
-              CURLOPT_URL => str_replace(array('{feedlocation}', '{limit}'), array($username, $limit), $feedUrl),
+              CURLOPT_URL => str_replace(array('{apiKey}', '{feedlocation}', '{limit}', '{timeMin}'), array($apiKey, $username, $limit, $timeMin), $feedUrl),
             ));
 
             $json = curl_exec($ch);
@@ -364,21 +366,21 @@ if( $feed == 'appnet' ) {
 
             $modx->cacheManager->set($cacheId, $json, $cacheTime);
         }
-
+        
         $feed = json_decode($json);
-
+        
         if ($feed === null) {
             continue;
         }
 
-        $feeditems = $feed->feed;
+        $feeditems = $feed->items;
+        
+        if($feeditems) {
 
-        if($feeditems->entry) {
+            $timezone = $feed->timeZone;
+            $calendarName = $feed->summary;
 
-            $timezone = $feeditems->{'gCal$timezone'}->value;
-            $calendarName = $feeditems->title->{'$t'};
-
-            foreach ($feeditems->entry as $event) {
+            foreach ($feeditems as $event) {
                 foreach ($excludeEmpty as $k) {
                     if ($event->$k == '') {
                         continue 2;
@@ -386,16 +388,17 @@ if( $feed == 'appnet' ) {
                 }
 
                 $rawFeedData[] = array(
-                    'published' => strtotime($event->published->{'$t'}),
+                    'published' => strtotime($event->created),
                     'timezone' => $timezone,
-                    'title' => $event->title->{'$t'},
-                    'content' => $event->content->{'$t'},
-                    'link' => $event->link[0]->href,
+                    'title' => $event->summary,
+                    'content' => $event->description,
+                    'link' => $event->htmlLink,
                     'calendarName' => $calendarName,
-                    'eventEnd' => strtotime($event->{'gd$when'}[0]->endTime),
-                    'eventStart' => strtotime($event->{'gd$when'}[0]->startTime),
-                    'location' => $event->{'gd$where'}[0]->valueString,
+                    'eventEnd' => strtotime($event->start->dateTime),
+                    'eventStart' => strtotime($event->end->dateTime),
+                    'location' => $event->location,
                 );
+
             }
 
             foreach ($rawFeedData as $item) {
