@@ -7,7 +7,7 @@
  *  @package: JSONDerulo
  *  @site: GitHub source: https://github.com/pdincubus/JSONDerulo
  *  @site: MODX Extra: http://modx.com/extras/package/jsonderulo
- *  @version: 2.4.2
+ *  @version: 2.5
  *  @description: Fetches social feeds in JSON format
 */
 
@@ -366,15 +366,15 @@ if( $feed == 'appnet' ) {
 
             $modx->cacheManager->set($cacheId, $json, $cacheTime);
         }
-        
+
         $feed = json_decode($json);
-        
+
         if ($feed === null) {
             continue;
         }
 
         $feeditems = $feed->items;
-        
+
         if($feeditems) {
 
             $timezone = $feed->timeZone;
