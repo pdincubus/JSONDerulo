@@ -362,12 +362,4 @@ Click the arrow beside the name of the calendar, then go to settings.
 
 ![Calendar Settings](http://pdincubus.github.com/JSONDerulo/img/cal-settings.png)
 
-Look down near the bottom of the first settings screen, you'll see the following:
-
-![Calendar XML feed button](http://pdincubus.github.com/JSONDerulo/img/cal-xml-button.png)
-
-Right click the XML button, and click "Copy link location". Use this link as the &feedLocation in the snippet call. Easy!
-
-![Calendar XML feed location](http://pdincubus.github.com/JSONDerulo/img/cal-copy-link.png)
-
-The link should look something like this: ```str1ng0fr4nd0mch4r5%40group.calendar.google.com```
+Scroll down to find your Calendar ID and use it as the feedLocation parameter - it should look like this: ```str1ng0fr4nd0mch4r5@group.calendar.google.com```
