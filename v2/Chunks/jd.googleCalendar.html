@@ -6,8 +6,8 @@
   Content: [[+content]]<br>
   Link: [[+link]]<br>
   Calendar name: [[+calendarName]]<br>
-  Start: [[+eventStart:date=`%r, %e %B %Y`]]<br>
-  End: [[+eventEnd:date=`%r, %e %B %Y`]]<br>
+  Start: [[+allDayEvent:eq=`1`:then=`[[+eventStart:date=`%e %B %Y`]]`:else=`[[+eventStart:date=`%r, %e %B %Y`]]`]]<br>
+  [[+allDayEvent:eq=`0`:then=`End: [[+eventEnd:date=`%r, %e %B %Y`]]<br>`]]
   Location: [[+location]]
 `:else=`[[+title]]`]]
 </li>

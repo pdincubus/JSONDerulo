@@ -386,6 +386,17 @@ if( $feed == 'appnet' ) {
                         continue 2;
                     }
                 }
+                
+                if(empty($event->start->dateTime))
+                {
+                    $eventStart = $event->start->date;
+                    $allDayEvent = true;
+                }
+                else
+                {
+                    $eventStart = $event->start->dateTime;
+                    $allDayEvent = false;
+                }
 
                 $rawFeedData[] = array(
                     'published' => strtotime($event->created),
@@ -394,9 +405,10 @@ if( $feed == 'appnet' ) {
                     'content' => $event->description,
                     'link' => $event->htmlLink,
                     'calendarName' => $calendarName,
-                    'eventEnd' => strtotime($event->start->dateTime),
-                    'eventStart' => strtotime($event->end->dateTime),
+                    'eventEnd' => strtotime($eventStart),
+                    'eventStart' => strtotime($eventStart),
                     'location' => $event->location,
+                    'allDayEvent' => $allDayEvent
                 );
 
             }
