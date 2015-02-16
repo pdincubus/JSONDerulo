@@ -163,6 +163,7 @@ The basic chunk provided has placeholders set for up to three ticket classes - i
 [[+eventStart]]
 [[+eventEnd]]
 [[+location]]
+[[+allDayEvent]]
 ```
 
 ###Instagram
