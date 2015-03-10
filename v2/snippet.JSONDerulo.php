@@ -390,11 +390,13 @@ if( $feed == 'appnet' ) {
                 if(empty($event->start->dateTime))
                 {
                     $eventStart = $event->start->date;
+                    $eventEnd = $event->end->date;
                     $allDayEvent = true;
                 }
                 else
                 {
                     $eventStart = $event->start->dateTime;
+                    $eventEnd = $event->end->dateTime;
                     $allDayEvent = false;
                 }
 
@@ -405,7 +407,7 @@ if( $feed == 'appnet' ) {
                     'content' => $event->description,
                     'link' => $event->htmlLink,
                     'calendarName' => $calendarName,
-                    'eventEnd' => strtotime($eventStart),
+                    'eventEnd' => strtotime($eventEnd),
                     'eventStart' => strtotime($eventStart),
                     'location' => $event->location,
                     'allDayEvent' => $allDayEvent
