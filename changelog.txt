@@ -5,6 +5,9 @@ For all info: https://github.com/pdincubus/JSONDerulo/
 Most recent additions
 ---------------------
 
+2.5.1:
+    * Google Calendar tweaks (thanks to andrewmfraser)
+
 2.5.0:
     * NEW! Added support for Google Calendar API v3 (Hat tip to andrewmfraser)
 
