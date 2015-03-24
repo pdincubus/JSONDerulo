@@ -7,7 +7,7 @@
  *  @package: JSONDerulo
  *  @site: GitHub source: https://github.com/pdincubus/JSONDerulo
  *  @site: MODX Extra: http://modx.com/extras/package/jsonderulo
- *  @version: 2.5
+ *  @version: 2.5.1
  *  @description: Fetches social feeds in JSON format
 */
 
@@ -386,7 +386,7 @@ if( $feed == 'appnet' ) {
                         continue 2;
                     }
                 }
-                
+
                 if(empty($event->start->dateTime))
                 {
                     $eventStart = $event->start->date;
