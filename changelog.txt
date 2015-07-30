@@ -5,6 +5,9 @@ For all info: https://github.com/pdincubus/JSONDerulo/
 Most recent additions
 ---------------------
 
+2.5.2:
+    * Fix for accented chars in Twitter hashtags (https://github.com/pdincubus/JSONDerulo/issues/26 - thanks to hitodev)
+
 2.5.1:
     * Google Calendar tweaks (thanks to andrewmfraser)
 
