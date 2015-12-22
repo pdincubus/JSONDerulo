@@ -5,6 +5,9 @@ For all info: https://github.com/pdincubus/JSONDerulo/
 Most recent additions
 ---------------------
 
+2.5.4:
+    * Fix Eventbrite expanding of items (thanks to apathyuk for the hat tip)
+
 2.5.3:
     * Fix preg_replace for links in twitter message strings (Thanks for pointing out, kehezen)
     * Several minor tweaks to chunks
