@@ -7,7 +7,7 @@
  *  @package: JSONDerulo
  *  @site: GitHub source: https://github.com/pdincubus/JSONDerulo
  *  @site: MODX Extra: http://modx.com/extras/package/jsonderulo
- *  @version: 2.5.2
+ *  @version: 2.5.3
  *  @description: Fetches social feeds in JSON format
 */
 
@@ -893,9 +893,9 @@ if( $feed == 'appnet' ) {
 
             $input = $message->text;
             // Convert URLs into hyperlinks
-            $input= preg_replace("/(http:\/\/)(.*?)\/([\w\.\/\&\=\?\-\,\:\;\#\_\~\%\+]*)/", "<a href=\"\\0\">\\0</a>", $input);
+            $input = preg_replace("/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/", "<a href=\"\\0\">\\0</a>", $input);
             // Convert usernames (@) into links
-            $input= preg_replace("(@([a-zA-Z0-9\_]+))", "<a href=\"https://www.twitter.com/\\1\">\\0</a>", $input);
+            $input= preg_replace("(@([a-zA-Z0-9\_]+))", "<a href=\"https://twitter.com/\\1\">\\0</a>", $input);
             // Convert hash tags (#) to links
             $input= preg_replace('/(^|\s)#(\w+)/u', '\1<a href="https://twitter.com/search?q=%23\2&src=hash">#\2</a>', $input);
 
@@ -978,9 +978,9 @@ if( $feed == 'appnet' ) {
 
             $input = $message->text;
             // Convert URLs into hyperlinks
-            $input= preg_replace("/(http:\/\/)(.*?)\/([\w\.\/\&\=\?\-\,\:\;\#\_\~\%\+]*)/", "<a href=\"\\0\">\\0</a>", $input);
+            $input = preg_replace("/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/", "<a href=\"\\0\">\\0</a>", $input);
             // Convert usernames (@) into links
-            $input= preg_replace("(@([a-zA-Z0-9\_]+))", "<a href=\"https://www.twitter.com/\\1\">\\0</a>", $input);
+            $input= preg_replace("(@([a-zA-Z0-9\_]+))", "<a href=\"https://twitter.com/\\1\">\\0</a>", $input);
             // Convert hash tags (#) to links
             $input= preg_replace('/(^|\s)#(\w+)/', '\1<a href="https://twitter.com/search?q=%23\2&src=hash">#\2</a>', $input);
 
