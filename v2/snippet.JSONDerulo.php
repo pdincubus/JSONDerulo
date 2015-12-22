@@ -182,7 +182,7 @@ if( $feed == 'appnet' ) {
 //  Eventbrite user events
 //-----------------------------------------------------------
 } elseif( $feed == 'eventbrite' ) {
-    $feedUrl = 'https://www.eventbriteapi.com/v3/users/me/owned_events/?status={status}&order_by={orderby}&token={token}';
+    $feedUrl = 'https://www.eventbriteapi.com/v3/users/me/owned_events/?status={status}&order_by={orderby}&token={token}&expand=event,venue,ticket_classes';
 
     $excludeEmpty = explode(',', $modx->getOption('excludeEmpty', $scriptProperties, 'url'));
     $status = $modx->getOption('status', $scriptProperties, 'live');
