@@ -1,14 +1,14 @@
-<li class="cf">
+<li>
   [[+id:notempty=`
 
     [[+isRetweet:is=`1`:then=`
-      <a href="https://twitter.com[[+originalUsername]]">
+      <a href="https://twitter.com/[[+originalUsername]]">
         <img src="[[+originalAuthorPicture:phpthumbof=`q=85&w=48&h=48`]]" alt="[[+originalAuthor]]">
         <span class="userfullname">[[+originalAuthor]]</span>
         <span class="username">@[[+originalUsername]]</span>
       </a>
     `:else=`
-      <a href="https://twitter.com[[+username]]">
+      <a href="https://twitter.com/[[+username]]">
         <img src="[[+picture:phpthumbof=`q=85&w=48&h=48`]]" alt="[[+title]]">
         <span class="userfullname">[[+title]]</span>
         <span class="username">@[[+username]]</span>
@@ -20,7 +20,7 @@
       [[+message]]
 
       <span class="retweets">Retweets: [[+retweetCount]]</span>
-      <span class="favourites">Favourites: [[+favouriteCount]]</span>
+      <span class="likes">Likes: [[+favouriteCount]]</span>
     </div>
 
     <a href="https://twitter.com/[[+username]]/status/[[+id]]">
@@ -28,9 +28,9 @@
     </a>
 
     <ul class="cf">
-      <li><a href="https://twitter.com/intent/tweet?in_reply_to=[[+id]]" class="twitterReply">Reply</a></li>
-      <li><a href="https://twitter.com/intent/retweet?tweet_id=[[+id]]" class="twitterRetweet">Retweet</a></li>
-      <li><a href="https://twitter.com/intent/favorite?tweet_id=[[+id]]" class="twitterFavourite">Favourite</a></li>
+      <li><a href="https://twitter.com/intent/tweet?in_reply_to=[[+id]]" class="reply">Reply</a></li>
+      <li><a href="https://twitter.com/intent/retweet?tweet_id=[[+id]]" class="retweet">Retweet</a></li>
+      <li><a href="https://twitter.com/intent/favorite?tweet_id=[[+id]]" class="like">Like</a></li>
     </ul>
 
   `:default=`
