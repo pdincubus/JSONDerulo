@@ -222,7 +222,7 @@ if( $feed == 'appnet' ) {
     $feed = json_decode($json);
 
     if ($feed === null) {
-        continue;
+        return;
     }
 
     for ($i = 0; $i <= $limit-1; $i++) {
@@ -1239,7 +1239,7 @@ if( $feed == 'appnet' ) {
 
         $json = curl_exec($ch);
         if (empty($json)) {
-            continue;
+            return;
         }
 
         $modx->cacheManager->set($cacheId, $json, $cacheTime);

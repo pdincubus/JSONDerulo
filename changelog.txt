@@ -5,6 +5,9 @@ For all info: https://github.com/pdincubus/JSONDerulo/
 Most recent additions
 ---------------------
 
+2.5.5:
+    * Fixed 'continue' that should be a 'return' (thanks to raffy99)
+
 2.5.4:
     * Fix Eventbrite expanding of items (thanks to apathyuk for the hat tip)
 
