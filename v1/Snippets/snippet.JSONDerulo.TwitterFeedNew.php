@@ -78,6 +78,10 @@ if ($feed === null) {
             'username' => $message->user->screen_name,
             'retweetCount' => $message->retweet_count,
             'isRetweet' => '0',
+            'mediaThumb' =>$message->entities->media[0]->media_url.':thumb',
+            'mediaSmall' =>$message->entities->media[0]->media_url.':small',
+            'mediaMedium' =>$message->entities->media[0]->media_url.':medium',
+            'mediaLarge' =>$message->entities->media[0]->media_url.':large',
         );
 
         if(isset($message->retweeted_status)){
