@@ -7,7 +7,7 @@
  *  @package: JSONDerulo
  *  @site: GitHub source: https://github.com/pdincubus/JSONDerulo
  *  @site: MODX Extra: http://modx.com/extras/package/jsonderulo
- *  @version: 2.5.5
+ *  @version: 2.5.6
  *  @description: Fetches social feeds in JSON format
 */
 
@@ -1000,6 +1000,10 @@ if( $feed == 'appnet' ) {
                 'inReplyToStatusId' => $message->in_reply_to_status_id_str,
                 'inReplyToScreenName' => $message->in_reply_to_screen_name,
                 'isRetweet' => '0',
+                'mediaThumb' =>$message->entities->media[0]->media_url.':thumb',
+                'mediaSmall' =>$message->entities->media[0]->media_url.':small',
+                'mediaMedium' =>$message->entities->media[0]->media_url.':medium',
+                'mediaLarge' =>$message->entities->media[0]->media_url.':large',
             );
 
             if(isset($message->retweeted_status)){
