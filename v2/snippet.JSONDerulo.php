@@ -279,10 +279,11 @@ if( $feed == 'appnet' ) {
 //  Google calendar public events
 //-----------------------------------------------------------
 } elseif( $feed == 'googlecalendar' ) {
-    $feedUrl = 'https://www.googleapis.com/calendar/v3/calendars/{feedlocation}/events?key={apiKey}&orderBy=startTime&singleEvents=true&maxResults={limit}&timeMin={timeMin}';
+    $feedUrl = 'https://www.googleapis.com/calendar/v3/calendars/{feedlocation}/events?key={apiKey}&orderBy=startTime&singleEvents=true&maxResults={limit}&timeMin={timeMin}&timeZone={timezone}';
 
     $apiKey = $modx->getOption('apiKey', $scriptProperties, '');
     $timeMin = urlencode($modx->getOption('timeMin', $scriptProperties, date("Y-m-d\TH:i:sP")));
+    $timeZone = urlencode($modx->getOption('timeZone', $scriptProperties, date("Europe/London")));
     $excludeEmpty = explode(',', $modx->getOption('excludeEmpty', $scriptProperties, 'htmlLink'));
     $feeds = explode(',', $modx->getOption('feedLocation', $scriptProperties, ''));
 
@@ -296,7 +297,7 @@ if( $feed == 'appnet' ) {
             }
 
             curl_setopt_array($ch, array(
-              CURLOPT_URL => str_replace(array('{apiKey}', '{feedlocation}', '{limit}', '{timeMin}'), array($apiKey, $username, $limit, $timeMin), $feedUrl),
+              CURLOPT_URL => str_replace(array('{apiKey}', '{feedlocation}', '{limit}', '{timeMin}', '{timezone}'), array($apiKey, $username, $limit, $timeMin, $timeZone), $feedUrl),
             ));
 
             $json = curl_exec($ch);
@@ -328,32 +329,28 @@ if( $feed == 'appnet' ) {
                     }
                 }
 
-                if(empty($event->start->dateTime))
-                {
+                if(empty($event->start->dateTime)) {
                     $eventStart = $event->start->date;
                     $eventEnd = $event->end->date;
-                    $allDayEvent = true;
-                }
-                else
-                {
+                    $allDayEvent = 1;
+                } else {
                     $eventStart = $event->start->dateTime;
                     $eventEnd = $event->end->dateTime;
-                    $allDayEvent = false;
+                    $allDayEvent = 0;
                 }
 
                 $rawFeedData[] = array(
-                    'published' => strtotime($event->created),
+                    'published' => $event->created,
                     'timezone' => $timezone,
                     'title' => $event->summary,
                     'content' => $event->description,
                     'link' => $event->htmlLink,
                     'calendarName' => $calendarName,
-                    'eventEnd' => strtotime($eventEnd),
-                    'eventStart' => strtotime($eventStart),
+                    'eventEnd' => $eventEnd,
+                    'eventStart' => $eventStart,
                     'location' => $event->location,
                     'allDayEvent' => $allDayEvent
                 );
-
             }
 
             foreach ($rawFeedData as $item) {
