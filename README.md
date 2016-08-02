@@ -7,18 +7,15 @@ Most snippets allow you to specify multiple usernames, however any feeds which r
 The following feeds are already set up:
 
 * App.net - most recent posts
-* Delicious - most recent bookmarks
 * Flickr - most recent photographs in your photostream
 * Google+ - most recent public posts
 * Google calendar - upcoming public events
-* Instagram - user public media
 * LastFM - recent "loved" tracks or recent "listens"
 * Tumblr - most recent posts (several post type options)
 * Twitter - most recent tweets, or a user's favourites
 * Vimeo - most recent "likes"
 * YouTube - Most recent additions to "favourites" playlist or specific user's uploads
 * YouTube - (For API v.3 - fetch a public playlist)
-* <del>ZooTool - Most recent items (pages or images)</del>
 
 ## Thanks!
 
@@ -70,16 +67,6 @@ The App.net feed is very pleasant and gives you the option of either "text" or "
 [[+username]]
 [[+profile]]
 [[+postUrl]]
-```
-
-#### Delicious:
-
-```
-[[+title]]
-[[+description]]
-[[+link]]
-[[+date]]
-[[+username]]
 ```
 
 #### Eventbrite
@@ -164,27 +151,6 @@ The basic chunk provided has placeholders set for up to three ticket classes - i
 [[+eventEnd]]
 [[+location]]
 [[+allDayEvent]]
-```
-
-###Instagram
-
-```
-[[+attribution]]
-[[+tags]]
-[[+locationLat]]
-[[+locationLong]]
-[[+locationName]]
-[[+filter]]
-[[+link]]
-[[+likes]]
-[[+date]]
-[[+image]]
-[[+caption]]
-[[+username]]
-[[+userFullName]]
-[[+avatar]]
-[[+userBio]]
-[[+userWebsite]]
 ```
 
 

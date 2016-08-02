@@ -19,20 +19,6 @@ You need your user id to get this working, not your username. You can find it on
 </ul>
 ```
 
-### Delicious
-
-```
-<ul>
-    [[!JSONDerulo?
-        &feed=`delicious`
-        &tpl=`jd.delicious`
-        &limit=`LIMIT`
-        &cacheTime=`CACHE_TIME_IN_SECONDS`
-        &cacheName=`UNIQUE_NAME_FOR_CACHE_FILE`
-        &users=`USERNAME`
-    ]]
-</ul>
-```
 
 ### Eventbrite
 
@@ -78,7 +64,7 @@ Requires API key, get one here: [Flickr API Key](http://www.flickr.com/services/
 
 ### Google+
 
-Requires API key, get one here: [Google API key](https://code.google.com/apis/console/)
+Requires API key, get one here: [Google API key](https://console.developers.google.com)
 
 ```
 <ul>
@@ -96,7 +82,7 @@ Requires API key, get one here: [Google API key](https://code.google.com/apis/co
 
 ### Google calendar
 
-Requires API key - [Google API key](https://code.google.com/apis/console/)
+Requires API key - [Google API key](https://console.developers.google.com)
 
 ```feedLocation``` should be your Google Calendar ID.
 
@@ -113,24 +99,6 @@ Requires API key - [Google API key](https://code.google.com/apis/console/)
         &feedLocation=`FEED LOCATION`
         &apiKey=`SERVER API KEY`
         &timeMin=`DEFAULT NOW`
-    ]]
-</ul>
-```
-
-###Instagram
-
-Requires client ID, get one here: [Instagram developers](http://instagram.com/developer/clients/manage/)
-
-```
-<ul>
-    [[!JSONDerulo?
-        &feed=`instagram`
-        &tpl=`jd.instagram`
-        &limit=`LIMIT`
-        &cacheTime=`CACHE_TIME_IN_SECONDS`
-        &cacheName=`UNIQUE_NAME_FOR_CACHE_FILE`
-        &users=`USER ID`
-        &apiKey=`CLIENT ID`
     ]]
 </ul>
 ```

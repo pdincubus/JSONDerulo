@@ -5,6 +5,10 @@ For all info: https://github.com/pdincubus/JSONDerulo/
 Most recent additions
 ---------------------
 
+2.5.7:
+    * Remove Instagram feed
+    * Remove Delicious feed
+
 2.5.6:
     * Added tweet first media items (thanks to jonhorner)
     * Added tweet first media items to Twitter favourites feed
