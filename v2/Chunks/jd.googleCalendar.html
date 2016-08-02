@@ -1,13 +1,23 @@
 <li>
-[[+title:neq=`No events.`:then=`
-  Timezone: [[+timezone]]<br>
-  Published: [[+published:date=`%e %B %Y`]]<br>
-  Title: [[+title]]<br>
-  Content: [[+content]]<br>
-  Link: [[+link]]<br>
-  Calendar name: [[+calendarName]]<br>
-  Start: [[+allDayEvent:eq=`1`:then=`[[+eventStart:date=`%e %B %Y`]]`:else=`[[+eventStart:date=`%r, %e %B %Y`]]`]]<br>
-  [[+allDayEvent:eq=`0`:then=`End: [[+eventEnd:date=`%r, %e %B %Y`]]<br>`]]
-  Location: [[+location]]
-`:else=`[[+title]]`]]
+    [[+title:neq=`No events.`:then=`<ul>
+        [[+title:notempty=`<li>Title: [[+title]]</li>`]]
+
+        [[+content:notempty=`<li>Content: [[+content]]</li>`]]
+
+        [[+location:notempty=`<li>Location: [[+location]]</li>`]]
+
+        [[+timezone:notempty=`<li>Timezone: [[+timezone]]</li>`]]
+
+        <li>All day event: [[+allDayEvent]]</li>
+
+        <li>Start: <time datetime="[[+eventStart:strtotime:date=`%Y-%M-%dT%H:%M:%S%z`]]">[[+allDayEvent:eq=`1`:then=`[[+eventStart:strtotime:date=`%e %B %Y`]]`:else=`[[+eventStart:strtotime:date=`%r, %e %B %Y`]]`]]</time> / [[+eventStart]]</li>
+
+        [[+allDayEvent:eq=`0`:then=`<li>End: <time datetime="[[+eventEnd:strtotime:date=`%Y-%M-%dT%H:%M:%S%z`]]">[[+eventEnd:strtotime:date=`%r, %e %B %Y`]]</time> / [[+eventEnd]]</li>`]]
+
+        [[+published:notempty=`<li>Published: <time datetime="[[+published:strtotime:date=`%Y-%M-%dT%H:%M:%S%z`]]">[[+published:strtotime:date=`%e %B %Y`]]</time> / [[+published]]</li>`]]
+
+        [[+link:notempty=`<li>Link: <a href="[[+link]]">[[+link]]</a></li>`]]
+
+        [[+calendarName:notempty=`<li>Calendar name: [[+calendarName]]</li>`]]
+    </ul>`:else=`No events.`]]
 </li>
