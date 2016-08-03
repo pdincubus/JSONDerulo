@@ -15,6 +15,7 @@ You need your user id to get this working, not your username. You can find it on
         &cacheTime=`CACHE_TIME_IN_SECONDS`
         &cacheName=`UNIQUE_NAME_FOR_CACHE_FILE`
         &userId=`USERID`
+        &random=`1 OR 0`
     ]]
 </ul>
 ```
@@ -38,6 +39,7 @@ orderBy options are: start_asc, start_desc, created_asc and created_desc.
         &token=`YOUR_EVENTBRITE_OAUTH_TOKEN`
         &cacheTime=`CACHE_TIME_IN_SECONDS`
         &cacheName=`UNIQUE_NAME_FOR_CACHE_FILE`
+        &random=`1 OR 0`
     ]]
 </ul>
 ```
@@ -58,6 +60,7 @@ Requires API key, get one here: [Flickr API Key](http://www.flickr.com/services/
         &users=`FLICKR USER ID`
         &apiKey=`API_KEY`
         &userName=`USERNAME`
+        &random=`1 OR 0`
     ]]
 </ul>
 ```
@@ -76,6 +79,7 @@ Requires API key, get one here: [Google API key](https://console.developers.goog
         &cacheTime=`CACHE_TIME_IN_SECONDS`
         &userId=`USER_ID`
         &apiKey=`API_KEY`
+        &random=`1 OR 0`
     ]]
 </ul>
 ```
@@ -99,6 +103,7 @@ Requires API key - [Google API key](https://console.developers.google.com)
         &feedLocation=`FEED LOCATION`
         &apiKey=`SERVER API KEY`
         &timeMin=`DEFAULT NOW`
+        &random=`1 OR 0`
     ]]
 </ul>
 ```
@@ -117,6 +122,7 @@ Requires api key, get one here: [LastFM API Key](http://www.last.fm/api/account)
         &cacheName=`UNIQUE_NAME_FOR_CACHE_FILE`
         &users=`USERNAME`
         &apiKey=`API KEY`
+        &random=`1 OR 0`
     ]]
 </ul>
 ```
@@ -131,6 +137,7 @@ Requires api key, get one here: [LastFM API Key](http://www.last.fm/api/account)
         &cacheName=`UNIQUE_NAME_FOR_CACHE_FILE`
         &users=`USERNAME`
         &apiKey=`API KEY`
+        &random=`1 OR 0`
     ]]
 </ul>
 ```
@@ -154,6 +161,7 @@ You can only set ONE postType.
         &notesInfo=`TRUE or FALSE`
         &blogUrl=`YOUR TUMBLR URL`
         &apiKey=`API KEY`
+        &random=`1 OR 0`
     ]]
 </ul>
 ```
@@ -183,6 +191,7 @@ UPDATE: You can fetch and combine more than one screenName if you comma separate
         &accessToken=`YOUR_ACCESS_TOKEN`
         &accessTokenSecret=`YOUR_ACCESS_TOKEN_SECRET`
         &sortDir=`ASC_OR_DESC`
+        &random=`1 OR 0`
     ]]
 </ul>
 ```
@@ -204,6 +213,7 @@ The screenName option is *optional*. It will allow you to fetch another user's f
         &consumerSecret=`YOUR_CONSUMER_SECRET`
         &accessToken=`YOUR_ACCESS_TOKEN`
         &accessTokenSecret=`YOUR_ACCESS_TOKEN_SECRET`
+        &random=`1 OR 0`
     ]]
 </ul>
 ```
@@ -219,6 +229,7 @@ The screenName option is *optional*. It will allow you to fetch another user's f
         &cacheTime=`CACHE_TIME_IN_SECONDS`
         &cacheName=`UNIQUE_NAME_FOR_CACHE_FILE`
         &users=`USERNAME`
+        &random=`1 OR 0`
     ]]
 </ul>
 ```
@@ -234,6 +245,7 @@ The screenName option is *optional*. It will allow you to fetch another user's f
         &cacheTime=`CACHE_TIME_IN_SECONDS`
         &cacheName=`UNIQUE_NAME_FOR_CACHE_FILE`
         &users=`USERNAME`
+        &random=`1 OR 0`
     ]]
 </ul>
 ```
@@ -247,6 +259,7 @@ The screenName option is *optional*. It will allow you to fetch another user's f
         &users=`USERNAME`
         &cacheTime=`CACHE_TIME_IN_SECONDS`
         &cacheName=`UNIQUE_NAME_FOR_CACHE_FILE`
+        &random=`1 OR 0`
     ]]
 </ul>
 ```
@@ -261,9 +274,10 @@ The screenName option is *optional*. It will allow you to fetch another user's f
         &cacheName=`UNIQUE_NAME_FOR_CACHE_FILE`
         &apiKey=`YOUR_V3_API_KEY`
         &playlistId=`YOUR_PLAYLIST_ID`
+        &random=`1 OR 0`
     ]]
 </ul>
 ```
 
-Grab an API key for v3 from [Google API Console](https://code.google.com/apis/console/). Ensure you switch API v3 access on!
+Grab an API key for v3 from [Google API Console](https://console.developers.google.com). Ensure you switch API v3 access on!
 

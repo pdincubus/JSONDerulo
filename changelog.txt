@@ -5,6 +5,9 @@ For all info: https://github.com/pdincubus/JSONDerulo/
 Most recent additions
 ---------------------
 
+2.6.0
+    * Added randomise option (&random=`1`)
+
 2.5.7:
     * Remove Instagram feed
     * Remove Delicious feed

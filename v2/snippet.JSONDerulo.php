@@ -7,7 +7,7 @@
  *  @package: JSONDerulo
  *  @site: GitHub source: https://github.com/pdincubus/JSONDerulo
  *  @site: MODX Extra: http://modx.com/extras/package/jsonderulo
- *  @version: 2.5.7
+ *  @version: 2.6.0
  *  @description: Fetches social feeds in JSON format
 */
 
@@ -28,7 +28,7 @@
  *  Vimeo recent likes
  *  YouTube (API v2) uploaded videos
  *  YouTube (API v2) favourites
- *  YouTube (API v3) public playlist videos [requires API key - https://code.google.com/apis/console/]
+ *  YouTube (API v3) public playlist videos [requires API key - https://console.developers.google.com]
  */
 
 //-----------------------------------------------------------
@@ -40,6 +40,7 @@ $cacheName = $modx->getOption('cacheName', $scriptProperties, '');
 $cacheTime = $modx->getOption('cacheTime', $scriptProperties, 43200);
 $tpl = $modx->getOption('tpl', $scriptProperties, '');
 $limit = $modx->getOption('limit', $scriptProperties, 2);
+$random = $modx->getOption('random', $scriptProperties, 0);
 $ch = null;
 $rawFeedData = array();
 $cacheName = str_replace(" ", "-", $cacheName);
@@ -112,6 +113,10 @@ if( $feed == 'appnet' ) {
             );
 
             $i++;
+        }
+
+        if ( $random == 1 ) {
+            shuffle($rawFeedData);
         }
     }
 
@@ -209,6 +214,10 @@ if( $feed == 'appnet' ) {
         }
     }
 
+    if ( $random == 1 ) {
+        shuffle($rawFeedData);
+    }
+
     foreach ($rawFeedData as $item) {
         $output .= $modx->getChunk($tpl, $item);
     }
@@ -268,6 +277,10 @@ if( $feed == 'appnet' ) {
                 'title' => $photo->title,
                 'username' => $userName,
             );
+        }
+
+        if ( $random == 1 ) {
+            shuffle($rawFeedData);
         }
     }
 
@@ -353,6 +366,10 @@ if( $feed == 'appnet' ) {
                 );
             }
 
+            if ( $random == 1 ) {
+                shuffle($rawFeedData);
+            }
+
             foreach ($rawFeedData as $item) {
                 $output .= $modx->getChunk($tpl, $item);
             }
@@ -423,6 +440,10 @@ if( $feed == 'appnet' ) {
 
             $i++;
         }
+
+        if ( $random == 1 ) {
+            shuffle($rawFeedData);
+        }
     }
 
     foreach ($rawFeedData as $message) {
@@ -484,6 +505,10 @@ if( $feed == 'appnet' ) {
                 'username' => $username,
             );
         }
+
+        if ( $random == 1 ) {
+            shuffle($rawFeedData);
+        }
     }
 
     foreach ($rawFeedData as $item) {
@@ -544,6 +569,10 @@ if( $feed == 'appnet' ) {
                 'date' => $item->date->uts,
                 'username' => $username,
             );
+        }
+
+        if ( $random == 1 ) {
+            shuffle($rawFeedData);
         }
     }
 
@@ -651,6 +680,10 @@ if( $feed == 'appnet' ) {
             }
 
             $i++;
+        }
+
+        if ( $random == 1 ) {
+            shuffle($rawFeedData);
         }
     }
 
@@ -801,6 +834,10 @@ if( $feed == 'appnet' ) {
             $i++;
         }
 
+        if ( $random == 1 ) {
+            shuffle($rawFeedData);
+        }
+
         foreach ($rawFeedData as $message) {
             $output .= $modx->getChunk($tpl, $message);
         }
@@ -890,6 +927,10 @@ if( $feed == 'appnet' ) {
             $i++;
         }
 
+        if ( $random == 1 ) {
+            shuffle($rawFeedData);
+        }
+
         foreach ($rawFeedData as $message) {
             $output .= $modx->getChunk($tpl, $message);
         }
@@ -955,6 +996,10 @@ if( $feed == 'appnet' ) {
                 'title' => $video->title,
                 'username' => $userName,
             );
+        }
+
+        if ( $random == 1 ) {
+            shuffle($rawFeedData);
         }
     }
 
@@ -1023,6 +1068,10 @@ if( $feed == 'appnet' ) {
                 'author' => $video->author[0]->name->{'$t'},
             );
         }
+
+        if ( $random == 1 ) {
+            shuffle($rawFeedData);
+        }
     }
 
     foreach ($rawFeedData as $image) {
@@ -1090,6 +1139,10 @@ if( $feed == 'appnet' ) {
                 'author' => $video->author[0]->name->{'$t'},
             );
         }
+
+        if ( $random == 1 ) {
+            shuffle($rawFeedData);
+        }
     }
 
     foreach ($rawFeedData as $image) {
@@ -1144,6 +1197,10 @@ if( $feed == 'appnet' ) {
                 'videoId' => $video->snippet->resourceId->videoId,
                 'author' => $video->author[0]->name->{'$t'},
                 );
+        }
+
+        if ( $random == 1 ) {
+            shuffle($rawFeedData);
         }
 
         foreach ($rawFeedData as $image) {
