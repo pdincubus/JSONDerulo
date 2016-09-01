@@ -7,7 +7,7 @@
  *  @package: JSONDerulo
  *  @site: GitHub source: https://github.com/pdincubus/JSONDerulo
  *  @site: MODX Extra: http://modx.com/extras/package/jsonderulo
- *  @version: 2.6.0
+ *  @version: 2.6.1
  *  @description: Fetches social feeds in JSON format
 */
 
@@ -338,7 +338,7 @@ if( $feed == 'appnet' ) {
             foreach ($feeditems as $event) {
                 foreach ($excludeEmpty as $k) {
                     if ($event->$k == '') {
-                        continue 2;
+                        continue 1;
                     }
                 }
 
@@ -737,35 +737,37 @@ if( $feed == 'appnet' ) {
         $tweets = array_merge($tweets, $feed);
     }
 
-    function sksort( &$array, $subkey, $sort_ascending ) {
-        if ( count($array) ) {
-            $temp_array[key($array)] = array_shift($array);
-        }
+    if (!function_exists('sksort')) {
+        function sksort( &$array, $subkey, $sort_ascending ) {
+            if ( count($array) ) {
+                $temp_array[key($array)] = array_shift($array);
+            }
 
-        foreach ( $array as $key => $val ) {
-            $offset = 0;
-            $found = false;
+            foreach ( $array as $key => $val ) {
+                $offset = 0;
+                $found = false;
 
-            foreach ( $temp_array as $tmp_key => $tmp_val ) {
-                if(!$found and strtolower($val[$subkey]) > strtolower($tmp_val[$subkey])) {
-                    $temp_array = array_merge( (array)array_slice($temp_array,0,$offset),
-                        array($key => $val),
-                        array_slice($temp_array,$offset)
-                        );
-                    $found = true;
+                foreach ( $temp_array as $tmp_key => $tmp_val ) {
+                    if(!$found and strtolower($val[$subkey]) > strtolower($tmp_val[$subkey])) {
+                        $temp_array = array_merge( (array)array_slice($temp_array,0,$offset),
+                            array($key => $val),
+                            array_slice($temp_array,$offset)
+                            );
+                        $found = true;
+                    }
+                    $offset++;
                 }
-                $offset++;
+
+                if ( !$found ) {
+                    $temp_array = array_merge($temp_array, array($key => $val));
+                }
             }
 
-            if ( !$found ) {
-                $temp_array = array_merge($temp_array, array($key => $val));
+            if ($sort_ascending == true) {
+                $array = array_reverse($temp_array);
+            } else {
+                $array = $temp_array;
             }
-        }
-
-        if ($sort_ascending == true) {
-            $array = array_reverse($temp_array);
-        } else {
-            $array = $temp_array;
         }
     }
 

@@ -5,6 +5,9 @@ For all info: https://github.com/pdincubus/JSONDerulo/
 Most recent additions
 ---------------------
 
+2.6.1
+    * Added conditional statement around sksort function (thanks to k9dug)
+
 2.6.0
     * Added randomise option (&random=`1`)
 
