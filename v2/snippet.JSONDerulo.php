@@ -69,7 +69,7 @@ if( $feed == 'appnet' ) {
 
             $json = curl_exec($ch);
             if (empty($json)) {
-                continue;
+                return;
             }
 
             $modx->cacheManager->set($cacheId, $json, $cacheTime);
@@ -78,7 +78,7 @@ if( $feed == 'appnet' ) {
         $feed = json_decode($json);
 
         if ($feed === null) {
-            continue;
+            return;
         }
 
         $feeditems = $feed->data;
@@ -250,7 +250,7 @@ if( $feed == 'appnet' ) {
 
             $json = curl_exec($ch);
             if (empty($json)) {
-                continue;
+                return;
             }
 
             $modx->cacheManager->set($cacheId, $json, $cacheTime);
@@ -259,7 +259,7 @@ if( $feed == 'appnet' ) {
         $feed = json_decode($json);
 
         if ($feed === null) {
-            continue;
+            return;
         }
 
         foreach ($feed->photos->photo as $photo) {
@@ -316,7 +316,7 @@ if( $feed == 'appnet' ) {
             $json = curl_exec($ch);
 
             if (empty($json)) {
-                continue;
+                return;
             }
 
             $modx->cacheManager->set($cacheId, $json, $cacheTime);
@@ -325,7 +325,7 @@ if( $feed == 'appnet' ) {
         $feed = json_decode($json);
 
         if ($feed === null) {
-            continue;
+            return;
         }
 
         $feeditems = $feed->items;
@@ -406,7 +406,7 @@ if( $feed == 'appnet' ) {
 
             $json = curl_exec($ch);
             if (empty($json)) {
-                continue;
+                return;
             }
 
             $modx->cacheManager->set($cacheId, $json, $cacheTime);
@@ -415,7 +415,7 @@ if( $feed == 'appnet' ) {
         $feed = json_decode($json);
 
         if ($feed === null) {
-            continue;
+            return;
         }
 
         $i = 0;
@@ -475,7 +475,7 @@ if( $feed == 'appnet' ) {
 
             $json = curl_exec($ch);
             if (empty($json)) {
-                continue;
+                return;
             }
 
             $modx->cacheManager->set($cacheId, $json, $cacheTime);
@@ -484,7 +484,7 @@ if( $feed == 'appnet' ) {
         $feed = json_decode($json);
 
         if ($feed === null) {
-            continue;
+            return;
         }
 
       $feedtracks = $feed->lovedtracks;
@@ -540,7 +540,7 @@ if( $feed == 'appnet' ) {
 
             $json = curl_exec($ch);
             if (empty($json)) {
-                continue;
+                return;
             }
 
             $modx->cacheManager->set($cacheId, $json, $cacheTime);
@@ -549,7 +549,7 @@ if( $feed == 'appnet' ) {
         $feed = json_decode($json);
 
         if ($feed === null) {
-            continue;
+            return;
         }
 
       $feedtracks = $feed->recenttracks;
@@ -608,7 +608,7 @@ if( $feed == 'appnet' ) {
 
             $json = curl_exec($ch);
             if (empty($json)) {
-                continue;
+                return;
             }
 
             $modx->cacheManager->set($cacheId, $json, $cacheTime);
@@ -617,7 +617,7 @@ if( $feed == 'appnet' ) {
         $feed = json_decode($json);
 
         if ($feed === null) {
-            continue;
+            return;
         }
 
         $feeditems = $feed->response->posts;
@@ -963,7 +963,7 @@ if( $feed == 'appnet' ) {
 
             $json = curl_exec($ch);
             if (empty($json)) {
-                continue;
+                return;
             }
 
             $modx->cacheManager->set($cacheId, $json, $cacheTime);
@@ -972,7 +972,7 @@ if( $feed == 'appnet' ) {
         $feed = json_decode($json);
 
         if ($feed === null) {
-            continue;
+            return;
         }
 
         $counter = NULL;
@@ -1036,7 +1036,7 @@ if( $feed == 'appnet' ) {
 
             $json = curl_exec($ch);
             if (empty($json)) {
-                continue;
+                return;
             }
 
             $modx->cacheManager->set($cacheId, $json, $cacheTime);
@@ -1045,7 +1045,7 @@ if( $feed == 'appnet' ) {
         $feed = json_decode($json);
 
         if ($feed === null) {
-            continue;
+            return;
         }
 
         $feeditems = $feed->feed;
@@ -1107,7 +1107,7 @@ if( $feed == 'appnet' ) {
 
             $json = curl_exec($ch);
             if (empty($json)) {
-                continue;
+                return;
             }
 
             $modx->cacheManager->set($cacheId, $json, $cacheTime);
@@ -1116,7 +1116,7 @@ if( $feed == 'appnet' ) {
         $feed = json_decode($json);
 
         if ($feed === null) {
-            continue;
+            return;
         }
 
         $feeditems = $feed->feed;
