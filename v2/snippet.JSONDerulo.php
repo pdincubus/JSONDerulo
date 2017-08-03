@@ -7,7 +7,7 @@
  *  @package: JSONDerulo
  *  @site: GitHub source: https://github.com/pdincubus/JSONDerulo
  *  @site: MODX Extra: http://modx.com/extras/package/jsonderulo
- *  @version: 2.6.1
+ *  @version: 2.6.2
  *  @description: Fetches social feeds in JSON format
 */
 

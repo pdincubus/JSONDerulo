@@ -5,6 +5,9 @@ For all info: https://github.com/pdincubus/JSONDerulo/
 Most recent additions
 ---------------------
 
+2.6.2
+    * Swap 'continue' for 'return' in several places for PHP7
+
 2.6.1
     * Added conditional statement around sksort function (thanks to k9dug)
 
