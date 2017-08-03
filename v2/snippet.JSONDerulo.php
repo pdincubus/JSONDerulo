@@ -15,7 +15,6 @@
 //  Current feeds supported:
 //-----------------------------------------------------------
 /*
- *  App.net public posts
  *  Eventbrite user events [requires Single user oAuth token - see 'Personal Tokens' on the Authentication page: http://developer.eventbrite.com/docs/auth/]
  *  Flickr recent photos [requires API key - http://www.flickr.com/services/apps/create/apply]
  *  Google Calendar (API v3) public events [requires API key - https://console.developers.google.com]
@@ -46,88 +45,9 @@ $rawFeedData = array();
 $cacheName = str_replace(" ", "-", $cacheName);
 
 //-----------------------------------------------------------
-//  App.net user posts feed
-//-----------------------------------------------------------
-if( $feed == 'appnet' ) {
-    $feedUrl = 'https://alpha-api.app.net/stream/0/users/{userId}/posts?count={limit}';
-    $excludeEmpty = explode(',', $modx->getOption('excludeEmpty', $scriptProperties, 'text'));
-    $feeds = explode(',', $modx->getOption('userId', $scriptProperties, ''));
-
-    foreach ($feeds as $user) {
-        $cacheId = 'jsonderulo-appdotnetfeed-'.$cacheName.'-'.$user;
-
-        if (($json = $modx->cacheManager->get($cacheId)) === null) {
-            if ($ch === null) {
-                $ch = curl_init();
-                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-                curl_setopt($ch,CURLOPT_SSL_VERIFYPEER,0);
-            }
-
-            curl_setopt_array($ch, array(
-                CURLOPT_URL => str_replace(array('{userId}', '{limit}'), array($user, $limit), $feedUrl),
-            ));
-
-            $json = curl_exec($ch);
-            if (empty($json)) {
-                return;
-            }
-
-            $modx->cacheManager->set($cacheId, $json, $cacheTime);
-        }
-
-        $feed = json_decode($json);
-
-        if ($feed === null) {
-            return;
-        }
-
-        $feeditems = $feed->data;
-
-        $i = 0;
-
-        foreach ($feeditems as $message) {
-            foreach ($excludeEmpty as $k) {
-                if ($message->$k == '') {
-                    continue 2;
-                }
-            }
-
-            $input = $message->text;
-            // Convert URLs into hyperlinks
-            $input= preg_replace("/(http:\/\/)(.*?)\/([\w\.\/\&\=\?\-\,\:\;\#\_\~\%\+]*)/", "<a href=\"\\0\">\\0</a>", $input);
-            // Convert usernames (@) into links
-            $input= preg_replace("(@([a-zA-Z0-9\_]+))", "<a href=\"https://alpha.app.net/\\1\">\\0</a>", $input);
-            // Convert hash tags (#) to links
-            $input= preg_replace('/(^|\s)#(\w+)/', '\1<a href="https://alpha.app.net/hashtags/\2">#\2</a>', $input);
-
-            $rawFeedData[$i] = array(
-                'id' => $message->id,
-                'text' => $input,
-                'html' => $message->html,
-                'created' => strtotime($message->created_at),
-                'picture' => $message->user->avatar_image->url,
-                'title' => $message->user->name,
-                'username' => $message->user->username,
-                'profile' => $message->user->canonical_url,
-                'postUrl' => $message->canonical_url,
-            );
-
-            $i++;
-        }
-
-        if ( $random == 1 ) {
-            shuffle($rawFeedData);
-        }
-    }
-
-    foreach ($rawFeedData as $message) {
-        $output .= $modx->getChunk($tpl, $message);
-    }
-
-//-----------------------------------------------------------
 //  Eventbrite user events
 //-----------------------------------------------------------
-} elseif( $feed == 'eventbrite' ) {
+if( $feed == 'eventbrite' ) {
     $feedUrl = 'https://www.eventbriteapi.com/v3/users/me/owned_events/?status={status}&order_by={orderby}&token={token}&expand=event,venue,ticket_classes';
 
     $excludeEmpty = explode(',', $modx->getOption('excludeEmpty', $scriptProperties, 'url'));
